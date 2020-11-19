@@ -42,7 +42,7 @@ public class Chinczyk extends Application {
     BluePawn bluePawn2 = new BluePawn(startBlue2);
     BluePawn bluePawn3 = new BluePawn(startBlue3);
     BluePawn bluePawn4 = new BluePawn(startBlue4);
-    int blueMaxField = 87;
+    int blueMaxField = 44;
 
     static ArrayList<YellowPawn> yellowPawns = new ArrayList<>();
 
@@ -162,7 +162,7 @@ public class Chinczyk extends Application {
                                 redPawns.get(finalI).setNewPosition(MapOfMovements.getListOfMovements().get(j));
                                 for (int k = 0 ; k < 4; k++) {
 
-                                    if (bluePawns.get(k).getValue() - 44 == redPawns.get(finalI).getValue()) {
+                                    if (bluePawns.get(k).getCurrentField() == redPawns.get(finalI).getCurrentField()) {
                                         board.getChildren().remove(bluePawns.get(k).getPawnImage());
                                         board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
                                         bluePawns.get(k).changeActivationStatus();
@@ -231,7 +231,7 @@ public class Chinczyk extends Application {
                     } else {
                         if (redPawns.get(finalI).getActivationNr() == 0) {
                             redPawns.get(finalI).changeActivationStatus();
-                            redPawns.get(finalI).setValue(0);
+                            redPawns.get(finalI).setNewPosition(redPawns.get(finalI).getStartPosition());
                             board.getChildren().remove(redPawns.get(finalI).getPawnImage());
                             board.add(redPawns.get(finalI).getPawnImage(), 10, 6);
                         } else drawBox.setText("Pionek Zakonczyl Gre");
@@ -254,10 +254,10 @@ public class Chinczyk extends Application {
                                 redPawns.get(finalI).setNewPosition(MapOfMovements.getListOfMovements().get(j));
                                 for (int k = 0 ; k < 4; k++) {
 
-                                    if (bluePawns.get(0).getValue() - 44 == redPawns.get(finalI).getValue()) {
-                                        board.getChildren().remove(bluePawns.get(0).getPawnImage());
-                                        board.add(bluePawns.get(0).getPawnImage(), bluePawns.get(0).getStartPosition().getColumn(), bluePawns.get(0).getStartPosition().getRow());
-                                        bluePawns.get(0).changeActivationStatus();
+                                    if (bluePawns.get(k).getCurrentField() == redPawns.get(finalI).getCurrentField()) {
+                                        board.getChildren().remove(bluePawns.get(k).getPawnImage());
+                                        board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
+                                        bluePawns.get(k).changeActivationStatus();
                                         board.getChildren().remove(redPawns.get(finalI).getPawnImage());
                                         board.add(redPawns.get(finalI).getPawnImage(),
                                                 MapOfMovements.getListOfMovements().get(j).getColumn(),
@@ -355,19 +355,19 @@ public class Chinczyk extends Application {
                             drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
                         }
 
-                        for (int j = 44; j < 88; j++) {
+                        for (int j = 0; j < 44; j++) {
                             if (bluePawns.get(finalI).getValue() == j) {
                                 bluePawns.get(finalI).setNewPosition(MapOfMovements.getListOfMovements().get(j));
                                 for (int k = 0 ; k < 4; k++) {
 
-                                    if (redPawns.get(k).getValue() + 44 == bluePawns.get(finalI).getValue()) {
+                                    if (redPawns.get(k).getCurrentField() == bluePawns.get(finalI).getCurrentField()) {
                                         board.getChildren().remove(redPawns.get(k).getPawnImage());
                                         board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
                                         redPawns.get(k).changeActivationStatus();
                                         board.getChildren().remove(bluePawns.get(finalI).getPawnImage());
                                         board.add(bluePawns.get(finalI).getPawnImage(),
-                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                MapOfMovements.getListOfMovements().get(j).getRow());
+                                                MapOfBlueMovements.getListOfMovements().get(j).getColumn(),
+                                                MapOfBlueMovements.getListOfMovements().get(j).getRow());
 
                                         if (bluePawns.get(finalI).getValue() == blueMaxField) {
                                             bluePawns.get(finalI).changeFinishStatus();
@@ -382,8 +382,8 @@ public class Chinczyk extends Application {
                                         greenPawns.get(k).changeActivationStatus();
                                         board.getChildren().remove(bluePawns.get(finalI).getPawnImage());
                                         board.add(bluePawns.get(finalI).getPawnImage(),
-                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                MapOfMovements.getListOfMovements().get(j).getRow());
+                                                MapOfBlueMovements.getListOfMovements().get(j).getColumn(),
+                                                MapOfBlueMovements.getListOfMovements().get(j).getRow());
 
                                         if (bluePawns.get(finalI).getValue() == blueMaxField) {
                                             bluePawns.get(finalI).changeFinishStatus();
@@ -398,8 +398,8 @@ public class Chinczyk extends Application {
                                         yellowPawns.get(k).changeActivationStatus();
                                         board.getChildren().remove(bluePawns.get(finalI).getPawnImage());
                                         board.add(bluePawns.get(finalI).getPawnImage(),
-                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                MapOfMovements.getListOfMovements().get(j).getRow());
+                                                MapOfBlueMovements.getListOfMovements().get(j).getColumn(),
+                                                MapOfBlueMovements.getListOfMovements().get(j).getRow());
 
                                         if (bluePawns.get(finalI).getValue() == redMaxField) {
                                             bluePawns.get(finalI).changeFinishStatus();
@@ -413,8 +413,8 @@ public class Chinczyk extends Application {
                                     else {
                                         board.getChildren().remove(bluePawns.get(finalI).getPawnImage());
                                         board.add(bluePawns.get(finalI).getPawnImage(),
-                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                MapOfMovements.getListOfMovements().get(j).getRow());
+                                                MapOfBlueMovements.getListOfMovements().get(j).getColumn(),
+                                                MapOfBlueMovements.getListOfMovements().get(j).getRow());
                                         if (bluePawns.get(finalI).getValue() == blueMaxField) {
                                             bluePawns.get(finalI).changeFinishStatus();
                                             bluePawns.get(finalI).changeActivationStatus();
@@ -429,7 +429,7 @@ public class Chinczyk extends Application {
                     } else {
                         if (bluePawns.get(finalI).getActivationNr() == 0) {
                             bluePawns.get(finalI).changeActivationStatus();
-                            bluePawns.get(finalI).setValue(0);
+                            bluePawns.get(finalI).setNewPosition(bluePawns.get(finalI).getStartPosition());
                             board.getChildren().remove(bluePawns.get(finalI).getPawnImage());
                             board.add(bluePawns.get(finalI).getPawnImage(), 4,10);
                         } else drawBox.setText("Pionek Zakonczyl Gre");
@@ -449,19 +449,19 @@ public class Chinczyk extends Application {
                             drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
                         }
 
-                        for (int j = 44; j < 88; j++) {
+                        for (int j = 0; j < 44; j++) {
                             if (bluePawns.get(finalI).getValue() == j) {
                                 bluePawns.get(finalI).setNewPosition(MapOfMovements.getListOfMovements().get(j));
                                 for (int k = 0 ; k < 4; k++) {
 
-                                    if (redPawns.get(k).getValue() + 44 == bluePawns.get(finalI).getValue()) {
+                                    if (redPawns.get(k).getCurrentField() == bluePawns.get(finalI).getCurrentField()) {
                                         board.getChildren().remove(redPawns.get(k).getPawnImage());
                                         board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
                                         redPawns.get(k).changeActivationStatus();
                                         board.getChildren().remove(bluePawns.get(finalI).getPawnImage());
                                         board.add(bluePawns.get(finalI).getPawnImage(),
-                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                MapOfMovements.getListOfMovements().get(j).getRow());
+                                                MapOfBlueMovements.getListOfMovements().get(j).getColumn(),
+                                                MapOfBlueMovements.getListOfMovements().get(j).getRow());
 
                                         if (bluePawns.get(finalI).getValue() == blueMaxField) {
                                             bluePawns.get(finalI).changeFinishStatus();
@@ -476,8 +476,8 @@ public class Chinczyk extends Application {
                                         greenPawns.get(k).changeActivationStatus();
                                         board.getChildren().remove(bluePawns.get(finalI).getPawnImage());
                                         board.add(bluePawns.get(finalI).getPawnImage(),
-                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                MapOfMovements.getListOfMovements().get(j).getRow());
+                                                MapOfBlueMovements.getListOfMovements().get(j).getColumn(),
+                                                MapOfBlueMovements.getListOfMovements().get(j).getRow());
 
                                         if (bluePawns.get(finalI).getValue() == blueMaxField) {
                                             bluePawns.get(finalI).changeFinishStatus();
@@ -492,8 +492,8 @@ public class Chinczyk extends Application {
                                         yellowPawns.get(k).changeActivationStatus();
                                         board.getChildren().remove(bluePawns.get(finalI).getPawnImage());
                                         board.add(bluePawns.get(finalI).getPawnImage(),
-                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                MapOfMovements.getListOfMovements().get(j).getRow());
+                                                MapOfBlueMovements.getListOfMovements().get(j).getColumn(),
+                                                MapOfBlueMovements.getListOfMovements().get(j).getRow());
 
                                         if (bluePawns.get(finalI).getValue() == redMaxField) {
                                             bluePawns.get(finalI).changeFinishStatus();
@@ -507,8 +507,8 @@ public class Chinczyk extends Application {
                                     else {
                                         board.getChildren().remove(bluePawns.get(finalI).getPawnImage());
                                         board.add(bluePawns.get(finalI).getPawnImage(),
-                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                MapOfMovements.getListOfMovements().get(j).getRow());
+                                                MapOfBlueMovements.getListOfMovements().get(j).getColumn(),
+                                                MapOfBlueMovements.getListOfMovements().get(j).getRow());
                                         if (bluePawns.get(finalI).getValue() == blueMaxField) {
                                             bluePawns.get(finalI).changeFinishStatus();
                                             bluePawns.get(finalI).changeActivationStatus();
@@ -575,6 +575,7 @@ public class Chinczyk extends Application {
 
 
         MapOfMovements.addListOfMovements();
+        MapOfBlueMovements.addListOfMovements();
         board.add(drawbtn1,8,8);
         board.add(drawBox,8,7);
         buildBoard(board);
