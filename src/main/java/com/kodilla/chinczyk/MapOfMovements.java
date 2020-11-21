@@ -7,6 +7,7 @@ public class MapOfMovements {
 
     public static void addListOfMovements() {
         // trasa czerwonego
+
         listOfMovements.add(0, new Field(10, 6));
         listOfMovements.add(1, new Field(9, 6));
         listOfMovements.add(2, new Field(8, 6));
@@ -53,6 +54,7 @@ public class MapOfMovements {
         listOfMovements.add(42, new Field(7, 5));
         listOfMovements.add(43, new Field(6, 5));
         // trasa niebieskiego
+
         listOfMovements.add(44, new Field(4, 10));
         listOfMovements.add(45, new Field(4, 9));
         listOfMovements.add(46, new Field(4, 8));
@@ -191,7 +193,14 @@ public class MapOfMovements {
         listOfMovements.add(174, new Field(5, 3));
         listOfMovements.add(175, new Field(5, 4));
 
-
+        listOfMovements.add(176, new Field(10,10));
+        listOfMovements.add(177, new Field(10,9));
+        listOfMovements.add(178, new Field(9,9));
+        listOfMovements.add(179, new Field(9,10));
+        listOfMovements.add(180, new Field(10, 6));
+        listOfMovements.add(181, new Field(9, 6));
+        listOfMovements.add(182, new Field(8, 6));
+        listOfMovements.add(183, new Field(7, 6));
     }
 
     public static ArrayList<Field> getListOfMovements() {

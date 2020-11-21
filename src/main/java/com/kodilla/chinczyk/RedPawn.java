@@ -5,16 +5,23 @@ import javafx.scene.shape.Circle;
 
 public class RedPawn {
     private Field currentField,startPosition;
-    private int value,activationStatus = 0;
+    private int value,activationStatus, fieldNr = 0;
     private boolean activate,finished;
     Circle redPawn = new Circle(10.0f, 10.0f, 40.f );
 
 
+    public int getFieldNr() {
+        return fieldNr;
+    }
+
+    public void setFieldNr(int fieldNr) {
+        this.fieldNr = fieldNr;
+    }
 
     public RedPawn(Field startPosition) {
         this.startPosition = startPosition;
         this.activate = false;
-        this.currentField = currentField;
+
         this.finished = false;
         redPawn.setFill(Color.DARKRED);
     }
@@ -37,7 +44,7 @@ public class RedPawn {
         this.activationStatus = value;
     }
 
-    public int getActivationNr (){return activationStatus;};
+    public int getActivationNr (){return activationStatus;}
 
     public void setNewPosition(Field field) {
         this.currentField = field;
@@ -48,11 +55,7 @@ public class RedPawn {
     }
 
     public boolean changeActivationStatus() {
-        if (activate ) {
-            activate = false;
-        } else {
-            activate = true;
-        }
+        activate = !activate;
         return activate;
     }
 
@@ -61,11 +64,7 @@ public class RedPawn {
     }
 
     public boolean changeFinishStatus() {
-        if (finished == true) {
-            finished = false;
-        } else {
-            finished = true;
-        }
+        finished = !finished;
         return finished;
     }
 
