@@ -55,7 +55,11 @@ public class RedPawn {
     }
 
     public boolean changeActivationStatus() {
-        activate = !activate;
+        if (activate == true) {
+            activate = false;
+        } else {
+            activate = true;
+        }
         return activate;
     }
 
@@ -64,7 +68,11 @@ public class RedPawn {
     }
 
     public boolean changeFinishStatus() {
-        finished = !finished;
+        if (finished == true) {
+            finished = false;
+        } else {
+            finished = true;
+        }
         return finished;
     }
 

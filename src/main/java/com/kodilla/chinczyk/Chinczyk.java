@@ -159,7 +159,7 @@ public class Chinczyk extends Application {
                             drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
                         }
 
-                        for (int j = 0; j < 44 ; j++) {
+                        for (int j = 0; j < 43 ; j++) {
                             if (redPawns.get(finalI).getValue() == j) {
                                 redPawns.get(finalI).setNewPosition(MapOfMovements.getListOfMovements().get(j));
                                 for (int k = 0 ; k < 4; k++) {
@@ -187,7 +187,7 @@ public class Chinczyk extends Application {
                                                 MapOfMovements.getListOfMovements().get(j).getRow());
                                         drawBox.setText("Niebieski Pionek Zbity");
 
-                                        if (redPawns.get(finalI).getValue() >= redMaxField) {
+                                        if (redPawns.get(finalI).getValue() == redMaxField) {
                                             redPawns.get(finalI).changeFinishStatus();
                                             redPawns.get(finalI).changeActivationStatus();
                                             redPawns.get(finalI).setActivationNr(1);
@@ -203,7 +203,7 @@ public class Chinczyk extends Application {
                                                 MapOfMovements.getListOfMovements().get(j).getColumn(),
                                                 MapOfMovements.getListOfMovements().get(j).getRow());
 
-                                        if (redPawns.get(finalI).getValue() >= redMaxField) {
+                                        if (redPawns.get(finalI).getValue() == redMaxField) {
                                             redPawns.get(finalI).changeFinishStatus();
                                             redPawns.get(finalI).changeActivationStatus();
                                             redPawns.get(finalI).setActivationNr(1);
@@ -219,7 +219,7 @@ public class Chinczyk extends Application {
                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
                                                MapOfMovements.getListOfMovements().get(j).getRow());
 
-                                       if (redPawns.get(finalI).getValue() >= redMaxField) {
+                                       if (redPawns.get(finalI).getValue() == redMaxField) {
                                            redPawns.get(finalI).changeFinishStatus();
                                            redPawns.get(finalI).changeActivationStatus();
                                            redPawns.get(finalI).setActivationNr(1);
@@ -233,7 +233,7 @@ public class Chinczyk extends Application {
                                         board.add(redPawns.get(finalI).getPawnImage(),
                                                 MapOfMovements.getListOfMovements().get(j).getColumn(),
                                                 MapOfMovements.getListOfMovements().get(j).getRow());
-                                        if (redPawns.get(finalI).getValue() >= redMaxField) {
+                                        if (redPawns.get(finalI).getValue() == redMaxField) {
                                             redPawns.get(finalI).changeFinishStatus();
                                             redPawns.get(finalI).changeActivationStatus();
                                             redPawns.get(finalI).setActivationNr(1);
@@ -266,7 +266,7 @@ public class Chinczyk extends Application {
                             drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
                         }
 
-                        for (int j = 0; j < 44; j++) {
+                        for (int j = 0; j < 43; j++) {
                             if (redPawns.get(finalI).getValue() == j) {
                                 redPawns.get(finalI).setNewPosition(MapOfMovements.getListOfMovements().get(j));
                                 for (int k = 0 ; k < 4; k++) {
@@ -295,7 +295,7 @@ public class Chinczyk extends Application {
                                                 MapOfMovements.getListOfMovements().get(j).getRow());
                                         drawBox.setText("Niebieski Pionek Zbity");
 
-                                        if (redPawns.get(finalI).getValue() >= redMaxField) {
+                                        if (redPawns.get(finalI).getValue() == redMaxField) {
                                             redPawns.get(finalI).changeFinishStatus();
                                             redPawns.get(finalI).changeActivationStatus();
                                             redPawns.get(finalI).setActivationNr(1);
@@ -311,7 +311,7 @@ public class Chinczyk extends Application {
                                                 MapOfMovements.getListOfMovements().get(j).getColumn(),
                                                 MapOfMovements.getListOfMovements().get(j).getRow());
 
-                                        if (redPawns.get(finalI).getValue() >= redMaxField) {
+                                        if (redPawns.get(finalI).getValue() == redMaxField) {
                                             redPawns.get(finalI).changeFinishStatus();
                                             redPawns.get(finalI).changeActivationStatus();
                                             redPawns.get(finalI).setActivationNr(1);
@@ -327,7 +327,7 @@ public class Chinczyk extends Application {
                                                 MapOfMovements.getListOfMovements().get(j).getColumn(),
                                                 MapOfMovements.getListOfMovements().get(j).getRow());
 
-                                        if (redPawns.get(finalI).getValue() >= redMaxField) {
+                                        if (redPawns.get(finalI).getValue() == redMaxField) {
                                             redPawns.get(finalI).changeFinishStatus();
                                             redPawns.get(finalI).changeActivationStatus();
                                             redPawns.get(finalI).setActivationNr(1);
