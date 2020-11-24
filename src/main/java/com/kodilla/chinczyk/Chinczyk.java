@@ -1,5 +1,6 @@
 package com.kodilla.chinczyk;
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,9 +15,15 @@ import java.util.Random;
 public class Chinczyk extends Application {
 
 
-    // plansza do gry
-    private Image imageback = new Image("file:src/main/resources/board.png");
+    private Image logoMain = new Image("file:src/main/resources/logo_main.png");
+    private Image imagebackBoard = new Image("file:src/main/resources/board.png");
     private GridPane board = new GridPane();
+    private GridPane main = new GridPane();
+    private GridPane settings = new GridPane();
+
+    private Label playersLabel = new Label("Liczba graczy uzytkownka:");
+    private Label colorLabel = new Label("Kolor piownkow uzytkownika:");
+
 
     static ArrayList<RedPawn> redPawns = new ArrayList<>();
 
@@ -29,7 +36,7 @@ public class Chinczyk extends Application {
     RedPawn redPawn2 = new RedPawn(startRed2);
     RedPawn redPawn3 = new RedPawn(startRed3);
     RedPawn redPawn4 = new RedPawn(startRed4);
-    int redMaxField = 44;
+    int redMaxField = 43;
 
     static ArrayList<BluePawn> bluePawns = new ArrayList<>();
 
@@ -55,7 +62,7 @@ public class Chinczyk extends Application {
     YellowPawn yellowPawn2 = new YellowPawn(startYellow2);
     YellowPawn yellowPawn3 = new YellowPawn(startYellow3);
     YellowPawn yellowPawn4 = new YellowPawn(startYellow4);
-    int yellowMaxField = 44;
+    int yellowMaxField = 131;
 
     static ArrayList<GreenPawn> greenPawns = new ArrayList<>();
 
@@ -68,10 +75,12 @@ public class Chinczyk extends Application {
     GreenPawn greenPawn2 = new GreenPawn(startGreen2);
     GreenPawn greenPawn3 = new GreenPawn(startGreen3);
     GreenPawn greenPawn4 = new GreenPawn(startGreen4);
-    int greenMaxField = 44;
+    int greenMaxField = 175;
 
 
     private int dice;
+    private int players = 2;
+    private int maxPlayers = 4;
     private Label drawBox = new Label();
     private Label checkRed = new Label();
     private Label checkBlue = new Label();
@@ -81,6 +90,13 @@ public class Chinczyk extends Application {
     public static int rollTheDice() {
             Random random = new Random();
             return random.nextInt(6) + 1;
+    }
+
+    public boolean checkRedValue(int value){
+        boolean check = false;
+        for (int i=0; i<4; i++){
+            check = value >= redPawns.get(i).getValue();
+        } return check;
     }
 
     private void buildBoard(GridPane board) {
@@ -106,7 +122,49 @@ public class Chinczyk extends Application {
         board.getColumnConstraints().add(new ColumnConstraints(90));
         board.getColumnConstraints().add(new ColumnConstraints(90));
         board.getColumnConstraints().add(new ColumnConstraints(93));
+
+        if (players == 1) {
+
+        }
+
+        if (players == 2) {
+
+        }
+
+        if (players == 3) {
+
+        }
+
+        if (players == 4) {
+
+        }
     }
+
+    private void buildMain(GridPane main) {
+
+       main.getRowConstraints().add(new RowConstraints(60));
+       main.getRowConstraints().add(new RowConstraints(60));
+       main.getRowConstraints().add(new RowConstraints(60));
+       main.getRowConstraints().add(new RowConstraints(60));
+       main.getColumnConstraints().add(new ColumnConstraints(100));
+       main.getColumnConstraints().add(new ColumnConstraints(100));
+
+
+    }
+
+    private void buildSettings(GridPane settings) {
+
+        settings.getRowConstraints().add(new RowConstraints(15));
+        settings.getRowConstraints().add(new RowConstraints(30));
+        settings.getRowConstraints().add(new RowConstraints(30));
+        settings.getColumnConstraints().add(new ColumnConstraints(20));
+        settings.getColumnConstraints().add(new ColumnConstraints(80));
+        settings.getColumnConstraints().add(new ColumnConstraints(20));
+        settings.getColumnConstraints().add(new ColumnConstraints(100));
+
+
+    }
+
 
     private void putGreenPawnsOnBoard(GridPane board) {
 
@@ -118,6 +176,244 @@ public class Chinczyk extends Application {
         board.add(greenPawns.get(1).getPawnImage(), greenPawns.get(1).getStartPosition().getColumn(), greenPawns.get(1).getStartPosition().getRow());
         board.add(greenPawns.get(2).getPawnImage(), greenPawns.get(2).getStartPosition().getColumn(), greenPawns.get(2).getStartPosition().getRow());
         board.add(greenPawns.get(3).getPawnImage(), greenPawns.get(3).getStartPosition().getColumn(), greenPawns.get(3).getStartPosition().getRow());
+
+        for (int i=0;i < 4;i++) {
+            int finalI = i;
+            greenPawns.get(finalI).getPawnImage().setOnMouseClicked(g -> {
+
+                if (dice == 6) {
+
+                    if (greenPawns.get(finalI).getActivationStatus()) {
+                        if (greenPawns.get(finalI).getActivationNr() == 1){
+                            drawBox.setText("Pionek Zakonczyl Gre");
+                        }
+
+                        if (greenPawns.get(finalI).getActivationNr() == 0) {
+                            if (dice <= greenMaxField - greenPawns.get(finalI).getValue()) {
+                                greenPawns.get(finalI).setValue(greenPawns.get(finalI).getValue() + dice);
+
+                            }  else if (dice > greenMaxField - greenPawns.get(finalI).getValue()) {
+                                drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
+                            }
+                        }
+                        for (int j = 132; j < 176 ; j++) {
+                            if (greenPawns.get(finalI).getValue() == j) {
+                                greenPawns.get(finalI).setNewPosition(MapOfMovements.getListOfMovements().get(j));
+                                for (int k = 0 ; k < 4; k++) {
+
+                                    if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(greenPawns.get(finalI).getCurrentField())) {
+                                        if (k == 0) {
+                                            redPawns.get(k).setValue(176);
+                                        }
+                                        if (k == 1) {
+                                            redPawns.get(k).setValue(177);
+                                        }
+                                        if (k == 2) {
+                                            redPawns.get(k).setValue(178);
+                                        }
+                                        if (k == 3) {
+                                            redPawns.get(k).setValue(179);
+                                        }
+                                        board.getChildren().remove(redPawns.get(k).getPawnImage());
+                                        board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
+                                        redPawns.get(k).changeActivationStatus();
+
+                                        board.getChildren().remove(greenPawns.get(finalI).getPawnImage());
+                                        board.add(greenPawns.get(finalI).getPawnImage(),
+                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                MapOfMovements.getListOfMovements().get(j).getRow());
+                                        drawBox.setText("Czerwony Pionek Zbity");
+
+
+
+                                    } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(greenPawns.get(finalI).getCurrentField()) ) {
+                                        if (k == 0) {
+                                           yellowPawns.get(k).setValue(184);
+                                        }
+                                        if (k == 1) {
+                                            yellowPawns.get(k).setValue(185);
+                                        }
+                                        if (k == 2) {
+                                            yellowPawns.get(k).setValue(186);
+                                        }
+                                        if (k == 3) {
+                                            yellowPawns.get(k).setValue(187);
+                                        }
+                                        board.getChildren().remove(yellowPawns.get(k).getPawnImage());
+                                        board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
+                                        yellowPawns.get(k).changeActivationStatus();
+                                        board.getChildren().remove(greenPawns.get(finalI).getPawnImage());
+                                        board.add(greenPawns.get(finalI).getPawnImage(),
+                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                MapOfMovements.getListOfMovements().get(j).getRow());
+                                        drawBox.setText("Zielony Pionek Zbity");
+
+
+                                    } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(greenPawns.get(finalI).getCurrentField()) ) {
+                                        if (k == 0) {
+                                            bluePawns.get(k).setValue(188);
+                                        }
+                                        if (k == 1) {
+                                            bluePawns.get(k).setValue(189);
+                                        }
+                                        if (k == 2) {
+                                            bluePawns.get(k).setValue(190);
+                                        }
+                                        if (k == 3) {
+                                            yellowPawns.get(k).setValue(191);
+                                        }
+                                        board.getChildren().remove(bluePawns.get(k).getPawnImage());
+                                        board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
+                                        bluePawns.get(k).changeActivationStatus();
+                                        board.getChildren().remove(greenPawns.get(finalI).getPawnImage());
+                                        board.add(greenPawns.get(finalI).getPawnImage(),
+                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                MapOfMovements.getListOfMovements().get(j).getRow());
+                                        drawBox.setText("Zolty Pionek Zbity");
+
+                                    } else if (greenPawns.get(finalI).getValue() == greenMaxField) {
+                                        greenPawns.get(finalI).changeFinishStatus();
+                                        greenPawns.get(finalI).changeActivationStatus();
+                                        greenPawns.get(finalI).setActivationNr(1);
+                                        greenMaxField = greenMaxField - 1;
+                                        drawBox.setText("Pionek Zakonczyl Gre");
+                                    }
+
+                                    else {
+                                        board.getChildren().remove(greenPawns.get(finalI).getPawnImage());
+                                        board.add(greenPawns.get(finalI).getPawnImage(),
+                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                MapOfMovements.getListOfMovements().get(j).getRow());
+
+                                    }
+
+                                }
+                            }
+                        }
+                    } else {
+                        if (greenPawns.get(finalI).getActivationNr() == 0) {
+                            greenPawns.get(finalI).changeActivationStatus();
+                            greenPawns.get(finalI).setNewPosition(greenPawns.get(finalI).getStartPosition());
+                            greenPawns.get(finalI).setValue(132);
+                            board.getChildren().remove(greenPawns.get(finalI).getPawnImage());
+                            board.add(greenPawns.get(finalI).getPawnImage(), 6, 0);
+                        } else drawBox.setText("Pionek Zakonczyl Gre");
+                    }
+                } else if (dice != 6) {
+
+                    if (greenPawns.get(finalI).getActivationStatus()) {
+
+                        if (greenPawns.get(finalI).getActivationNr() == 1){
+                            drawBox.setText("Pionek Zakonczyl Gre");
+                        }
+
+                        if (greenPawns.get(finalI).getActivationNr() == 0) {
+                            if (dice <= greenMaxField - greenPawns.get(finalI).getValue()) {
+                                greenPawns.get(finalI).setValue(greenPawns.get(finalI).getValue() + dice);
+
+                            }   else if (dice > greenMaxField - greenPawns.get(finalI).getValue()) {
+                                drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
+                            }
+                        }
+                        for (int j = 132; j < 176 ; j++) {
+                            if (greenPawns.get(finalI).getValue() == j) {
+                                greenPawns.get(finalI).setNewPosition(MapOfMovements.getListOfMovements().get(j));
+                                for (int k = 0 ; k < 4; k++) {
+
+                                    if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(greenPawns.get(finalI).getCurrentField())) {
+                                        if (k == 0) {
+                                            redPawns.get(k).setValue(176);
+                                        }
+                                        if (k == 1) {
+                                            redPawns.get(k).setValue(177);
+                                        }
+                                        if (k == 2) {
+                                            redPawns.get(k).setValue(178);
+                                        }
+                                        if (k == 3) {
+                                            redPawns.get(k).setValue(179);
+                                        }
+                                        board.getChildren().remove(redPawns.get(k).getPawnImage());
+                                        board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
+                                        redPawns.get(k).changeActivationStatus();
+
+                                        board.getChildren().remove(greenPawns.get(finalI).getPawnImage());
+                                        board.add(greenPawns.get(finalI).getPawnImage(),
+                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                MapOfMovements.getListOfMovements().get(j).getRow());
+                                        drawBox.setText("Czerwony Pionek Zbity");
+
+
+
+                                    } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(greenPawns.get(finalI).getCurrentField()) ) {
+                                        if (k == 0) {
+                                            yellowPawns.get(k).setValue(184);
+                                        }
+                                        if (k == 1) {
+                                            yellowPawns.get(k).setValue(185);
+                                        }
+                                        if (k == 2) {
+                                            yellowPawns.get(k).setValue(186);
+                                        }
+                                        if (k == 3) {
+                                            yellowPawns.get(k).setValue(187);
+                                        }
+                                        board.getChildren().remove(yellowPawns.get(k).getPawnImage());
+                                        board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
+                                        yellowPawns.get(k).changeActivationStatus();
+                                        board.getChildren().remove(greenPawns.get(finalI).getPawnImage());
+                                        board.add(greenPawns.get(finalI).getPawnImage(),
+                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                MapOfMovements.getListOfMovements().get(j).getRow());
+                                        drawBox.setText("Zielony Pionek Zbity");
+
+
+                                    } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(greenPawns.get(finalI).getCurrentField()) ) {
+                                        if (k == 0) {
+                                            bluePawns.get(k).setValue(188);
+                                        }
+                                        if (k == 1) {
+                                            bluePawns.get(k).setValue(189);
+                                        }
+                                        if (k == 2) {
+                                            bluePawns.get(k).setValue(190);
+                                        }
+                                        if (k == 3) {
+                                            yellowPawns.get(k).setValue(191);
+                                        }
+                                        board.getChildren().remove(bluePawns.get(k).getPawnImage());
+                                        board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
+                                        bluePawns.get(k).changeActivationStatus();
+                                        board.getChildren().remove(greenPawns.get(finalI).getPawnImage());
+                                        board.add(greenPawns.get(finalI).getPawnImage(),
+                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                MapOfMovements.getListOfMovements().get(j).getRow());
+                                        drawBox.setText("Zolty Pionek Zbity");
+
+                                    } else if (greenPawns.get(finalI).getValue() == yellowMaxField) {
+                                        greenPawns.get(finalI).changeFinishStatus();
+                                        greenPawns.get(finalI).changeActivationStatus();
+                                        greenPawns.get(finalI).setActivationNr(1);
+                                        greenMaxField = greenMaxField - 1;
+                                        drawBox.setText("Pionek Zakonczyl Gre");
+                                    }  else {
+                                        board.getChildren().remove(greenPawns.get(finalI).getPawnImage());
+                                        board.add(greenPawns.get(finalI).getPawnImage(),
+                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                MapOfMovements.getListOfMovements().get(j).getRow());
+
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+            });
+
+        }
     }
 
     private void putYellowPawnsOnBoard(GridPane board) {
@@ -129,6 +425,244 @@ public class Chinczyk extends Application {
         board.add(yellowPawns.get(1).getPawnImage(), yellowPawns.get(1).getStartPosition().getColumn(), yellowPawns.get(1).getStartPosition().getRow());
         board.add(yellowPawns.get(2).getPawnImage(), yellowPawns.get(2).getStartPosition().getColumn(), yellowPawns.get(2).getStartPosition().getRow());
         board.add(yellowPawns.get(3).getPawnImage(), yellowPawns.get(3).getStartPosition().getColumn(), yellowPawns.get(3).getStartPosition().getRow());
+
+        for (int i=0;i < 4;i++) {
+            int finalI = i;
+            yellowPawns.get(finalI).getPawnImage().setOnMouseClicked(g -> {
+
+                if (dice == 6) {
+
+                    if (yellowPawns.get(finalI).getActivationStatus()) {
+                        if (yellowPawns.get(finalI).getActivationNr() == 1){
+                            drawBox.setText("Pionek Zakonczyl Gre");
+                        }
+
+                        if (yellowPawns.get(finalI).getActivationNr() == 0) {
+                            if (dice <= yellowMaxField - yellowPawns.get(finalI).getValue()) {
+                                yellowPawns.get(finalI).setValue(yellowPawns.get(finalI).getValue() + dice);
+
+                            }  else if (dice > yellowMaxField - yellowPawns.get(finalI).getValue()) {
+                                drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
+                            }
+                        }
+                        for (int j = 88; j < 132 ; j++) {
+                            if (yellowPawns.get(finalI).getValue() == j) {
+                                yellowPawns.get(finalI).setNewPosition(MapOfMovements.getListOfMovements().get(j));
+                                for (int k = 0 ; k < 4; k++) {
+
+                                    if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(yellowPawns.get(finalI).getCurrentField())) {
+                                        if (k == 0) {
+                                            redPawns.get(k).setValue(176);
+                                        }
+                                        if (k == 1) {
+                                            redPawns.get(k).setValue(177);
+                                        }
+                                        if (k == 2) {
+                                            redPawns.get(k).setValue(178);
+                                        }
+                                        if (k == 3) {
+                                            redPawns.get(k).setValue(179);
+                                        }
+                                        board.getChildren().remove(redPawns.get(k).getPawnImage());
+                                        board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
+                                        redPawns.get(k).changeActivationStatus();
+
+                                        board.getChildren().remove(yellowPawns.get(finalI).getPawnImage());
+                                        board.add(yellowPawns.get(finalI).getPawnImage(),
+                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                MapOfMovements.getListOfMovements().get(j).getRow());
+                                        drawBox.setText("Czerwony Pionek Zbity");
+
+
+
+                                    } else if (MapOfFields.getListOfFields().get(greenPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(yellowPawns.get(finalI).getCurrentField()) ) {
+                                        if (k == 0) {
+                                            greenPawns.get(k).setValue(184);
+                                        }
+                                        if (k == 1) {
+                                            greenPawns.get(k).setValue(185);
+                                        }
+                                        if (k == 2) {
+                                            greenPawns.get(k).setValue(186);
+                                        }
+                                        if (k == 3) {
+                                            greenPawns.get(k).setValue(187);
+                                        }
+                                        board.getChildren().remove(greenPawns.get(k).getPawnImage());
+                                        board.add(greenPawns.get(k).getPawnImage(), greenPawns.get(k).getStartPosition().getColumn(), greenPawns.get(k).getStartPosition().getRow());
+                                        greenPawns.get(k).changeActivationStatus();
+                                        board.getChildren().remove(yellowPawns.get(finalI).getPawnImage());
+                                        board.add(yellowPawns.get(finalI).getPawnImage(),
+                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                MapOfMovements.getListOfMovements().get(j).getRow());
+                                        drawBox.setText("Zielony Pionek Zbity");
+
+
+                                    } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(yellowPawns.get(finalI).getCurrentField()) ) {
+                                        if (k == 0) {
+                                            bluePawns.get(k).setValue(188);
+                                        }
+                                        if (k == 1) {
+                                            bluePawns.get(k).setValue(189);
+                                        }
+                                        if (k == 2) {
+                                            bluePawns.get(k).setValue(190);
+                                        }
+                                        if (k == 3) {
+                                            yellowPawns.get(k).setValue(191);
+                                        }
+                                        board.getChildren().remove(bluePawns.get(k).getPawnImage());
+                                        board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
+                                        bluePawns.get(k).changeActivationStatus();
+                                        board.getChildren().remove(yellowPawns.get(finalI).getPawnImage());
+                                        board.add(yellowPawns.get(finalI).getPawnImage(),
+                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                MapOfMovements.getListOfMovements().get(j).getRow());
+                                        drawBox.setText("Zolty Pionek Zbity");
+
+                                    } else if (yellowPawns.get(finalI).getValue() == yellowMaxField) {
+                                        yellowPawns.get(finalI).changeFinishStatus();
+                                        yellowPawns.get(finalI).changeActivationStatus();
+                                        yellowPawns.get(finalI).setActivationNr(1);
+                                        yellowMaxField = yellowMaxField - 1;
+                                        drawBox.setText("Pionek Zakonczyl Gre");
+                                    }
+
+                                    else {
+                                        board.getChildren().remove(yellowPawns.get(finalI).getPawnImage());
+                                        board.add(yellowPawns.get(finalI).getPawnImage(),
+                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                MapOfMovements.getListOfMovements().get(j).getRow());
+
+                                    }
+
+                                }
+                            }
+                        }
+                    } else {
+                        if (yellowPawns.get(finalI).getActivationNr() == 0) {
+                            yellowPawns.get(finalI).changeActivationStatus();
+                            yellowPawns.get(finalI).setNewPosition(bluePawns.get(finalI).getStartPosition());
+                            yellowPawns.get(finalI).setValue(88);
+                            board.getChildren().remove(yellowPawns.get(finalI).getPawnImage());
+                            board.add(yellowPawns.get(finalI).getPawnImage(), 0, 4);
+                        } else drawBox.setText("Pionek Zakonczyl Gre");
+                    }
+                } else if (dice != 6) {
+
+                    if (yellowPawns.get(finalI).getActivationStatus()) {
+
+                        if (yellowPawns.get(finalI).getActivationNr() == 1){
+                            drawBox.setText("Pionek Zakonczyl Gre");
+                        }
+
+                        if (yellowPawns.get(finalI).getActivationNr() == 0) {
+                            if (dice <= yellowMaxField - yellowPawns.get(finalI).getValue()) {
+                                yellowPawns.get(finalI).setValue(yellowPawns.get(finalI).getValue() + dice);
+
+                            }   else if (dice > yellowMaxField - yellowPawns.get(finalI).getValue()) {
+                                drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
+                            }
+                        }
+                        for (int j = 88; j < 132 ; j++) {
+                            if (yellowPawns.get(finalI).getValue() == j) {
+                                yellowPawns.get(finalI).setNewPosition(MapOfMovements.getListOfMovements().get(j));
+                                for (int k = 0 ; k < 4; k++) {
+
+                                    if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(yellowPawns.get(finalI).getCurrentField())) {
+                                        if (k == 0) {
+                                            redPawns.get(k).setValue(176);
+                                        }
+                                        if (k == 1) {
+                                            redPawns.get(k).setValue(177);
+                                        }
+                                        if (k == 2) {
+                                            redPawns.get(k).setValue(178);
+                                        }
+                                        if (k == 3) {
+                                            redPawns.get(k).setValue(179);
+                                        }
+                                        board.getChildren().remove(redPawns.get(k).getPawnImage());
+                                        board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
+                                        redPawns.get(k).changeActivationStatus();
+
+                                        board.getChildren().remove(yellowPawns.get(finalI).getPawnImage());
+                                        board.add(yellowPawns.get(finalI).getPawnImage(),
+                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                MapOfMovements.getListOfMovements().get(j).getRow());
+                                        drawBox.setText("Czerwony Pionek Zbity");
+
+
+
+                                    } else if (MapOfFields.getListOfFields().get(greenPawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(yellowPawns.get(finalI).getCurrentField())) {
+                                        if (k == 0) {
+                                            greenPawns.get(k).setValue(184);
+                                        }
+                                        if (k == 1) {
+                                            greenPawns.get(k).setValue(185);
+                                        }
+                                        if (k == 2) {
+                                            greenPawns.get(k).setValue(186);
+                                        }
+                                        if (k == 3) {
+                                            greenPawns.get(k).setValue(187);
+                                        }
+                                        board.getChildren().remove(greenPawns.get(k).getPawnImage());
+                                        board.add(greenPawns.get(k).getPawnImage(), greenPawns.get(k).getStartPosition().getColumn(), greenPawns.get(k).getStartPosition().getRow());
+                                        greenPawns.get(k).changeActivationStatus();
+                                        board.getChildren().remove(yellowPawns.get(finalI).getPawnImage());
+                                        board.add(yellowPawns.get(finalI).getPawnImage(),
+                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                MapOfMovements.getListOfMovements().get(j).getRow());
+                                        drawBox.setText("Zielony Pionek Zbity");
+
+
+                                    } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(yellowPawns.get(finalI).getCurrentField())) {
+                                        if (k == 0) {
+                                            bluePawns.get(k).setValue(188);
+                                        }
+                                        if (k == 1) {
+                                            bluePawns.get(k).setValue(189);
+                                        }
+                                        if (k == 2) {
+                                            bluePawns.get(k).setValue(190);
+                                        }
+                                        if (k == 3) {
+                                            yellowPawns.get(k).setValue(191);
+                                        }
+                                        board.getChildren().remove(bluePawns.get(k).getPawnImage());
+                                        board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
+                                        bluePawns.get(k).changeActivationStatus();
+                                        board.getChildren().remove(yellowPawns.get(finalI).getPawnImage());
+                                        board.add(yellowPawns.get(finalI).getPawnImage(),
+                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                MapOfMovements.getListOfMovements().get(j).getRow());
+                                        drawBox.setText("Zolty Pionek Zbity");
+
+                                    } else if (yellowPawns.get(finalI).getValue() == yellowMaxField) {
+                                        yellowPawns.get(finalI).changeFinishStatus();
+                                        yellowPawns.get(finalI).changeActivationStatus();
+                                        yellowPawns.get(finalI).setActivationNr(1);
+                                        yellowMaxField = yellowMaxField - 1;
+                                        drawBox.setText("Pionek Zakonczyl Gre");
+                                    }  else {
+                                        board.getChildren().remove(yellowPawns.get(finalI).getPawnImage());
+                                        board.add(yellowPawns.get(finalI).getPawnImage(),
+                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                MapOfMovements.getListOfMovements().get(j).getRow());
+
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+            });
+
+        }
     }
 
     private void putRedPawnsOnBoard(GridPane board) {
@@ -142,6 +676,9 @@ public class Chinczyk extends Application {
         board.add(redPawns.get(2).getPawnImage(), 9, 10);
         board.add(redPawns.get(3).getPawnImage(), 9, 9);
 
+
+
+
         for (int i=0;i < 4;i++) {
             int finalI = i;
             redPawns.get(finalI).getPawnImage().setOnMouseClicked(g -> {
@@ -149,33 +686,35 @@ public class Chinczyk extends Application {
                 if (dice == 6) {
 
                     if (redPawns.get(finalI).getActivationStatus()) {
-
-                        if (dice < redMaxField - redPawns.get(finalI).getValue()) {
-                            redPawns.get(finalI).setValue(redPawns.get(finalI).getValue() + dice);
-
-                        } else if (redPawns.get(finalI).getFinishStatus()) {
-                            drawBox.setText("Pionek zakonczyl Gre");
-                        } else if (dice > redMaxField - redPawns.get(finalI).getValue()) {
-                            drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
+                        if (redPawns.get(finalI).getActivationNr() == 1){
+                            drawBox.setText("Pionek Zakonczyl Gre");
                         }
 
-                        for (int j = 0; j < 43 ; j++) {
+                        if (redPawns.get(finalI).getActivationNr() == 0) {
+                            if (dice <= redMaxField - redPawns.get(finalI).getValue()) {
+                                redPawns.get(finalI).setValue(redPawns.get(finalI).getValue() + dice);
+
+                            }  else if (dice > redMaxField - redPawns.get(finalI).getValue()) {
+                                drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
+                            }
+                        }
+                        for (int j = 0; j < 44 ; j++) {
                             if (redPawns.get(finalI).getValue() == j) {
                                 redPawns.get(finalI).setNewPosition(MapOfMovements.getListOfMovements().get(j));
                                 for (int k = 0 ; k < 4; k++) {
 
-                                    if (bluePawns.get(k).getValue() -34   == redPawns.get(finalI).getValue() ) {
+                                    if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(redPawns.get(finalI).getCurrentField())) {
                                         if (k == 0) {
-                                            bluePawns.get(k).setValue(176);
+                                            bluePawns.get(k).setValue(180);
                                         }
                                         if (k == 1) {
-                                            bluePawns.get(k).setValue(177);
+                                            bluePawns.get(k).setValue(181);
                                         }
                                         if (k == 2) {
-                                            bluePawns.get(k).setValue(178);
+                                            bluePawns.get(k).setValue(182);
                                         }
                                         if (k == 3) {
-                                            bluePawns.get(k).setValue(179);
+                                            bluePawns.get(k).setValue(183);
                                         }
                                         board.getChildren().remove(bluePawns.get(k).getPawnImage());
                                         board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
@@ -187,58 +726,68 @@ public class Chinczyk extends Application {
                                                 MapOfMovements.getListOfMovements().get(j).getRow());
                                         drawBox.setText("Niebieski Pionek Zbity");
 
-                                        if (redPawns.get(finalI).getValue() == redMaxField) {
-                                            redPawns.get(finalI).changeFinishStatus();
-                                            redPawns.get(finalI).changeActivationStatus();
-                                            redPawns.get(finalI).setActivationNr(1);
-                                            drawBox.setText("Pionek Zakonczyl Gre");
-                                        }
 
-                                    } else if (greenPawns.get(k).getValue() + 30 == redPawns.get(finalI).getValue()) {
+
+                                    } else if (MapOfFields.getListOfFields().get(greenPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(redPawns.get(finalI).getCurrentField()) ) {
+                                        if (k == 0) {
+                                            greenPawns.get(k).setValue(184);
+                                        }
+                                        if (k == 1) {
+                                            greenPawns.get(k).setValue(185);
+                                        }
+                                        if (k == 2) {
+                                            greenPawns.get(k).setValue(186);
+                                        }
+                                        if (k == 3) {
+                                            greenPawns.get(k).setValue(187);
+                                        }
                                         board.getChildren().remove(greenPawns.get(k).getPawnImage());
                                         board.add(greenPawns.get(k).getPawnImage(), greenPawns.get(k).getStartPosition().getColumn(), greenPawns.get(k).getStartPosition().getRow());
                                         greenPawns.get(k).changeActivationStatus();
+
                                         board.getChildren().remove(redPawns.get(finalI).getPawnImage());
                                         board.add(redPawns.get(finalI).getPawnImage(),
                                                 MapOfMovements.getListOfMovements().get(j).getColumn(),
                                                 MapOfMovements.getListOfMovements().get(j).getRow());
+                                        drawBox.setText("Zielony Pionek Zbity");
 
-                                        if (redPawns.get(finalI).getValue() == redMaxField) {
-                                            redPawns.get(finalI).changeFinishStatus();
-                                            redPawns.get(finalI).changeActivationStatus();
-                                            redPawns.get(finalI).setActivationNr(1);
-                                            drawBox.setText("Pionek Zakonczyl Gre");
+
+                                    } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(redPawns.get(finalI).getCurrentField())  ) {
+                                        if (k == 0) {
+                                            yellowPawns.get(k).setValue(188);
                                         }
+                                        if (k == 1) {
+                                            yellowPawns.get(k).setValue(189);
+                                        }
+                                        if (k == 2) {
+                                            yellowPawns.get(k).setValue(190);
+                                        }
+                                        if (k == 3) {
+                                            yellowPawns.get(k).setValue(191);
+                                        }
+                                        board.getChildren().remove(yellowPawns.get(k).getPawnImage());
+                                        board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
+                                        yellowPawns.get(k).changeActivationStatus();
+                                        board.getChildren().remove(redPawns.get(finalI).getPawnImage());
+                                        board.add(redPawns.get(finalI).getPawnImage(),
+                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                MapOfMovements.getListOfMovements().get(j).getRow());
+                                        drawBox.setText("Zolty Pionek Zbity");
 
-                                   } else if (yellowPawns.get(k).getValue() + 30 == redPawns.get(finalI).getValue()) {
-                                       board.getChildren().remove(yellowPawns.get(k).getPawnImage());
-                                       board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
-                                       yellowPawns.get(k).changeActivationStatus();
-                                       board.getChildren().remove(redPawns.get(finalI).getPawnImage());
-                                       board.add(redPawns.get(finalI).getPawnImage(),
-                                               MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                               MapOfMovements.getListOfMovements().get(j).getRow());
-
-                                       if (redPawns.get(finalI).getValue() == redMaxField) {
-                                           redPawns.get(finalI).changeFinishStatus();
-                                           redPawns.get(finalI).changeActivationStatus();
-                                           redPawns.get(finalI).setActivationNr(1);
-                                           drawBox.setText("Pionek Zakonczyl Gre");
-                                       }
-                                   }
-
+                                    }else if (redPawns.get(finalI).getValue() == redMaxField) {
+                                       redPawns.get(finalI).changeFinishStatus();
+                                       redPawns.get(finalI).changeActivationStatus();
+                                       redPawns.get(finalI).setActivationNr(1);
+                                       redMaxField = redMaxField - 1;
+                                        drawBox.setText("Pionek Zakonczyl Gre");
+                                    }
 
                                     else {
                                         board.getChildren().remove(redPawns.get(finalI).getPawnImage());
                                         board.add(redPawns.get(finalI).getPawnImage(),
                                                 MapOfMovements.getListOfMovements().get(j).getColumn(),
                                                 MapOfMovements.getListOfMovements().get(j).getRow());
-                                        if (redPawns.get(finalI).getValue() == redMaxField) {
-                                            redPawns.get(finalI).changeFinishStatus();
-                                            redPawns.get(finalI).changeActivationStatus();
-                                            redPawns.get(finalI).setActivationNr(1);
-                                            drawBox.setText("Pionek Zakonczyl Gre");
-                                        }
+
                                     }
 
                                 }
@@ -257,37 +806,39 @@ public class Chinczyk extends Application {
 
                     if (redPawns.get(finalI).getActivationStatus()) {
 
-                        if (dice < redMaxField - redPawns.get(finalI).getValue()) {
-                            redPawns.get(finalI).setValue(redPawns.get(finalI).getValue() + dice);
-
-                        } else if (redPawns.get(finalI).getFinishStatus()) {
-                            drawBox.setText("Pionek zakonczyl Gre");
-                        } else if (dice > redMaxField - redPawns.get(finalI).getValue()) {
-                            drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
+                        if (redPawns.get(finalI).getActivationNr() == 1){
+                            drawBox.setText("Pionek Zakonczyl Gre");
                         }
 
-                        for (int j = 0; j < 43; j++) {
+                        if (redPawns.get(finalI).getActivationNr() == 0) {
+                            if (dice <= redMaxField - redPawns.get(finalI).getValue()) {
+                                redPawns.get(finalI).setValue(redPawns.get(finalI).getValue() + dice);
+
+                            }   else if (dice > redMaxField - redPawns.get(finalI).getValue()) {
+                                drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
+                            }
+                        }
+                        for (int j = 0; j < 44 ; j++) {
                             if (redPawns.get(finalI).getValue() == j) {
                                 redPawns.get(finalI).setNewPosition(MapOfMovements.getListOfMovements().get(j));
                                 for (int k = 0 ; k < 4; k++) {
 
-                                    if (bluePawns.get(k).getValue() -34   == redPawns.get(finalI).getValue()) {
+                                    if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(redPawns.get(finalI).getCurrentField()) ) {
                                         if (k == 0) {
-                                            bluePawns.get(k).setValue(176);
+                                            bluePawns.get(k).setValue(180);
                                         }
                                         if (k == 1) {
-                                            bluePawns.get(k).setValue(177);
+                                            bluePawns.get(k).setValue(181);
                                         }
                                         if (k == 2) {
-                                            bluePawns.get(k).setValue(178);
+                                            bluePawns.get(k).setValue(182);
                                         }
                                         if (k == 3) {
-                                            bluePawns.get(k).setValue(179);
+                                            bluePawns.get(k).setValue(183);
                                         }
                                         board.getChildren().remove(bluePawns.get(k).getPawnImage());
                                         board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
                                         bluePawns.get(k).changeActivationStatus();
-
 
                                         board.getChildren().remove(redPawns.get(finalI).getPawnImage());
                                         board.add(redPawns.get(finalI).getPawnImage(),
@@ -295,30 +846,45 @@ public class Chinczyk extends Application {
                                                 MapOfMovements.getListOfMovements().get(j).getRow());
                                         drawBox.setText("Niebieski Pionek Zbity");
 
-                                        if (redPawns.get(finalI).getValue() == redMaxField) {
-                                            redPawns.get(finalI).changeFinishStatus();
-                                            redPawns.get(finalI).changeActivationStatus();
-                                            redPawns.get(finalI).setActivationNr(1);
-                                            drawBox.setText("Pionek Zakonczyl Gre");
-                                        }
 
-                                    } else if (greenPawns.get(k).getValue() + 30 == redPawns.get(finalI).getValue()) {
+
+                                    } else if (MapOfFields.getListOfFields().get(greenPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(redPawns.get(finalI).getCurrentField()) ) {
+                                        if (k == 0) {
+                                            greenPawns.get(k).setValue(184);
+                                        }
+                                        if (k == 1) {
+                                            greenPawns.get(k).setValue(185);
+                                        }
+                                        if (k == 2) {
+                                            greenPawns.get(k).setValue(186);
+                                        }
+                                        if (k == 3) {
+                                            greenPawns.get(k).setValue(187);
+                                        }
                                         board.getChildren().remove(greenPawns.get(k).getPawnImage());
                                         board.add(greenPawns.get(k).getPawnImage(), greenPawns.get(k).getStartPosition().getColumn(), greenPawns.get(k).getStartPosition().getRow());
                                         greenPawns.get(k).changeActivationStatus();
+
                                         board.getChildren().remove(redPawns.get(finalI).getPawnImage());
                                         board.add(redPawns.get(finalI).getPawnImage(),
                                                 MapOfMovements.getListOfMovements().get(j).getColumn(),
                                                 MapOfMovements.getListOfMovements().get(j).getRow());
+                                        drawBox.setText("Zielony Pionek Zbity");
 
-                                        if (redPawns.get(finalI).getValue() == redMaxField) {
-                                            redPawns.get(finalI).changeFinishStatus();
-                                            redPawns.get(finalI).changeActivationStatus();
-                                            redPawns.get(finalI).setActivationNr(1);
-                                            drawBox.setText("Pionek Zakonczyl Gre");
+
+                                    } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(redPawns.get(finalI).getCurrentField()) ) {
+                                        if (k == 0) {
+                                            yellowPawns.get(k).setValue(188);
                                         }
-
-                                    } else if (yellowPawns.get(k).getValue() + 30 == redPawns.get(finalI).getValue()) {
+                                        if (k == 1) {
+                                            yellowPawns.get(k).setValue(189);
+                                        }
+                                        if (k == 2) {
+                                            yellowPawns.get(k).setValue(190);
+                                        }
+                                        if (k == 3) {
+                                            yellowPawns.get(k).setValue(191);
+                                        }
                                         board.getChildren().remove(yellowPawns.get(k).getPawnImage());
                                         board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
                                         yellowPawns.get(k).changeActivationStatus();
@@ -326,24 +892,20 @@ public class Chinczyk extends Application {
                                         board.add(redPawns.get(finalI).getPawnImage(),
                                                 MapOfMovements.getListOfMovements().get(j).getColumn(),
                                                 MapOfMovements.getListOfMovements().get(j).getRow());
+                                        drawBox.setText("Zolty Pionek Zbity");
 
-                                        if (redPawns.get(finalI).getValue() == redMaxField) {
-                                            redPawns.get(finalI).changeFinishStatus();
-                                            redPawns.get(finalI).changeActivationStatus();
-                                            redPawns.get(finalI).setActivationNr(1);
-                                            drawBox.setText("Pionek Zakonczyl Gre");
-                                        }
+                                    } else if (redPawns.get(finalI).getValue() == redMaxField) {
+                                        redPawns.get(finalI).changeFinishStatus();
+                                        redPawns.get(finalI).changeActivationStatus();
+                                        redPawns.get(finalI).setActivationNr(1);
+                                        redMaxField = redMaxField - 1;
+                                        drawBox.setText("Pionek Zakonczyl Gre");
                                     }  else {
                                         board.getChildren().remove(redPawns.get(finalI).getPawnImage());
                                         board.add(redPawns.get(finalI).getPawnImage(),
                                                 MapOfMovements.getListOfMovements().get(j).getColumn(),
                                                 MapOfMovements.getListOfMovements().get(j).getRow());
-                                        if (redPawns.get(finalI).getValue() >= redMaxField) {
-                                            redPawns.get(finalI).changeFinishStatus();
-                                            redPawns.get(finalI).changeActivationStatus();
-                                            redPawns.get(finalI).setActivationNr(1);
-                                            drawBox.setText("Pionek Zakonczyl Gre");
-                                        }
+
                                     }
 
                                 }
@@ -365,10 +927,10 @@ public class Chinczyk extends Application {
         bluePawns.add(1, bluePawn2);
         bluePawns.add(2, bluePawn3);
         bluePawns.add(3, bluePawn4);
-        board.add(bluePawns.get(0).getPawnImage(), 0, 10);
-        board.add(bluePawns.get(1).getPawnImage(), 0, 9);
-        board.add(bluePawns.get(2).getPawnImage(), 1, 10);
-        board.add(bluePawns.get(3).getPawnImage(), 1, 9);
+        board.add(bluePawns.get(0).getPawnImage(), 0, 9);
+        board.add(bluePawns.get(1).getPawnImage(), 0, 10);
+        board.add(bluePawns.get(2).getPawnImage(), 1, 9);
+        board.add(bluePawns.get(3).getPawnImage(), 1, 10);
 
         for (int i=0;i < 4;i++) {
             int finalI = i;
@@ -377,38 +939,39 @@ public class Chinczyk extends Application {
                 if (dice == 6) {
 
                     if (bluePawns.get(finalI).getActivationStatus()) {
-
-                        if (dice < blueMaxField - bluePawns.get(finalI).getValue()) {
-                            bluePawns.get(finalI).setValue(bluePawns.get(finalI).getValue() + dice);
-
-                        } else if (bluePawns.get(finalI).getFinishStatus()) {
-                            drawBox.setText("Pionek zakonczyl Gre");
-                        } else if (dice > blueMaxField - bluePawns.get(finalI).getValue()) {
-                            drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
+                        if (bluePawns.get(finalI).getActivationNr() == 1){
+                            drawBox.setText("Pionek Zakonczyl Gre");
                         }
 
-                        for (int j = 44; j < 88; j++) {
+                        if (bluePawns.get(finalI).getActivationNr() == 0) {
+                            if (dice <= blueMaxField - bluePawns.get(finalI).getValue()) {
+                                bluePawns.get(finalI).setValue(bluePawns.get(finalI).getValue() + dice);
+
+                            }  else if (dice > blueMaxField - bluePawns.get(finalI).getValue()) {
+                                drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
+                            }
+                        }
+                        for (int j = 44; j < 88 ; j++) {
                             if (bluePawns.get(finalI).getValue() == j) {
                                 bluePawns.get(finalI).setNewPosition(MapOfMovements.getListOfMovements().get(j));
                                 for (int k = 0 ; k < 4; k++) {
 
-                                    if (redPawns.get(k).getValue() + 34 == bluePawns.get(finalI).getValue()) {
+                                    if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(bluePawns.get(finalI).getCurrentField())) {
                                         if (k == 0) {
-                                            redPawns.get(k).setValue(180);
+                                            redPawns.get(k).setValue(176);
                                         }
                                         if (k == 1) {
-                                            redPawns.get(k).setValue(181);
+                                            redPawns.get(k).setValue(177);
                                         }
                                         if (k == 2) {
-                                            redPawns.get(k).setValue(182);
+                                            redPawns.get(k).setValue(178);
                                         }
                                         if (k == 3) {
-                                            redPawns.get(k).setValue(183);
+                                            redPawns.get(k).setValue(179);
                                         }
                                         board.getChildren().remove(redPawns.get(k).getPawnImage());
                                         board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
                                         redPawns.get(k).changeActivationStatus();
-
 
                                         board.getChildren().remove(bluePawns.get(finalI).getPawnImage());
                                         board.add(bluePawns.get(finalI).getPawnImage(),
@@ -416,30 +979,44 @@ public class Chinczyk extends Application {
                                                 MapOfMovements.getListOfMovements().get(j).getRow());
                                         drawBox.setText("Czerwony Pionek Zbity");
 
-                                        if (bluePawns.get(finalI).getValue() >= blueMaxField) {
-                                            bluePawns.get(finalI).changeFinishStatus();
-                                            bluePawns.get(finalI).changeActivationStatus();
-                                            bluePawns.get(finalI).setActivationNr(1);
-                                            drawBox.setText("Pionek Zakonczyl Gre");
-                                        }
 
-                                    } else if (greenPawns.get(k).getValue() + 30 == bluePawns.get(finalI).getValue()) {
+
+                                    } else if (MapOfFields.getListOfFields().get(greenPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalI).getCurrentField())) {
+                                        if (k == 0) {
+                                            greenPawns.get(k).setValue(184);
+                                        }
+                                        if (k == 1) {
+                                            greenPawns.get(k).setValue(185);
+                                        }
+                                        if (k == 2) {
+                                            greenPawns.get(k).setValue(186);
+                                        }
+                                        if (k == 3) {
+                                            greenPawns.get(k).setValue(187);
+                                        }
                                         board.getChildren().remove(greenPawns.get(k).getPawnImage());
                                         board.add(greenPawns.get(k).getPawnImage(), greenPawns.get(k).getStartPosition().getColumn(), greenPawns.get(k).getStartPosition().getRow());
                                         greenPawns.get(k).changeActivationStatus();
                                         board.getChildren().remove(bluePawns.get(finalI).getPawnImage());
                                         board.add(bluePawns.get(finalI).getPawnImage(),
-                                                MapOfBlueMovements.getListOfMovements().get(j).getColumn(),
-                                                MapOfBlueMovements.getListOfMovements().get(j).getRow());
+                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                MapOfMovements.getListOfMovements().get(j).getRow());
+                                        drawBox.setText("Zielony Pionek Zbity");
 
-                                        if (bluePawns.get(finalI).getValue() >= blueMaxField) {
-                                            bluePawns.get(finalI).changeFinishStatus();
-                                            bluePawns.get(finalI).changeActivationStatus();
-                                            bluePawns.get(finalI).setActivationNr(1);
-                                            drawBox.setText("Pionek Zakonczyl Gre");
+
+                                    } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalI).getCurrentField())) {
+                                        if (k == 0) {
+                                            yellowPawns.get(k).setValue(188);
                                         }
-
-                                    } else if (yellowPawns.get(k).getValue() + 30 == bluePawns.get(finalI).getValue()) {
+                                        if (k == 1) {
+                                            yellowPawns.get(k).setValue(189);
+                                        }
+                                        if (k == 2) {
+                                            yellowPawns.get(k).setValue(190);
+                                        }
+                                        if (k == 3) {
+                                            yellowPawns.get(k).setValue(191);
+                                        }
                                         board.getChildren().remove(yellowPawns.get(k).getPawnImage());
                                         board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
                                         yellowPawns.get(k).changeActivationStatus();
@@ -447,13 +1024,14 @@ public class Chinczyk extends Application {
                                         board.add(bluePawns.get(finalI).getPawnImage(),
                                                 MapOfMovements.getListOfMovements().get(j).getColumn(),
                                                 MapOfMovements.getListOfMovements().get(j).getRow());
+                                        drawBox.setText("Zolty Pionek Zbity");
 
-                                        if (bluePawns.get(finalI).getValue() >= blueMaxField) {
-                                            bluePawns.get(finalI).changeFinishStatus();
-                                            bluePawns.get(finalI).changeActivationStatus();
-                                            bluePawns.get(finalI).setActivationNr(1);
-                                            drawBox.setText("Pionek Zakonczyl Gre");
-                                        }
+                                    } else if (bluePawns.get(finalI).getCurrentField() == MapOfMovements.getListOfMovements().get(bluePawns.get(finalI).getValue() + dice)) {
+                                        bluePawns.get(finalI).changeFinishStatus();
+                                        bluePawns.get(finalI).changeActivationStatus();
+                                        bluePawns.get(finalI).setActivationNr(1);
+                                        blueMaxField = blueMaxField - 1;
+                                        drawBox.setText("Pionek Zakonczyl Gre");
                                     }
 
 
@@ -462,12 +1040,7 @@ public class Chinczyk extends Application {
                                         board.add(bluePawns.get(finalI).getPawnImage(),
                                                 MapOfMovements.getListOfMovements().get(j).getColumn(),
                                                 MapOfMovements.getListOfMovements().get(j).getRow());
-                                        if (bluePawns.get(finalI).getValue() >= blueMaxField) {
-                                            bluePawns.get(finalI).changeFinishStatus();
-                                            bluePawns.get(finalI).changeActivationStatus();
-                                            bluePawns.get(finalI).setActivationNr(1);
-                                            drawBox.setText("Pionek Zakonczyl Gre");
-                                        }
+
                                     }
 
                                 }
@@ -479,104 +1052,113 @@ public class Chinczyk extends Application {
                             bluePawns.get(finalI).setNewPosition(bluePawns.get(finalI).getStartPosition());
                             bluePawns.get(finalI).setValue(44);
                             board.getChildren().remove(bluePawns.get(finalI).getPawnImage());
-                            board.add(bluePawns.get(finalI).getPawnImage(), 4,10);
+                            board.add(bluePawns.get(finalI).getPawnImage(), 4, 10);
                         } else drawBox.setText("Pionek Zakonczyl Gre");
                     }
-                }
-
-                if (dice != 6) {
+                } else if (dice != 6) {
 
                     if (bluePawns.get(finalI).getActivationStatus()) {
 
-                        if (dice < blueMaxField - bluePawns.get(finalI).getValue()) {
-                            bluePawns.get(finalI).setValue(bluePawns.get(finalI).getValue() + dice);
-
-                        } else if (bluePawns.get(finalI).getFinishStatus()) {
-                            drawBox.setText("Pionek zakonczyl Gre");
-                        } else if (dice > blueMaxField - bluePawns.get(finalI).getValue()) {
-                            drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
+                        if (bluePawns.get(finalI).getActivationNr() == 1){
+                            drawBox.setText("Pionek Zakonczyl Gre");
                         }
 
-                        for (int j = 44; j < 88; j++) {
-                            if (bluePawns.get(finalI).getValue() == j) {
-                                bluePawns.get(finalI).setNewPosition(MapOfMovements.getListOfMovements().get(j));
-                                for (int k = 0 ; k < 4; k++) {
+                        if (bluePawns.get(finalI).getActivationNr() == 0) {
+                            if (dice <= blueMaxField - bluePawns.get(finalI).getValue()) {
+                                bluePawns.get(finalI).setValue(bluePawns.get(finalI).getValue() + dice);
 
-                                    if (redPawns.get(k).getValue() + 34 == bluePawns.get(finalI).getValue()) {
-                                        if (k == 0) {
-                                            redPawns.get(k).setValue(180);
-                                        }
-                                        if (k == 1) {
-                                            redPawns.get(k).setValue(181);
-                                        }
-                                        if (k == 2) {
-                                            redPawns.get(k).setValue(182);
-                                        }
-                                        if (k == 3) {
-                                            redPawns.get(k).setValue(183);
-                                        }
-                                        board.getChildren().remove(redPawns.get(k).getPawnImage());
-                                        board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
-                                        redPawns.get(k).changeActivationStatus();
+                            }   else if (dice > blueMaxField - bluePawns.get(finalI).getValue()) {
+                                drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
+                            }
+                        }
 
+                            for (int j = 44; j < 88 ; j++) {
+                                if (bluePawns.get(finalI).getValue() == j) {
+                                    bluePawns.get(finalI).setNewPosition(MapOfMovements.getListOfMovements().get(j));
+                                    for (int k = 0 ; k < 4; k++) {
+
+                                        if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalI).getCurrentField())) {
+                                            if (k == 0) {
+                                                redPawns.get(k).setValue(176);
+                                            }
+                                            if (k == 1) {
+                                                redPawns.get(k).setValue(177);
+                                            }
+                                            if (k == 2) {
+                                                redPawns.get(k).setValue(178);
+                                            }
+                                            if (k == 3) {
+                                                redPawns.get(k).setValue(179);
+                                            }
+                                            board.getChildren().remove(redPawns.get(k).getPawnImage());
+                                            board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
+                                            redPawns.get(k).changeActivationStatus();
+
+                                            board.getChildren().remove(bluePawns.get(finalI).getPawnImage());
+                                            board.add(bluePawns.get(finalI).getPawnImage(),
+                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                    MapOfMovements.getListOfMovements().get(j).getRow());
+                                            drawBox.setText("Czerwony Pionek Zbity");
+
+
+
+                                        } else if (MapOfFields.getListOfFields().get(greenPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalI).getCurrentField())) {
+                                            if (k == 0) {
+                                                greenPawns.get(k).setValue(184);
+                                            }
+                                            if (k == 1) {
+                                                greenPawns.get(k).setValue(185);
+                                            }
+                                            if (k == 2) {
+                                                greenPawns.get(k).setValue(186);
+                                            }
+                                            if (k == 3) {
+                                                greenPawns.get(k).setValue(187);
+                                            }
+                                            board.getChildren().remove(greenPawns.get(k).getPawnImage());
+                                            board.add(greenPawns.get(k).getPawnImage(), greenPawns.get(k).getStartPosition().getColumn(), greenPawns.get(k).getStartPosition().getRow());
+                                            greenPawns.get(k).changeActivationStatus();
+                                            board.getChildren().remove(bluePawns.get(finalI).getPawnImage());
+                                            board.add(bluePawns.get(finalI).getPawnImage(),
+                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                    MapOfMovements.getListOfMovements().get(j).getRow());
+                                            drawBox.setText("Zielony Pionek Zbity");
+
+
+                                        } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalI).getCurrentField())) {
+                                            if (k == 0) {
+                                                yellowPawns.get(k).setValue(188);
+                                            }
+                                            if (k == 1) {
+                                                yellowPawns.get(k).setValue(189);
+                                            }
+                                            if (k == 2) {
+                                                yellowPawns.get(k).setValue(190);
+                                            }
+                                            if (k == 3) {
+                                                yellowPawns.get(k).setValue(191);
+                                            }
+                                            board.getChildren().remove(yellowPawns.get(k).getPawnImage());
+                                            board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
+                                            yellowPawns.get(k).changeActivationStatus();
+                                            board.getChildren().remove(bluePawns.get(finalI).getPawnImage());
+                                            board.add(bluePawns.get(finalI).getPawnImage(),
+                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                    MapOfMovements.getListOfMovements().get(j).getRow());
+                                            drawBox.setText("Zolty Pionek Zbity");
+
+                                        }   else if (bluePawns.get(finalI).getValue() == blueMaxField) {
+                                        bluePawns.get(finalI).changeFinishStatus();
+                                        bluePawns.get(finalI).changeActivationStatus();
+                                        bluePawns.get(finalI).setActivationNr(1);
+                                        blueMaxField = blueMaxField - 1;
+                                        drawBox.setText("Pionek Zakonczyl Gre");
+                                    }  else {
                                         board.getChildren().remove(bluePawns.get(finalI).getPawnImage());
                                         board.add(bluePawns.get(finalI).getPawnImage(),
                                                 MapOfMovements.getListOfMovements().get(j).getColumn(),
                                                 MapOfMovements.getListOfMovements().get(j).getRow());
-                                        drawBox.setText("Czerwony Pionek Zbity");
 
-                                        if (bluePawns.get(finalI).getValue() >= blueMaxField) {
-                                            bluePawns.get(finalI).changeFinishStatus();
-                                            bluePawns.get(finalI).changeActivationStatus();
-                                            bluePawns.get(finalI).setActivationNr(1);
-                                            drawBox.setText("Pionek Zakonczyl Gre");
-                                        }
-
-                                    } else if (greenPawns.get(k).getValue() + 30 == bluePawns.get(finalI).getValue()) {
-                                        board.getChildren().remove(greenPawns.get(k).getPawnImage());
-                                        board.add(greenPawns.get(k).getPawnImage(), greenPawns.get(k).getStartPosition().getColumn(), greenPawns.get(k).getStartPosition().getRow());
-                                        greenPawns.get(k).changeActivationStatus();
-                                        board.getChildren().remove(bluePawns.get(finalI).getPawnImage());
-                                        board.add(bluePawns.get(finalI).getPawnImage(),
-                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                MapOfMovements.getListOfMovements().get(j).getRow());
-
-                                        if (bluePawns.get(finalI).getValue() >= blueMaxField) {
-                                            bluePawns.get(finalI).changeFinishStatus();
-                                            bluePawns.get(finalI).changeActivationStatus();
-                                            bluePawns.get(finalI).setActivationNr(1);
-                                            drawBox.setText("Pionek Zakonczyl Gre");
-                                        }
-
-                                    } else if (yellowPawns.get(k).getValue() + 30 == bluePawns.get(finalI).getValue()) {
-                                        board.getChildren().remove(yellowPawns.get(k).getPawnImage());
-                                        board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
-                                        yellowPawns.get(k).changeActivationStatus();
-                                        board.getChildren().remove(bluePawns.get(finalI).getPawnImage());
-                                        board.add(bluePawns.get(finalI).getPawnImage(),
-                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                MapOfMovements.getListOfMovements().get(j).getRow());
-
-                                        if (bluePawns.get(finalI).getValue() >= blueMaxField) {
-                                            bluePawns.get(finalI).changeFinishStatus();
-                                            bluePawns.get(finalI).changeActivationStatus();
-                                            bluePawns.get(finalI).setActivationNr(1);
-                                            drawBox.setText("Pionek Zakonczyl Gre");
-                                        }
-                                    }
-
-
-                                    else {
-                                        board.getChildren().remove(bluePawns.get(finalI).getPawnImage());
-                                        board.add(bluePawns.get(finalI).getPawnImage(),
-                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                MapOfMovements.getListOfMovements().get(j).getRow());
-                                        if (bluePawns.get(finalI).getValue() >= blueMaxField) {
-                                            bluePawns.get(finalI).changeFinishStatus();
-                                            bluePawns.get(finalI).changeActivationStatus();
-                                            bluePawns.get(finalI).setActivationNr(1);
-                                            drawBox.setText("Pionek Zakonczyl Gre");
-                                        }
                                     }
 
                                 }
@@ -584,11 +1166,6 @@ public class Chinczyk extends Application {
                         }
                     }
                 }
-
-                checkRed.setMinSize(650.00, 50.00);
-                checkBlue.setMinSize(650.00, 50.00);
-                checkBlue.setText("1: " + bluePawns.get(0).getCurrentField() + "2: " + bluePawns.get(1).getCurrentField()+ " 3: " + bluePawns.get(2).getCurrentField()+ " 4: " + bluePawns.get(3).getCurrentField());
-                checkRed.setText("1: " + redPawns.get(0).getCurrentField() + "2: " + redPawns.get(1).getCurrentField() + "3: " +redPawns.get(2).getCurrentField()+ "4: " + redPawns.get(3).getCurrentField());
 
 
             });
@@ -606,6 +1183,13 @@ public class Chinczyk extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        BackgroundSize mainbackgroundSize = new BackgroundSize(500,
+                500,
+                true,
+                true,
+                true,
+                false);
+
         BackgroundSize backgroundSize = new BackgroundSize(1024,
                 1024,
                 true,
@@ -613,13 +1197,14 @@ public class Chinczyk extends Application {
                 true,
                 false);
 
-        BackgroundImage backgroundImage = new BackgroundImage(imageback,
+        BackgroundImage backgroundImageBoard = new BackgroundImage(imagebackBoard,
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundPosition.CENTER,
                 backgroundSize);
 
-        Background background = new Background(backgroundImage);
+        Background background = new Background(backgroundImageBoard);
+
 
 
 
@@ -634,23 +1219,29 @@ public class Chinczyk extends Application {
                         drawBox.setMinSize(350.00, 50.00);
                         drawBox.setText("Gratulacje, Wylosowano " + dice);
                     } else  drawBox.setText("Wylosowano " + dice);
+
+
             checkRed.setMinSize(350.00, 50.00);
             checkBlue.setMinSize(350.00, 50.00);
-            checkBlue.setText("1: " + bluePawns.get(0).getValue() + "2: " + bluePawns.get(1).getValue()+ "3: " + bluePawns.get(2).getValue()+ "4: " + bluePawns.get(3).getValue());
-            checkRed.setText("1: " + redPawns.get(0).getValue() + "2: " + redPawns.get(1).getValue()+ "3: " +redPawns.get(2).getValue()+ "4: " + redPawns.get(3).getValue());
+            checkBlue.setText("1: " + MapOfFields.getListOfFields().get(bluePawns.get(0).getCurrentField()) + "2: " + MapOfFields.getListOfFields().get(bluePawns.get(1).getCurrentField())+ "3: " + MapOfFields.getListOfFields().get(bluePawns.get(2).getCurrentField())+ "4: " + MapOfFields.getListOfFields().get(bluePawns.get(3).getCurrentField()));
+            checkRed.setText("1: " +MapOfFields.getListOfFields().get(redPawns.get(0).getCurrentField()) + "2: " + MapOfFields.getListOfFields().get(redPawns.get(1).getCurrentField())+ "3: " +MapOfFields.getListOfFields().get(redPawns.get(2).getCurrentField())+ "4: " + MapOfFields.getListOfFields().get(redPawns.get(3).getCurrentField()));
                     });
 
 
 
 
-
         MapOfMovements.addListOfMovements();
-        MapOfBlueMovements.addListOfMovements();
+        MapOfFields.addListOfFields();
         board.add(drawbtn1,8,8);
         board.add(drawBox,8,7);
         board.add(checkBlue,3,9);
         board.add(checkRed,3,10);
+        buildMain(main);
+        buildSettings(settings);
         buildBoard(board);
+
+
+
         putRedPawnsOnBoard(board);
         putBluePawnsOnBoard(board);
         putGreenPawnsOnBoard(board);
@@ -658,16 +1249,64 @@ public class Chinczyk extends Application {
 
 
 
-
-
-
         board.setBackground(background);
+        Scene mainScene = new Scene(main, 300, 300, Color.BLACK);
+        Scene settingsScene = new Scene(settings, 200, 150, Color.BLACK);
+        Scene boardScene = new Scene(board, 1000, 1000, Color.BLACK);
 
-        Scene scene = new Scene(board, 1000, 1000, Color.BLACK);
+        Button newGameButton = new Button("Nowa Gra");
+        newGameButton.setOnAction(e -> primaryStage.setScene(settingsScene));
+        newGameButton.setAlignment(Pos.CENTER);
+        main.add(newGameButton,1,1);
+
+        Button loadButton = new Button("Wczytaj Gre");
+        loadButton.setOnAction(e -> primaryStage.setScene(boardScene));
+        loadButton.setAlignment(Pos.CENTER);
+        main.add(loadButton,1,2);
+
+        Button exitButton = new Button("Wyjscie");
+        exitButton.setOnAction(e -> System.exit(0));
+        exitButton.setAlignment(Pos.CENTER);
+        main.add(exitButton,1,3);
+
+
+        playersLabel.setMinSize(300,15);
+        settings.add(playersLabel,1,1);
+
+        Button oneButton = new Button("1");
+        oneButton.setOnAction(e -> {
+            players = 1;
+            primaryStage.setScene(boardScene);
+        });
+        settings.add(oneButton,1,2);
+
+        Button twoButton = new Button("2");
+        twoButton.setOnAction(e -> {
+            players = 2;
+            primaryStage.setScene(boardScene);
+        });
+        settings.add(twoButton,2,2);
+
+        Button threeButton = new Button("3");
+        threeButton.setOnAction(e -> {
+            players = 3;
+            primaryStage.setScene(boardScene);
+
+        });
+        settings.add(threeButton,1,3);
+
+        Button fourButton = new Button("4");
+        fourButton.setOnAction(e -> {
+            players = 4;
+            primaryStage.setScene(boardScene);
+
+        });
+        settings.add(fourButton,2,3);
+
 
         primaryStage.setTitle("Chinczyk");
         primaryStage.setResizable(false);
-        primaryStage.setScene(scene);
+        primaryStage.setScene(mainScene);
         primaryStage.show();
     }
 

@@ -14,7 +14,6 @@ public class YellowPawn {
     public YellowPawn(Field startPosition) {
         this.startPosition = startPosition;
         this.activate = false;
-        this.currentField = currentField;
         this.finished = false;
         redPawn.setFill(Color.LIGHTYELLOW);
     }

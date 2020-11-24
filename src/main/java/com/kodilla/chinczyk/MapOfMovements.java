@@ -195,16 +195,28 @@ public class MapOfMovements {
 
         listOfMovements.add(176, new Field(10,10));
         listOfMovements.add(177, new Field(10,9));
-        listOfMovements.add(178, new Field(9,9));
-        listOfMovements.add(179, new Field(9,10));
-        listOfMovements.add(180, new Field(10, 6));
-        listOfMovements.add(181, new Field(9, 6));
-        listOfMovements.add(182, new Field(8, 6));
-        listOfMovements.add(183, new Field(7, 6));
+        listOfMovements.add(178, new Field(9,10));
+        listOfMovements.add(179, new Field(9,9));
+
+        listOfMovements.add(180, new Field(0, 9));
+        listOfMovements.add(181, new Field(0, 10));
+        listOfMovements.add(182, new Field(1, 9));
+        listOfMovements.add(183, new Field(1, 10));
+
+        listOfMovements.add(184, new Field(10, 0));
+        listOfMovements.add(185, new Field(10, 1));
+        listOfMovements.add(186, new Field(9, 0));
+        listOfMovements.add(187, new Field(9, 1));
+
+        listOfMovements.add(188, new Field(10, 0));
+        listOfMovements.add(189, new Field(10, 1));
+        listOfMovements.add(190, new Field(9, 0));
+        listOfMovements.add(191, new Field(9, 1));
     }
 
     public static ArrayList<Field> getListOfMovements() {
         return listOfMovements;
     }
+
 
 }
