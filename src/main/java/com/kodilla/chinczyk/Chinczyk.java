@@ -10,6 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 
 public class Chinczyk extends Application {
@@ -84,6 +85,8 @@ public class Chinczyk extends Application {
     private Label drawBox = new Label();
     private Label checkRed = new Label();
     private Label checkBlue = new Label();
+    private Label checkYellow = new Label();
+    private Label checkGreen = new Label();
 
 
 
@@ -201,22 +204,13 @@ public class Chinczyk extends Application {
                                 greenPawns.get(finalI).setNewPosition(MapOfMovements.getListOfMovements().get(j));
                                 for (int k = 0 ; k < 4; k++) {
 
-                                    if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(greenPawns.get(finalI).getCurrentField())) {
-                                        if (k == 0) {
-                                            redPawns.get(k).setValue(176);
-                                        }
-                                        if (k == 1) {
-                                            redPawns.get(k).setValue(177);
-                                        }
-                                        if (k == 2) {
-                                            redPawns.get(k).setValue(178);
-                                        }
-                                        if (k == 3) {
-                                            redPawns.get(k).setValue(179);
-                                        }
+                                    if (Objects.equals(MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField()), MapOfFields.getListOfFields().get(greenPawns.get(finalI).getCurrentField()))) {
+
                                         board.getChildren().remove(redPawns.get(k).getPawnImage());
                                         board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
                                         redPawns.get(k).changeActivationStatus();
+                                        redPawns.get(k).setValue(0);
+                                        redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
 
                                         board.getChildren().remove(greenPawns.get(finalI).getPawnImage());
                                         board.add(greenPawns.get(finalI).getPawnImage(),
@@ -227,56 +221,32 @@ public class Chinczyk extends Application {
 
 
                                     } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(greenPawns.get(finalI).getCurrentField()) ) {
-                                        if (k == 0) {
-                                           yellowPawns.get(k).setValue(184);
-                                        }
-                                        if (k == 1) {
-                                            yellowPawns.get(k).setValue(185);
-                                        }
-                                        if (k == 2) {
-                                            yellowPawns.get(k).setValue(186);
-                                        }
-                                        if (k == 3) {
-                                            yellowPawns.get(k).setValue(187);
-                                        }
+
                                         board.getChildren().remove(yellowPawns.get(k).getPawnImage());
                                         board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
                                         yellowPawns.get(k).changeActivationStatus();
-                                        board.getChildren().remove(greenPawns.get(finalI).getPawnImage());
-                                        board.add(greenPawns.get(finalI).getPawnImage(),
-                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                MapOfMovements.getListOfMovements().get(j).getRow());
-                                        drawBox.setText("Zielony Pionek Zbity");
-
-
-                                    } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(greenPawns.get(finalI).getCurrentField()) ) {
-                                        if (k == 0) {
-                                            bluePawns.get(k).setValue(188);
-                                        }
-                                        if (k == 1) {
-                                            bluePawns.get(k).setValue(189);
-                                        }
-                                        if (k == 2) {
-                                            bluePawns.get(k).setValue(190);
-                                        }
-                                        if (k == 3) {
-                                            yellowPawns.get(k).setValue(191);
-                                        }
-                                        board.getChildren().remove(bluePawns.get(k).getPawnImage());
-                                        board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
-                                        bluePawns.get(k).changeActivationStatus();
+                                        yellowPawns.get(k).setValue(0);
+                                        yellowPawns.get(k).setNewPosition(yellowPawns.get(k).getStartPosition());
                                         board.getChildren().remove(greenPawns.get(finalI).getPawnImage());
                                         board.add(greenPawns.get(finalI).getPawnImage(),
                                                 MapOfMovements.getListOfMovements().get(j).getColumn(),
                                                 MapOfMovements.getListOfMovements().get(j).getRow());
                                         drawBox.setText("Zolty Pionek Zbity");
 
-                                    } else if (greenPawns.get(finalI).getValue() == greenMaxField) {
-                                        greenPawns.get(finalI).changeFinishStatus();
-                                        greenPawns.get(finalI).changeActivationStatus();
-                                        greenPawns.get(finalI).setActivationNr(1);
-                                        greenMaxField = greenMaxField - 1;
-                                        drawBox.setText("Pionek Zakonczyl Gre");
+
+                                    } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(greenPawns.get(finalI).getCurrentField()) ) {
+
+                                        board.getChildren().remove(bluePawns.get(k).getPawnImage());
+                                        board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
+                                        bluePawns.get(k).changeActivationStatus();
+                                        bluePawns.get(k).setValue(0);
+                                        bluePawns.get(k).setNewPosition(bluePawns.get(k).getStartPosition());
+                                        board.getChildren().remove(greenPawns.get(finalI).getPawnImage());
+                                        board.add(greenPawns.get(finalI).getPawnImage(),
+                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                MapOfMovements.getListOfMovements().get(j).getRow());
+                                        drawBox.setText("Niebieski Pionek Zbity");
+
                                     }
 
                                     else {
@@ -289,6 +259,17 @@ public class Chinczyk extends Application {
 
                                 }
                             }
+                        }
+                        for (int j = 172; j < 176 ; j++) {
+
+                            if (greenPawns.get(finalI).getValue() == greenMaxField) {
+                                greenPawns.get(finalI).changeFinishStatus();
+                                greenPawns.get(finalI).changeActivationStatus();
+                                greenPawns.get(finalI).setActivationNr(1);
+                                greenMaxField = greenMaxField - 1;
+                                drawBox.setText("Pionek Zakonczyl Gre");
+                            }
+
                         }
                     } else {
                         if (greenPawns.get(finalI).getActivationNr() == 0) {
@@ -320,22 +301,13 @@ public class Chinczyk extends Application {
                                 greenPawns.get(finalI).setNewPosition(MapOfMovements.getListOfMovements().get(j));
                                 for (int k = 0 ; k < 4; k++) {
 
-                                    if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(greenPawns.get(finalI).getCurrentField())) {
-                                        if (k == 0) {
-                                            redPawns.get(k).setValue(176);
-                                        }
-                                        if (k == 1) {
-                                            redPawns.get(k).setValue(177);
-                                        }
-                                        if (k == 2) {
-                                            redPawns.get(k).setValue(178);
-                                        }
-                                        if (k == 3) {
-                                            redPawns.get(k).setValue(179);
-                                        }
+                                    if (Objects.equals(MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField()), MapOfFields.getListOfFields().get(greenPawns.get(finalI).getCurrentField()))) {
+
                                         board.getChildren().remove(redPawns.get(k).getPawnImage());
                                         board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
                                         redPawns.get(k).changeActivationStatus();
+                                        redPawns.get(k).setValue(0);
+                                        redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
 
                                         board.getChildren().remove(greenPawns.get(finalI).getPawnImage());
                                         board.add(greenPawns.get(finalI).getPawnImage(),
@@ -346,51 +318,33 @@ public class Chinczyk extends Application {
 
 
                                     } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(greenPawns.get(finalI).getCurrentField()) ) {
-                                        if (k == 0) {
-                                            yellowPawns.get(k).setValue(184);
-                                        }
-                                        if (k == 1) {
-                                            yellowPawns.get(k).setValue(185);
-                                        }
-                                        if (k == 2) {
-                                            yellowPawns.get(k).setValue(186);
-                                        }
-                                        if (k == 3) {
-                                            yellowPawns.get(k).setValue(187);
-                                        }
+
                                         board.getChildren().remove(yellowPawns.get(k).getPawnImage());
                                         board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
                                         yellowPawns.get(k).changeActivationStatus();
-                                        board.getChildren().remove(greenPawns.get(finalI).getPawnImage());
-                                        board.add(greenPawns.get(finalI).getPawnImage(),
-                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                MapOfMovements.getListOfMovements().get(j).getRow());
-                                        drawBox.setText("Zielony Pionek Zbity");
-
-
-                                    } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(greenPawns.get(finalI).getCurrentField()) ) {
-                                        if (k == 0) {
-                                            bluePawns.get(k).setValue(188);
-                                        }
-                                        if (k == 1) {
-                                            bluePawns.get(k).setValue(189);
-                                        }
-                                        if (k == 2) {
-                                            bluePawns.get(k).setValue(190);
-                                        }
-                                        if (k == 3) {
-                                            yellowPawns.get(k).setValue(191);
-                                        }
-                                        board.getChildren().remove(bluePawns.get(k).getPawnImage());
-                                        board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
-                                        bluePawns.get(k).changeActivationStatus();
+                                        yellowPawns.get(k).setValue(0);
+                                        yellowPawns.get(k).setNewPosition(yellowPawns.get(k).getStartPosition());
                                         board.getChildren().remove(greenPawns.get(finalI).getPawnImage());
                                         board.add(greenPawns.get(finalI).getPawnImage(),
                                                 MapOfMovements.getListOfMovements().get(j).getColumn(),
                                                 MapOfMovements.getListOfMovements().get(j).getRow());
                                         drawBox.setText("Zolty Pionek Zbity");
 
-                                    } else if (greenPawns.get(finalI).getValue() == yellowMaxField) {
+
+                                    } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(greenPawns.get(finalI).getCurrentField()) ) {
+
+                                        board.getChildren().remove(bluePawns.get(k).getPawnImage());
+                                        board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
+                                        bluePawns.get(k).changeActivationStatus();
+                                        bluePawns.get(k).setValue(0);
+                                        bluePawns.get(k).setNewPosition(bluePawns.get(k).getStartPosition());
+                                        board.getChildren().remove(greenPawns.get(finalI).getPawnImage());
+                                        board.add(greenPawns.get(finalI).getPawnImage(),
+                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                MapOfMovements.getListOfMovements().get(j).getRow());
+                                        drawBox.setText("Niebieski Pionek Zbity");
+
+                                    } else if (greenPawns.get(finalI).getValue() == greenMaxField) {
                                         greenPawns.get(finalI).changeFinishStatus();
                                         greenPawns.get(finalI).changeActivationStatus();
                                         greenPawns.get(finalI).setActivationNr(1);
@@ -406,6 +360,17 @@ public class Chinczyk extends Application {
 
                                 }
                             }
+                        }
+                        for (int j = 172; j < 176 ; j++) {
+
+                            if (greenPawns.get(finalI).getValue() == greenMaxField) {
+                                greenPawns.get(finalI).changeFinishStatus();
+                                greenPawns.get(finalI).changeActivationStatus();
+                                greenPawns.get(finalI).setActivationNr(1);
+                                greenMaxField = greenMaxField - 1;
+                                drawBox.setText("Pionek Zakonczyl Gre");
+                            }
+
                         }
                     }
                 }
@@ -451,21 +416,12 @@ public class Chinczyk extends Application {
                                 for (int k = 0 ; k < 4; k++) {
 
                                     if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(yellowPawns.get(finalI).getCurrentField())) {
-                                        if (k == 0) {
-                                            redPawns.get(k).setValue(176);
-                                        }
-                                        if (k == 1) {
-                                            redPawns.get(k).setValue(177);
-                                        }
-                                        if (k == 2) {
-                                            redPawns.get(k).setValue(178);
-                                        }
-                                        if (k == 3) {
-                                            redPawns.get(k).setValue(179);
-                                        }
+
                                         board.getChildren().remove(redPawns.get(k).getPawnImage());
                                         board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
                                         redPawns.get(k).changeActivationStatus();
+                                        redPawns.get(k).setValue(0);
+                                        redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
 
                                         board.getChildren().remove(yellowPawns.get(finalI).getPawnImage());
                                         board.add(yellowPawns.get(finalI).getPawnImage(),
@@ -476,21 +432,12 @@ public class Chinczyk extends Application {
 
 
                                     } else if (MapOfFields.getListOfFields().get(greenPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(yellowPawns.get(finalI).getCurrentField()) ) {
-                                        if (k == 0) {
-                                            greenPawns.get(k).setValue(184);
-                                        }
-                                        if (k == 1) {
-                                            greenPawns.get(k).setValue(185);
-                                        }
-                                        if (k == 2) {
-                                            greenPawns.get(k).setValue(186);
-                                        }
-                                        if (k == 3) {
-                                            greenPawns.get(k).setValue(187);
-                                        }
+
                                         board.getChildren().remove(greenPawns.get(k).getPawnImage());
                                         board.add(greenPawns.get(k).getPawnImage(), greenPawns.get(k).getStartPosition().getColumn(), greenPawns.get(k).getStartPosition().getRow());
                                         greenPawns.get(k).changeActivationStatus();
+                                        greenPawns.get(k).setValue(0);
+                                        greenPawns.get(k).setNewPosition(greenPawns.get(k).getStartPosition());
                                         board.getChildren().remove(yellowPawns.get(finalI).getPawnImage());
                                         board.add(yellowPawns.get(finalI).getPawnImage(),
                                                 MapOfMovements.getListOfMovements().get(j).getColumn(),
@@ -499,33 +446,18 @@ public class Chinczyk extends Application {
 
 
                                     } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(yellowPawns.get(finalI).getCurrentField()) ) {
-                                        if (k == 0) {
-                                            bluePawns.get(k).setValue(188);
-                                        }
-                                        if (k == 1) {
-                                            bluePawns.get(k).setValue(189);
-                                        }
-                                        if (k == 2) {
-                                            bluePawns.get(k).setValue(190);
-                                        }
-                                        if (k == 3) {
-                                            yellowPawns.get(k).setValue(191);
-                                        }
+
                                         board.getChildren().remove(bluePawns.get(k).getPawnImage());
                                         board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
                                         bluePawns.get(k).changeActivationStatus();
+                                        bluePawns.get(k).setValue(0);
+                                        bluePawns.get(k).setNewPosition(bluePawns.get(k).getStartPosition());
                                         board.getChildren().remove(yellowPawns.get(finalI).getPawnImage());
                                         board.add(yellowPawns.get(finalI).getPawnImage(),
                                                 MapOfMovements.getListOfMovements().get(j).getColumn(),
                                                 MapOfMovements.getListOfMovements().get(j).getRow());
-                                        drawBox.setText("Zolty Pionek Zbity");
+                                        drawBox.setText("Niebieski Pionek Zbity");
 
-                                    } else if (yellowPawns.get(finalI).getValue() == yellowMaxField) {
-                                        yellowPawns.get(finalI).changeFinishStatus();
-                                        yellowPawns.get(finalI).changeActivationStatus();
-                                        yellowPawns.get(finalI).setActivationNr(1);
-                                        yellowMaxField = yellowMaxField - 1;
-                                        drawBox.setText("Pionek Zakonczyl Gre");
                                     }
 
                                     else {
@@ -538,6 +470,17 @@ public class Chinczyk extends Application {
 
                                 }
                             }
+                        }
+                        for (int j = 128; j < 132 ; j++) {
+
+                            if (yellowPawns.get(finalI).getValue() == yellowMaxField) {
+                                yellowPawns.get(finalI).changeFinishStatus();
+                                yellowPawns.get(finalI).changeActivationStatus();
+                                yellowPawns.get(finalI).setActivationNr(1);
+                                yellowMaxField = yellowMaxField - 1;
+                                drawBox.setText("Pionek Zakonczyl Gre");
+                            }
+
                         }
                     } else {
                         if (yellowPawns.get(finalI).getActivationNr() == 0) {
@@ -570,21 +513,12 @@ public class Chinczyk extends Application {
                                 for (int k = 0 ; k < 4; k++) {
 
                                     if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(yellowPawns.get(finalI).getCurrentField())) {
-                                        if (k == 0) {
-                                            redPawns.get(k).setValue(176);
-                                        }
-                                        if (k == 1) {
-                                            redPawns.get(k).setValue(177);
-                                        }
-                                        if (k == 2) {
-                                            redPawns.get(k).setValue(178);
-                                        }
-                                        if (k == 3) {
-                                            redPawns.get(k).setValue(179);
-                                        }
+
                                         board.getChildren().remove(redPawns.get(k).getPawnImage());
                                         board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
                                         redPawns.get(k).changeActivationStatus();
+                                        redPawns.get(k).setValue(0);
+                                        redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
 
                                         board.getChildren().remove(yellowPawns.get(finalI).getPawnImage());
                                         board.add(yellowPawns.get(finalI).getPawnImage(),
@@ -595,21 +529,13 @@ public class Chinczyk extends Application {
 
 
                                     } else if (MapOfFields.getListOfFields().get(greenPawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(yellowPawns.get(finalI).getCurrentField())) {
-                                        if (k == 0) {
-                                            greenPawns.get(k).setValue(184);
-                                        }
-                                        if (k == 1) {
-                                            greenPawns.get(k).setValue(185);
-                                        }
-                                        if (k == 2) {
-                                            greenPawns.get(k).setValue(186);
-                                        }
-                                        if (k == 3) {
-                                            greenPawns.get(k).setValue(187);
-                                        }
+
                                         board.getChildren().remove(greenPawns.get(k).getPawnImage());
                                         board.add(greenPawns.get(k).getPawnImage(), greenPawns.get(k).getStartPosition().getColumn(), greenPawns.get(k).getStartPosition().getRow());
                                         greenPawns.get(k).changeActivationStatus();
+                                        greenPawns.get(k).setValue(0);
+                                        greenPawns.get(k).setNewPosition(greenPawns.get(k).getStartPosition());
+
                                         board.getChildren().remove(yellowPawns.get(finalI).getPawnImage());
                                         board.add(yellowPawns.get(finalI).getPawnImage(),
                                                 MapOfMovements.getListOfMovements().get(j).getColumn(),
@@ -618,26 +544,17 @@ public class Chinczyk extends Application {
 
 
                                     } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(yellowPawns.get(finalI).getCurrentField())) {
-                                        if (k == 0) {
-                                            bluePawns.get(k).setValue(188);
-                                        }
-                                        if (k == 1) {
-                                            bluePawns.get(k).setValue(189);
-                                        }
-                                        if (k == 2) {
-                                            bluePawns.get(k).setValue(190);
-                                        }
-                                        if (k == 3) {
-                                            yellowPawns.get(k).setValue(191);
-                                        }
+
                                         board.getChildren().remove(bluePawns.get(k).getPawnImage());
                                         board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
                                         bluePawns.get(k).changeActivationStatus();
+                                        bluePawns.get(k).setValue(0);
+                                        bluePawns.get(k).setNewPosition(bluePawns.get(k).getStartPosition());
                                         board.getChildren().remove(yellowPawns.get(finalI).getPawnImage());
                                         board.add(yellowPawns.get(finalI).getPawnImage(),
                                                 MapOfMovements.getListOfMovements().get(j).getColumn(),
                                                 MapOfMovements.getListOfMovements().get(j).getRow());
-                                        drawBox.setText("Zolty Pionek Zbity");
+                                        drawBox.setText("Niebieski Pionek Zbity");
 
                                     } else if (yellowPawns.get(finalI).getValue() == yellowMaxField) {
                                         yellowPawns.get(finalI).changeFinishStatus();
@@ -655,6 +572,17 @@ public class Chinczyk extends Application {
 
                                 }
                             }
+                        }
+                        for (int j = 128; j < 132 ; j++) {
+
+                            if (yellowPawns.get(finalI).getValue() == yellowMaxField) {
+                                yellowPawns.get(finalI).changeFinishStatus();
+                                yellowPawns.get(finalI).changeActivationStatus();
+                                yellowPawns.get(finalI).setActivationNr(1);
+                                yellowMaxField = yellowMaxField - 1;
+                                drawBox.setText("Pionek Zakonczyl Gre");
+                            }
+
                         }
                     }
                 }
@@ -704,21 +632,12 @@ public class Chinczyk extends Application {
                                 for (int k = 0 ; k < 4; k++) {
 
                                     if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(redPawns.get(finalI).getCurrentField())) {
-                                        if (k == 0) {
-                                            bluePawns.get(k).setValue(180);
-                                        }
-                                        if (k == 1) {
-                                            bluePawns.get(k).setValue(181);
-                                        }
-                                        if (k == 2) {
-                                            bluePawns.get(k).setValue(182);
-                                        }
-                                        if (k == 3) {
-                                            bluePawns.get(k).setValue(183);
-                                        }
+
                                         board.getChildren().remove(bluePawns.get(k).getPawnImage());
                                         board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
                                         bluePawns.get(k).changeActivationStatus();
+                                        bluePawns.get(k).setValue(0);
+                                        bluePawns.get(k).setNewPosition(bluePawns.get(k).getStartPosition());
 
                                         board.getChildren().remove(redPawns.get(finalI).getPawnImage());
                                         board.add(redPawns.get(finalI).getPawnImage(),
@@ -729,21 +648,12 @@ public class Chinczyk extends Application {
 
 
                                     } else if (MapOfFields.getListOfFields().get(greenPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(redPawns.get(finalI).getCurrentField()) ) {
-                                        if (k == 0) {
-                                            greenPawns.get(k).setValue(184);
-                                        }
-                                        if (k == 1) {
-                                            greenPawns.get(k).setValue(185);
-                                        }
-                                        if (k == 2) {
-                                            greenPawns.get(k).setValue(186);
-                                        }
-                                        if (k == 3) {
-                                            greenPawns.get(k).setValue(187);
-                                        }
+
                                         board.getChildren().remove(greenPawns.get(k).getPawnImage());
                                         board.add(greenPawns.get(k).getPawnImage(), greenPawns.get(k).getStartPosition().getColumn(), greenPawns.get(k).getStartPosition().getRow());
                                         greenPawns.get(k).changeActivationStatus();
+                                        greenPawns.get(k).setValue(0);
+                                        greenPawns.get(k).setNewPosition(greenPawns.get(k).getStartPosition());
 
                                         board.getChildren().remove(redPawns.get(finalI).getPawnImage());
                                         board.add(redPawns.get(finalI).getPawnImage(),
@@ -753,33 +663,19 @@ public class Chinczyk extends Application {
 
 
                                     } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(redPawns.get(finalI).getCurrentField())  ) {
-                                        if (k == 0) {
-                                            yellowPawns.get(k).setValue(188);
-                                        }
-                                        if (k == 1) {
-                                            yellowPawns.get(k).setValue(189);
-                                        }
-                                        if (k == 2) {
-                                            yellowPawns.get(k).setValue(190);
-                                        }
-                                        if (k == 3) {
-                                            yellowPawns.get(k).setValue(191);
-                                        }
+
                                         board.getChildren().remove(yellowPawns.get(k).getPawnImage());
                                         board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
                                         yellowPawns.get(k).changeActivationStatus();
+                                        yellowPawns.get(k).setValue(0);
+                                        yellowPawns.get(k).setNewPosition(yellowPawns.get(k).getStartPosition());
+
                                         board.getChildren().remove(redPawns.get(finalI).getPawnImage());
                                         board.add(redPawns.get(finalI).getPawnImage(),
                                                 MapOfMovements.getListOfMovements().get(j).getColumn(),
                                                 MapOfMovements.getListOfMovements().get(j).getRow());
                                         drawBox.setText("Zolty Pionek Zbity");
 
-                                    }else if (redPawns.get(finalI).getValue() == redMaxField) {
-                                       redPawns.get(finalI).changeFinishStatus();
-                                       redPawns.get(finalI).changeActivationStatus();
-                                       redPawns.get(finalI).setActivationNr(1);
-                                       redMaxField = redMaxField - 1;
-                                        drawBox.setText("Pionek Zakonczyl Gre");
                                     }
 
                                     else {
@@ -792,6 +688,17 @@ public class Chinczyk extends Application {
 
                                 }
                             }
+                        }
+                        for (int j = 40; j < 44 ; j++) {
+
+                            if (redPawns.get(finalI).getValue() == redMaxField) {
+                                redPawns.get(finalI).changeFinishStatus();
+                                redPawns.get(finalI).changeActivationStatus();
+                                redPawns.get(finalI).setActivationNr(1);
+                                redMaxField = redMaxField - 1;
+                                drawBox.setText("Pionek Zakonczyl Gre");
+                            }
+
                         }
                     } else {
                         if (redPawns.get(finalI).getActivationNr() == 0) {
@@ -824,21 +731,12 @@ public class Chinczyk extends Application {
                                 for (int k = 0 ; k < 4; k++) {
 
                                     if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(redPawns.get(finalI).getCurrentField()) ) {
-                                        if (k == 0) {
-                                            bluePawns.get(k).setValue(180);
-                                        }
-                                        if (k == 1) {
-                                            bluePawns.get(k).setValue(181);
-                                        }
-                                        if (k == 2) {
-                                            bluePawns.get(k).setValue(182);
-                                        }
-                                        if (k == 3) {
-                                            bluePawns.get(k).setValue(183);
-                                        }
+
                                         board.getChildren().remove(bluePawns.get(k).getPawnImage());
                                         board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
                                         bluePawns.get(k).changeActivationStatus();
+                                        bluePawns.get(k).setValue(0);
+                                        bluePawns.get(k).setNewPosition(bluePawns.get(k).getStartPosition());
 
                                         board.getChildren().remove(redPawns.get(finalI).getPawnImage());
                                         board.add(redPawns.get(finalI).getPawnImage(),
@@ -849,21 +747,12 @@ public class Chinczyk extends Application {
 
 
                                     } else if (MapOfFields.getListOfFields().get(greenPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(redPawns.get(finalI).getCurrentField()) ) {
-                                        if (k == 0) {
-                                            greenPawns.get(k).setValue(184);
-                                        }
-                                        if (k == 1) {
-                                            greenPawns.get(k).setValue(185);
-                                        }
-                                        if (k == 2) {
-                                            greenPawns.get(k).setValue(186);
-                                        }
-                                        if (k == 3) {
-                                            greenPawns.get(k).setValue(187);
-                                        }
+
                                         board.getChildren().remove(greenPawns.get(k).getPawnImage());
                                         board.add(greenPawns.get(k).getPawnImage(), greenPawns.get(k).getStartPosition().getColumn(), greenPawns.get(k).getStartPosition().getRow());
                                         greenPawns.get(k).changeActivationStatus();
+                                        greenPawns.get(k).setValue(0);
+                                        greenPawns.get(k).setNewPosition(greenPawns.get(k).getStartPosition());
 
                                         board.getChildren().remove(redPawns.get(finalI).getPawnImage());
                                         board.add(redPawns.get(finalI).getPawnImage(),
@@ -873,34 +762,19 @@ public class Chinczyk extends Application {
 
 
                                     } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(redPawns.get(finalI).getCurrentField()) ) {
-                                        if (k == 0) {
-                                            yellowPawns.get(k).setValue(188);
-                                        }
-                                        if (k == 1) {
-                                            yellowPawns.get(k).setValue(189);
-                                        }
-                                        if (k == 2) {
-                                            yellowPawns.get(k).setValue(190);
-                                        }
-                                        if (k == 3) {
-                                            yellowPawns.get(k).setValue(191);
-                                        }
+
                                         board.getChildren().remove(yellowPawns.get(k).getPawnImage());
                                         board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
                                         yellowPawns.get(k).changeActivationStatus();
+                                        yellowPawns.get(k).setValue(0);
+                                        yellowPawns.get(k).setNewPosition(yellowPawns.get(k).getStartPosition());
                                         board.getChildren().remove(redPawns.get(finalI).getPawnImage());
                                         board.add(redPawns.get(finalI).getPawnImage(),
                                                 MapOfMovements.getListOfMovements().get(j).getColumn(),
                                                 MapOfMovements.getListOfMovements().get(j).getRow());
                                         drawBox.setText("Zolty Pionek Zbity");
 
-                                    } else if (redPawns.get(finalI).getValue() == redMaxField) {
-                                        redPawns.get(finalI).changeFinishStatus();
-                                        redPawns.get(finalI).changeActivationStatus();
-                                        redPawns.get(finalI).setActivationNr(1);
-                                        redMaxField = redMaxField - 1;
-                                        drawBox.setText("Pionek Zakonczyl Gre");
-                                    }  else {
+                                    }   else {
                                         board.getChildren().remove(redPawns.get(finalI).getPawnImage());
                                         board.add(redPawns.get(finalI).getPawnImage(),
                                                 MapOfMovements.getListOfMovements().get(j).getColumn(),
@@ -910,6 +784,17 @@ public class Chinczyk extends Application {
 
                                 }
                             }
+                        }
+                        for (int j = 40; j < 44 ; j++) {
+
+                            if (redPawns.get(finalI).getValue() == redMaxField) {
+                                redPawns.get(finalI).changeFinishStatus();
+                                redPawns.get(finalI).changeActivationStatus();
+                                redPawns.get(finalI).setActivationNr(1);
+                                redMaxField = redMaxField - 1;
+                                drawBox.setText("Pionek Zakonczyl Gre");
+                            }
+
                         }
                     }
                 }
@@ -957,21 +842,13 @@ public class Chinczyk extends Application {
                                 for (int k = 0 ; k < 4; k++) {
 
                                     if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(bluePawns.get(finalI).getCurrentField())) {
-                                        if (k == 0) {
-                                            redPawns.get(k).setValue(176);
-                                        }
-                                        if (k == 1) {
-                                            redPawns.get(k).setValue(177);
-                                        }
-                                        if (k == 2) {
-                                            redPawns.get(k).setValue(178);
-                                        }
-                                        if (k == 3) {
-                                            redPawns.get(k).setValue(179);
-                                        }
+
                                         board.getChildren().remove(redPawns.get(k).getPawnImage());
                                         board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
                                         redPawns.get(k).changeActivationStatus();
+                                        redPawns.get(k).setValue(0);
+                                        redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
+
 
                                         board.getChildren().remove(bluePawns.get(finalI).getPawnImage());
                                         board.add(bluePawns.get(finalI).getPawnImage(),
@@ -982,21 +859,12 @@ public class Chinczyk extends Application {
 
 
                                     } else if (MapOfFields.getListOfFields().get(greenPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalI).getCurrentField())) {
-                                        if (k == 0) {
-                                            greenPawns.get(k).setValue(184);
-                                        }
-                                        if (k == 1) {
-                                            greenPawns.get(k).setValue(185);
-                                        }
-                                        if (k == 2) {
-                                            greenPawns.get(k).setValue(186);
-                                        }
-                                        if (k == 3) {
-                                            greenPawns.get(k).setValue(187);
-                                        }
+
                                         board.getChildren().remove(greenPawns.get(k).getPawnImage());
                                         board.add(greenPawns.get(k).getPawnImage(), greenPawns.get(k).getStartPosition().getColumn(), greenPawns.get(k).getStartPosition().getRow());
                                         greenPawns.get(k).changeActivationStatus();
+                                        greenPawns.get(k).setValue(0);
+                                        greenPawns.get(k).setNewPosition(greenPawns.get(k).getStartPosition());
                                         board.getChildren().remove(bluePawns.get(finalI).getPawnImage());
                                         board.add(bluePawns.get(finalI).getPawnImage(),
                                                 MapOfMovements.getListOfMovements().get(j).getColumn(),
@@ -1005,37 +873,19 @@ public class Chinczyk extends Application {
 
 
                                     } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalI).getCurrentField())) {
-                                        if (k == 0) {
-                                            yellowPawns.get(k).setValue(188);
-                                        }
-                                        if (k == 1) {
-                                            yellowPawns.get(k).setValue(189);
-                                        }
-                                        if (k == 2) {
-                                            yellowPawns.get(k).setValue(190);
-                                        }
-                                        if (k == 3) {
-                                            yellowPawns.get(k).setValue(191);
-                                        }
+
                                         board.getChildren().remove(yellowPawns.get(k).getPawnImage());
                                         board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
                                         yellowPawns.get(k).changeActivationStatus();
+                                        yellowPawns.get(k).setValue(0);
+                                        yellowPawns.get(k).setNewPosition(yellowPawns.get(k).getStartPosition());
                                         board.getChildren().remove(bluePawns.get(finalI).getPawnImage());
                                         board.add(bluePawns.get(finalI).getPawnImage(),
                                                 MapOfMovements.getListOfMovements().get(j).getColumn(),
                                                 MapOfMovements.getListOfMovements().get(j).getRow());
                                         drawBox.setText("Zolty Pionek Zbity");
 
-                                    } else if (bluePawns.get(finalI).getCurrentField() == MapOfMovements.getListOfMovements().get(bluePawns.get(finalI).getValue() + dice)) {
-                                        bluePawns.get(finalI).changeFinishStatus();
-                                        bluePawns.get(finalI).changeActivationStatus();
-                                        bluePawns.get(finalI).setActivationNr(1);
-                                        blueMaxField = blueMaxField - 1;
-                                        drawBox.setText("Pionek Zakonczyl Gre");
-                                    }
-
-
-                                    else {
+                                    } else {
                                         board.getChildren().remove(bluePawns.get(finalI).getPawnImage());
                                         board.add(bluePawns.get(finalI).getPawnImage(),
                                                 MapOfMovements.getListOfMovements().get(j).getColumn(),
@@ -1045,6 +895,23 @@ public class Chinczyk extends Application {
 
                                 }
                             }
+
+
+
+
+
+                        }
+
+                        for (int j = 84; j < 88 ; j++) {
+
+                            if (bluePawns.get(finalI).getValue() == blueMaxField) {
+                                bluePawns.get(finalI).changeFinishStatus();
+                                bluePawns.get(finalI).changeActivationStatus();
+                                bluePawns.get(finalI).setActivationNr(1);
+                                blueMaxField = blueMaxField - 1;
+                                drawBox.setText("Pionek Zakonczyl Gre");
+                            }
+
                         }
                     } else {
                         if (bluePawns.get(finalI).getActivationNr() == 0) {
@@ -1078,22 +945,12 @@ public class Chinczyk extends Application {
                                     for (int k = 0 ; k < 4; k++) {
 
                                         if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalI).getCurrentField())) {
-                                            if (k == 0) {
-                                                redPawns.get(k).setValue(176);
-                                            }
-                                            if (k == 1) {
-                                                redPawns.get(k).setValue(177);
-                                            }
-                                            if (k == 2) {
-                                                redPawns.get(k).setValue(178);
-                                            }
-                                            if (k == 3) {
-                                                redPawns.get(k).setValue(179);
-                                            }
+
                                             board.getChildren().remove(redPawns.get(k).getPawnImage());
                                             board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
                                             redPawns.get(k).changeActivationStatus();
-
+                                            redPawns.get(k).setValue(0);
+                                            redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
                                             board.getChildren().remove(bluePawns.get(finalI).getPawnImage());
                                             board.add(bluePawns.get(finalI).getPawnImage(),
                                                     MapOfMovements.getListOfMovements().get(j).getColumn(),
@@ -1103,21 +960,12 @@ public class Chinczyk extends Application {
 
 
                                         } else if (MapOfFields.getListOfFields().get(greenPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalI).getCurrentField())) {
-                                            if (k == 0) {
-                                                greenPawns.get(k).setValue(184);
-                                            }
-                                            if (k == 1) {
-                                                greenPawns.get(k).setValue(185);
-                                            }
-                                            if (k == 2) {
-                                                greenPawns.get(k).setValue(186);
-                                            }
-                                            if (k == 3) {
-                                                greenPawns.get(k).setValue(187);
-                                            }
+
                                             board.getChildren().remove(greenPawns.get(k).getPawnImage());
                                             board.add(greenPawns.get(k).getPawnImage(), greenPawns.get(k).getStartPosition().getColumn(), greenPawns.get(k).getStartPosition().getRow());
                                             greenPawns.get(k).changeActivationStatus();
+                                            greenPawns.get(k).setValue(0);
+                                            greenPawns.get(k).setNewPosition(greenPawns.get(k).getStartPosition());
                                             board.getChildren().remove(bluePawns.get(finalI).getPawnImage());
                                             board.add(bluePawns.get(finalI).getPawnImage(),
                                                     MapOfMovements.getListOfMovements().get(j).getColumn(),
@@ -1126,34 +974,19 @@ public class Chinczyk extends Application {
 
 
                                         } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalI).getCurrentField())) {
-                                            if (k == 0) {
-                                                yellowPawns.get(k).setValue(188);
-                                            }
-                                            if (k == 1) {
-                                                yellowPawns.get(k).setValue(189);
-                                            }
-                                            if (k == 2) {
-                                                yellowPawns.get(k).setValue(190);
-                                            }
-                                            if (k == 3) {
-                                                yellowPawns.get(k).setValue(191);
-                                            }
+
                                             board.getChildren().remove(yellowPawns.get(k).getPawnImage());
                                             board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
                                             yellowPawns.get(k).changeActivationStatus();
+                                            yellowPawns.get(k).setValue(0);
+                                            yellowPawns.get(k).setNewPosition(yellowPawns.get(k).getStartPosition());
                                             board.getChildren().remove(bluePawns.get(finalI).getPawnImage());
                                             board.add(bluePawns.get(finalI).getPawnImage(),
                                                     MapOfMovements.getListOfMovements().get(j).getColumn(),
                                                     MapOfMovements.getListOfMovements().get(j).getRow());
                                             drawBox.setText("Zolty Pionek Zbity");
 
-                                        }   else if (bluePawns.get(finalI).getValue() == blueMaxField) {
-                                        bluePawns.get(finalI).changeFinishStatus();
-                                        bluePawns.get(finalI).changeActivationStatus();
-                                        bluePawns.get(finalI).setActivationNr(1);
-                                        blueMaxField = blueMaxField - 1;
-                                        drawBox.setText("Pionek Zakonczyl Gre");
-                                    }  else {
+                                        }     else {
                                         board.getChildren().remove(bluePawns.get(finalI).getPawnImage());
                                         board.add(bluePawns.get(finalI).getPawnImage(),
                                                 MapOfMovements.getListOfMovements().get(j).getColumn(),
@@ -1164,6 +997,24 @@ public class Chinczyk extends Application {
                                 }
                             }
                         }
+
+                        for (int j = 84; j < 88 ; j++) {
+
+                            if (bluePawns.get(finalI).getValue() == blueMaxField) {
+                                bluePawns.get(finalI).changeFinishStatus();
+                                bluePawns.get(finalI).changeActivationStatus();
+                                bluePawns.get(finalI).setActivationNr(1);
+                                blueMaxField = blueMaxField - 1;
+                                drawBox.setText("Pionek Zakonczyl Gre");
+                            }
+
+                        }
+
+
+
+
+
+
                     }
                 }
 
@@ -1223,8 +1074,12 @@ public class Chinczyk extends Application {
 
             checkRed.setMinSize(350.00, 50.00);
             checkBlue.setMinSize(350.00, 50.00);
-            checkBlue.setText("1: " + MapOfFields.getListOfFields().get(bluePawns.get(0).getCurrentField()) + "2: " + MapOfFields.getListOfFields().get(bluePawns.get(1).getCurrentField())+ "3: " + MapOfFields.getListOfFields().get(bluePawns.get(2).getCurrentField())+ "4: " + MapOfFields.getListOfFields().get(bluePawns.get(3).getCurrentField()));
-            checkRed.setText("1: " +MapOfFields.getListOfFields().get(redPawns.get(0).getCurrentField()) + "2: " + MapOfFields.getListOfFields().get(redPawns.get(1).getCurrentField())+ "3: " +MapOfFields.getListOfFields().get(redPawns.get(2).getCurrentField())+ "4: " + MapOfFields.getListOfFields().get(redPawns.get(3).getCurrentField()));
+            checkGreen.setMinSize(350.00, 50.00);
+            checkYellow.setMinSize(350.00, 50.00);
+            checkBlue.setText("Blue 1: " + bluePawns.get(0).getValue() + "2: " + bluePawns.get(1).getValue() + "3: " + bluePawns.get(2).getValue() + "4: " + bluePawns.get(3).getValue());
+            checkRed.setText("Red 1: " + redPawns.get(0).getValue() + "2: " + redPawns.get(1).getValue() + "3: " +redPawns.get(2).getValue()+ "4: " + redPawns.get(3).getValue());
+            checkYellow.setText("Yellow 1: " + yellowPawns.get(0).getValue() + "2: " + yellowPawns.get(1).getValue() + "3: " + yellowPawns.get(2).getValue()+ "4: " + yellowPawns.get(3).getValue());
+            checkGreen.setText(" Green 1: " + greenPawns.get(0).getValue() + "2: " + greenPawns.get(1).getValue() + "3: " + greenPawns.get(2).getValue()+ "4: " + greenPawns.get(3).getValue());
                     });
 
 
@@ -1234,6 +1089,8 @@ public class Chinczyk extends Application {
         MapOfFields.addListOfFields();
         board.add(drawbtn1,8,8);
         board.add(drawBox,8,7);
+        board.add(checkYellow,3,7);
+        board.add(checkGreen,3,8);
         board.add(checkBlue,3,9);
         board.add(checkRed,3,10);
         buildMain(main);

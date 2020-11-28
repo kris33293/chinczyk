@@ -5,7 +5,8 @@ import javafx.scene.shape.Circle;
 
 public class YellowPawn {
     private Field currentField,startPosition;
-    private int value,activationStatus = 0;
+    private int value = 88;
+    private int  activationStatus = 0;
     private boolean activate,finished;
     Circle redPawn = new Circle(10.0f, 10.0f, 40.f );
 
