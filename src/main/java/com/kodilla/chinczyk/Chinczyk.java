@@ -181,6 +181,7 @@ public class Chinczyk extends Application {
             int finalI = 0;
             turn = 3;
             dice = rollTheDice();
+            drawBox.setText("Wylosowano " + dice);
             if (dice == 6) {
 
                 if (bluePawns.get(finalI).getActivationStatus()) {
@@ -1026,6 +1027,7 @@ public class Chinczyk extends Application {
                 int finalI = 0;
                 turn = 4;
                 dice = rollTheDice();
+                drawBox.setText("Wylosowano " + dice);
                 if (dice == 6) {
 
                     if (yellowPawns.get(finalI).getActivationStatus()) {
@@ -1049,7 +1051,7 @@ public class Chinczyk extends Application {
                                                     // czwarty pionek
                                                     int finalIV = 3;
                                                     turn = 4;
-                                                    dice = rollTheDice();
+
                                                     if (dice == 6) {
 
                                                         if (yellowPawns.get(finalIV).getActivationStatus()) {
@@ -1211,13 +1213,7 @@ public class Chinczyk extends Application {
                                                                                     MapOfMovements.getListOfMovements().get(j).getRow());
                                                                             drawBox.setText("Niebieski Pionek Zbity");
 
-                                                                        } else if (yellowPawns.get(finalIV).getValue() == yellowMaxField) {
-                                                                            yellowPawns.get(finalIV).changeFinishStatus();
-                                                                            yellowPawns.get(finalIV).changeActivationStatus();
-                                                                            yellowPawns.get(finalIV).setActivationNr(1);
-                                                                            yellowMaxField = yellowMaxField - 1;
-                                                                            drawBox.setText("Pionek Zakonczyl Gre");
-                                                                        }  else {
+                                                                        }   else {
                                                                             board.getChildren().remove(yellowPawns.get(finalIV).getPawnImage());
                                                                             board.add(yellowPawns.get(finalIV).getPawnImage(),
                                                                                     MapOfMovements.getListOfMovements().get(j).getColumn(),
@@ -1406,12 +1402,6 @@ public class Chinczyk extends Application {
                                                                         MapOfMovements.getListOfMovements().get(j).getRow());
                                                                 drawBox.setText("Niebieski Pionek Zbity");
 
-                                                            } else if (yellowPawns.get(finalIII).getValue() == yellowMaxField) {
-                                                                yellowPawns.get(finalIII).changeFinishStatus();
-                                                                yellowPawns.get(finalIII).changeActivationStatus();
-                                                                yellowPawns.get(finalIII).setActivationNr(1);
-                                                                yellowMaxField = yellowMaxField - 1;
-                                                                drawBox.setText("Pionek Zakonczyl Gre");
                                                             }  else {
                                                                 board.getChildren().remove(yellowPawns.get(finalIII).getPawnImage());
                                                                 board.add(yellowPawns.get(finalIII).getPawnImage(),
@@ -1601,12 +1591,6 @@ public class Chinczyk extends Application {
                                                             MapOfMovements.getListOfMovements().get(j).getRow());
                                                     drawBox.setText("Niebieski Pionek Zbity");
 
-                                                } else if (yellowPawns.get(finalII).getValue() == yellowMaxField) {
-                                                    yellowPawns.get(finalII).changeFinishStatus();
-                                                    yellowPawns.get(finalII).changeActivationStatus();
-                                                    yellowPawns.get(finalII).setActivationNr(1);
-                                                    yellowMaxField = yellowMaxField - 1;
-                                                    drawBox.setText("Pionek Zakonczyl Gre");
                                                 }  else {
                                                     board.getChildren().remove(yellowPawns.get(finalII).getPawnImage());
                                                     board.add(yellowPawns.get(finalII).getPawnImage(),
@@ -1798,12 +1782,6 @@ public class Chinczyk extends Application {
                                                 MapOfMovements.getListOfMovements().get(j).getRow());
                                         drawBox.setText("Niebieski Pionek Zbity");
 
-                                    } else if (yellowPawns.get(finalI).getValue() == yellowMaxField) {
-                                        yellowPawns.get(finalI).changeFinishStatus();
-                                        yellowPawns.get(finalI).changeActivationStatus();
-                                        yellowPawns.get(finalI).setActivationNr(1);
-                                        yellowMaxField = yellowMaxField - 1;
-                                        drawBox.setText("Pionek Zakonczyl Gre");
                                     }  else {
                                         board.getChildren().remove(yellowPawns.get(finalI).getPawnImage());
                                         board.add(yellowPawns.get(finalI).getPawnImage(),
@@ -1861,6 +1839,7 @@ public class Chinczyk extends Application {
                 int finalI = 0;
                 turn = 1;
                 dice = rollTheDice();
+                drawBox.setText("Wylosowano " + dice);
                 if (dice == 6) {
 
                     if (greenPawns.get(finalI).getActivationStatus()) {
@@ -2560,7 +2539,7 @@ public class Chinczyk extends Application {
                             int finalII = 1;
 
 
-                            if (dice == 6) {
+
 
                                 if (greenPawns.get(finalII).getActivationStatus()) {
                                     if (greenPawns.get(finalII).getActivationNr() == 1) {
@@ -3055,7 +3034,7 @@ public class Chinczyk extends Application {
 
                                 }
 
-                            } else if (dice != 6) {
+                    if (dice != 6) {
 
                                 if (greenPawns.get(finalII).getActivationStatus()) {
 
@@ -4239,6 +4218,7 @@ public class Chinczyk extends Application {
             }
 
             board.getChildren().remove(nextTurn);
+
                 });
 
 
