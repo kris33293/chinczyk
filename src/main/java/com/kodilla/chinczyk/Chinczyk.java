@@ -178,750 +178,25 @@ public class Chinczyk extends Application {
 
 
         drawBtnBlue.setOnMouseClicked(g -> {
-            int finalI = 0;
+
             turn = 3;
             dice = rollTheDice();
             drawBox.setText("Wylosowano " + dice);
+
             if (dice == 6) {
-
+                int finalI = 0;
                 if (bluePawns.get(finalI).getActivationStatus()) {
-                    if (bluePawns.get(finalI).getActivationNr() == 1){
-                        //start drugiego pionka
-                        int finalII = 1;
+                    //tutaj wszystko to co gdy pionek jest aktywny i wypadnie 6
 
+                    // sprawdzenie mozliwosci ruchu
+                    if (dice <= blueMaxField - bluePawns.get(finalI).getValue()) {
+                        bluePawns.get(finalI).setValue(bluePawns.get(finalI).getValue() + dice);
 
-                        if (dice == 6) {
-
-                            if (bluePawns.get(finalII).getActivationStatus()) {
-                                if (bluePawns.get(finalII).getActivationNr() == 1){
-                                    // start trzeciego pionka
-                                    int finalIII = 2;
-
-
-                                    if (dice == 6) {
-
-                                        if (bluePawns.get(finalIII).getActivationStatus()) {
-                                            if (bluePawns.get(finalIII).getActivationNr() == 1){
-                                                // start czwartego pionka
-                                                int finalIV = 3;
-
-
-                                                if (dice == 6) {
-
-                                                    if (bluePawns.get(finalIV).getActivationStatus()) {
-                                                        if (bluePawns.get(finalIV).getActivationNr() == 1){
-                                                            drawBox.setText("Gracz Zakonczyl Gre");
-                                                        }
-
-                                                        if (bluePawns.get(finalIV).getActivationNr() == 0) {
-                                                            if (dice <= blueMaxField - bluePawns.get(finalIV).getValue()) {
-                                                                bluePawns.get(finalIV).setValue(bluePawns.get(finalIV).getValue() + dice);
-
-                                                            }  else if (dice > blueMaxField - bluePawns.get(finalIV).getValue()) {
-                                                                drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
-                                                            }
-                                                        }
-                                                        for (int j = 44; j < 88 ; j++) {
-                                                            if (bluePawns.get(finalIV).getValue() == j) {
-                                                                bluePawns.get(finalIV).setNewPosition(MapOfMovements.getListOfMovements().get(j));
-                                                                for (int k = 0 ; k < 4; k++) {
-
-                                                                    if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(bluePawns.get(finalIV).getCurrentField())) {
-
-                                                                        board.getChildren().remove(redPawns.get(k).getPawnImage());
-                                                                        board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
-                                                                        redPawns.get(k).changeActivationStatus();
-                                                                        redPawns.get(k).setValue(0);
-                                                                        redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
-
-
-                                                                        board.getChildren().remove(bluePawns.get(finalIV).getPawnImage());
-                                                                        board.add(bluePawns.get(finalIV).getPawnImage(),
-                                                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                                MapOfMovements.getListOfMovements().get(j).getRow());
-                                                                        drawBox.setText("Czerwony Pionek Zbity");
-
-
-
-                                                                    } else if (MapOfFields.getListOfFields().get(greenPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalIV).getCurrentField())) {
-
-                                                                        board.getChildren().remove(greenPawns.get(k).getPawnImage());
-                                                                        board.add(greenPawns.get(k).getPawnImage(), greenPawns.get(k).getStartPosition().getColumn(), greenPawns.get(k).getStartPosition().getRow());
-                                                                        greenPawns.get(k).changeActivationStatus();
-                                                                        greenPawns.get(k).setValue(0);
-                                                                        greenPawns.get(k).setNewPosition(greenPawns.get(k).getStartPosition());
-                                                                        board.getChildren().remove(bluePawns.get(finalIV).getPawnImage());
-                                                                        board.add(bluePawns.get(finalIV).getPawnImage(),
-                                                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                                MapOfMovements.getListOfMovements().get(j).getRow());
-                                                                        drawBox.setText("Zielony Pionek Zbity");
-
-
-                                                                    } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalIV).getCurrentField())) {
-
-                                                                        board.getChildren().remove(yellowPawns.get(k).getPawnImage());
-                                                                        board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
-                                                                        yellowPawns.get(k).changeActivationStatus();
-                                                                        yellowPawns.get(k).setValue(0);
-                                                                        yellowPawns.get(k).setNewPosition(yellowPawns.get(k).getStartPosition());
-                                                                        board.getChildren().remove(bluePawns.get(finalIV).getPawnImage());
-                                                                        board.add(bluePawns.get(finalIV).getPawnImage(),
-                                                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                                MapOfMovements.getListOfMovements().get(j).getRow());
-                                                                        drawBox.setText("Zolty Pionek Zbity");
-
-                                                                    } else {
-                                                                        board.getChildren().remove(bluePawns.get(finalIV).getPawnImage());
-                                                                        board.add(bluePawns.get(finalIV).getPawnImage(),
-                                                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                                MapOfMovements.getListOfMovements().get(j).getRow());
-
-                                                                    }
-
-                                                                }
-                                                            }
-
-
-
-
-
-                                                        }
-
-                                                        for (int j = 84; j < 88 ; j++) {
-
-                                                            if (bluePawns.get(finalIV).getValue() == blueMaxField) {
-                                                                bluePawns.get(finalIV).changeFinishStatus();
-                                                                bluePawns.get(finalIV).changeActivationStatus();
-                                                                bluePawns.get(finalIV).setActivationNr(1);
-                                                                blueMaxField = blueMaxField - 1;
-                                                                drawBox.setText("Pionek Zakonczyl Gre");
-                                                            }
-
-                                                        }
-                                                    } else  {
-                                                        bluePawns.get(finalIV).changeActivationStatus();
-                                                        bluePawns.get(finalIV).setNewPosition(bluePawns.get(finalIV).getStartPosition());
-                                                        bluePawns.get(finalIV).setValue(44);
-                                                        board.getChildren().remove(bluePawns.get(finalIV).getPawnImage());
-                                                        board.add(bluePawns.get(finalIV).getPawnImage(), 4, 10);
-
-                                                    }
-                                                } else if (dice != 6) {
-
-                                                    if (bluePawns.get(finalIV).getActivationStatus()) {
-
-                                                        if (bluePawns.get(finalIV).getActivationNr() == 1){
-                                                            drawBox.setText("Pionek Zakonczyl Gre");
-                                                        }
-
-                                                        if (bluePawns.get(finalIV).getActivationNr() == 0) {
-                                                            if (dice <= blueMaxField - bluePawns.get(finalIV).getValue()) {
-                                                                bluePawns.get(finalIV).setValue(bluePawns.get(finalIV).getValue() + dice);
-
-                                                            }   else if (dice > blueMaxField - bluePawns.get(finalIV).getValue()) {
-                                                                drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
-                                                            }
-                                                        }
-
-                                                        for (int j = 44; j < 88 ; j++) {
-                                                            if (bluePawns.get(finalIV).getValue() == j) {
-                                                                bluePawns.get(finalIV).setNewPosition(MapOfMovements.getListOfMovements().get(j));
-                                                                for (int k = 0 ; k < 4; k++) {
-
-                                                                    if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalIV).getCurrentField())) {
-
-                                                                        board.getChildren().remove(redPawns.get(k).getPawnImage());
-                                                                        board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
-                                                                        redPawns.get(k).changeActivationStatus();
-                                                                        redPawns.get(k).setValue(0);
-                                                                        redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
-                                                                        board.getChildren().remove(bluePawns.get(finalIV).getPawnImage());
-                                                                        board.add(bluePawns.get(finalIV).getPawnImage(),
-                                                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                                MapOfMovements.getListOfMovements().get(j).getRow());
-                                                                        drawBox.setText("Czerwony Pionek Zbity");
-
-
-
-                                                                    } else if (MapOfFields.getListOfFields().get(greenPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalIV).getCurrentField())) {
-
-                                                                        board.getChildren().remove(greenPawns.get(k).getPawnImage());
-                                                                        board.add(greenPawns.get(k).getPawnImage(), greenPawns.get(k).getStartPosition().getColumn(), greenPawns.get(k).getStartPosition().getRow());
-                                                                        greenPawns.get(k).changeActivationStatus();
-                                                                        greenPawns.get(k).setValue(0);
-                                                                        greenPawns.get(k).setNewPosition(greenPawns.get(k).getStartPosition());
-                                                                        board.getChildren().remove(bluePawns.get(finalIV).getPawnImage());
-                                                                        board.add(bluePawns.get(finalIV).getPawnImage(),
-                                                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                                MapOfMovements.getListOfMovements().get(j).getRow());
-                                                                        drawBox.setText("Zielony Pionek Zbity");
-
-
-                                                                    } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalIV).getCurrentField())) {
-
-                                                                        board.getChildren().remove(yellowPawns.get(k).getPawnImage());
-                                                                        board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
-                                                                        yellowPawns.get(k).changeActivationStatus();
-                                                                        yellowPawns.get(k).setValue(0);
-                                                                        yellowPawns.get(k).setNewPosition(yellowPawns.get(k).getStartPosition());
-                                                                        board.getChildren().remove(bluePawns.get(finalIV).getPawnImage());
-                                                                        board.add(bluePawns.get(finalIV).getPawnImage(),
-                                                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                                MapOfMovements.getListOfMovements().get(j).getRow());
-                                                                        drawBox.setText("Zolty Pionek Zbity");
-
-                                                                    }     else {
-                                                                        board.getChildren().remove(bluePawns.get(finalIV).getPawnImage());
-                                                                        board.add(bluePawns.get(finalIV).getPawnImage(),
-                                                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                                MapOfMovements.getListOfMovements().get(j).getRow());
-
-                                                                    }
-
-                                                                }
-                                                            }
-                                                        }
-
-                                                        for (int j = 84; j < 88 ; j++) {
-
-                                                            if (bluePawns.get(finalIV).getValue() == blueMaxField) {
-                                                                bluePawns.get(finalIV).changeFinishStatus();
-                                                                bluePawns.get(finalIV).changeActivationStatus();
-                                                                bluePawns.get(finalIV).setActivationNr(1);
-                                                                blueMaxField = blueMaxField - 1;
-                                                                drawBox.setText("Pionek Zakonczyl Gre");
-                                                            }
-
-                                                        }
-
-
-
-
-
-
-                                                    }
-                                                    board.getChildren().remove(drawBtnBlue);
-                                                    board.add(drawBtnYellow,1,2);
-                                                }
-
-                                            }
-
-                                            if (bluePawns.get(finalIII).getActivationNr() == 0) {
-                                                if (dice <= blueMaxField - bluePawns.get(finalIII).getValue()) {
-                                                    bluePawns.get(finalIII).setValue(bluePawns.get(finalIII).getValue() + dice);
-
-                                                }  else if (dice > blueMaxField - bluePawns.get(finalIII).getValue()) {
-                                                    drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
-                                                }
-                                            }
-                                            for (int j = 44; j < 88 ; j++) {
-                                                if (bluePawns.get(finalIII).getValue() == j) {
-                                                    bluePawns.get(finalIII).setNewPosition(MapOfMovements.getListOfMovements().get(j));
-                                                    for (int k = 0 ; k < 4; k++) {
-
-                                                        if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(bluePawns.get(finalIII).getCurrentField())) {
-
-                                                            board.getChildren().remove(redPawns.get(k).getPawnImage());
-                                                            board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
-                                                            redPawns.get(k).changeActivationStatus();
-                                                            redPawns.get(k).setValue(0);
-                                                            redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
-
-
-                                                            board.getChildren().remove(bluePawns.get(finalIII).getPawnImage());
-                                                            board.add(bluePawns.get(finalIII).getPawnImage(),
-                                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                    MapOfMovements.getListOfMovements().get(j).getRow());
-                                                            drawBox.setText("Czerwony Pionek Zbity");
-
-
-
-                                                        } else if (MapOfFields.getListOfFields().get(greenPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalIII).getCurrentField())) {
-
-                                                            board.getChildren().remove(greenPawns.get(k).getPawnImage());
-                                                            board.add(greenPawns.get(k).getPawnImage(), greenPawns.get(k).getStartPosition().getColumn(), greenPawns.get(k).getStartPosition().getRow());
-                                                            greenPawns.get(k).changeActivationStatus();
-                                                            greenPawns.get(k).setValue(0);
-                                                            greenPawns.get(k).setNewPosition(greenPawns.get(k).getStartPosition());
-                                                            board.getChildren().remove(bluePawns.get(finalIII).getPawnImage());
-                                                            board.add(bluePawns.get(finalIII).getPawnImage(),
-                                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                    MapOfMovements.getListOfMovements().get(j).getRow());
-                                                            drawBox.setText("Zielony Pionek Zbity");
-
-
-                                                        } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalIII).getCurrentField())) {
-
-                                                            board.getChildren().remove(yellowPawns.get(k).getPawnImage());
-                                                            board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
-                                                            yellowPawns.get(k).changeActivationStatus();
-                                                            yellowPawns.get(k).setValue(0);
-                                                            yellowPawns.get(k).setNewPosition(yellowPawns.get(k).getStartPosition());
-                                                            board.getChildren().remove(bluePawns.get(finalIII).getPawnImage());
-                                                            board.add(bluePawns.get(finalIII).getPawnImage(),
-                                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                    MapOfMovements.getListOfMovements().get(j).getRow());
-                                                            drawBox.setText("Zolty Pionek Zbity");
-
-                                                        } else {
-                                                            board.getChildren().remove(bluePawns.get(finalIII).getPawnImage());
-                                                            board.add(bluePawns.get(finalIII).getPawnImage(),
-                                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                    MapOfMovements.getListOfMovements().get(j).getRow());
-
-                                                        }
-
-                                                    }
-                                                }
-
-
-
-
-
-                                            }
-
-                                            for (int j = 84; j < 88 ; j++) {
-
-                                                if (bluePawns.get(finalIII).getValue() == blueMaxField) {
-                                                    bluePawns.get(finalIII).changeFinishStatus();
-                                                    bluePawns.get(finalIII).changeActivationStatus();
-                                                    bluePawns.get(finalIII).setActivationNr(1);
-                                                    blueMaxField = blueMaxField - 1;
-                                                    drawBox.setText("Pionek Zakonczyl Gre");
-                                                }
-
-                                            }
-                                        } else if (bluePawns.get(finalIII).getActivationNr() == 0) {
-                                            bluePawns.get(finalIII).changeActivationStatus();
-                                            bluePawns.get(finalIII).setNewPosition(bluePawns.get(finalIII).getStartPosition());
-                                            bluePawns.get(finalIII).setValue(44);
-                                            board.getChildren().remove(bluePawns.get(finalIII).getPawnImage());
-                                            board.add(bluePawns.get(finalIII).getPawnImage(), 4, 10);
-
-                                        } else {
-                                            bluePawns.get(3).changeActivationStatus();
-                                            bluePawns.get(3).setNewPosition(bluePawns.get(3).getStartPosition());
-                                            bluePawns.get(3).setValue(44);
-                                            board.getChildren().remove(bluePawns.get(3).getPawnImage());
-                                            board.add(bluePawns.get(3).getPawnImage(), 4, 10);
-
-                                        }
-                                    } else if (dice != 6) {
-
-                                        if (bluePawns.get(finalIII).getActivationStatus()) {
-
-                                            if (bluePawns.get(finalIII).getActivationNr() == 1){
-                                                drawBox.setText("Pionek Zakonczyl Gre");
-                                            }
-
-                                            if (bluePawns.get(finalIII).getActivationNr() == 0) {
-                                                if (dice <= blueMaxField - bluePawns.get(finalIII).getValue()) {
-                                                    bluePawns.get(finalIII).setValue(bluePawns.get(finalIII).getValue() + dice);
-
-                                                }   else if (dice > blueMaxField - bluePawns.get(finalIII).getValue()) {
-                                                    drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
-                                                }
-                                            }
-
-                                            for (int j = 44; j < 88 ; j++) {
-                                                if (bluePawns.get(finalIII).getValue() == j) {
-                                                    bluePawns.get(finalIII).setNewPosition(MapOfMovements.getListOfMovements().get(j));
-                                                    for (int k = 0 ; k < 4; k++) {
-
-                                                        if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalIII).getCurrentField())) {
-
-                                                            board.getChildren().remove(redPawns.get(k).getPawnImage());
-                                                            board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
-                                                            redPawns.get(k).changeActivationStatus();
-                                                            redPawns.get(k).setValue(0);
-                                                            redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
-                                                            board.getChildren().remove(bluePawns.get(finalIII).getPawnImage());
-                                                            board.add(bluePawns.get(finalIII).getPawnImage(),
-                                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                    MapOfMovements.getListOfMovements().get(j).getRow());
-                                                            drawBox.setText("Czerwony Pionek Zbity");
-
-
-
-                                                        } else if (MapOfFields.getListOfFields().get(greenPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalIII).getCurrentField())) {
-
-                                                            board.getChildren().remove(greenPawns.get(k).getPawnImage());
-                                                            board.add(greenPawns.get(k).getPawnImage(), greenPawns.get(k).getStartPosition().getColumn(), greenPawns.get(k).getStartPosition().getRow());
-                                                            greenPawns.get(k).changeActivationStatus();
-                                                            greenPawns.get(k).setValue(0);
-                                                            greenPawns.get(k).setNewPosition(greenPawns.get(k).getStartPosition());
-                                                            board.getChildren().remove(bluePawns.get(finalIII).getPawnImage());
-                                                            board.add(bluePawns.get(finalIII).getPawnImage(),
-                                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                    MapOfMovements.getListOfMovements().get(j).getRow());
-                                                            drawBox.setText("Zielony Pionek Zbity");
-
-
-                                                        } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalIII).getCurrentField())) {
-
-                                                            board.getChildren().remove(yellowPawns.get(k).getPawnImage());
-                                                            board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
-                                                            yellowPawns.get(k).changeActivationStatus();
-                                                            yellowPawns.get(k).setValue(0);
-                                                            yellowPawns.get(k).setNewPosition(yellowPawns.get(k).getStartPosition());
-                                                            board.getChildren().remove(bluePawns.get(finalIII).getPawnImage());
-                                                            board.add(bluePawns.get(finalIII).getPawnImage(),
-                                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                    MapOfMovements.getListOfMovements().get(j).getRow());
-                                                            drawBox.setText("Zolty Pionek Zbity");
-
-                                                        }     else {
-                                                            board.getChildren().remove(bluePawns.get(finalIII).getPawnImage());
-                                                            board.add(bluePawns.get(finalIII).getPawnImage(),
-                                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                    MapOfMovements.getListOfMovements().get(j).getRow());
-
-                                                        }
-
-                                                    }
-                                                }
-                                            }
-
-                                            for (int j = 84; j < 88 ; j++) {
-
-                                                if (bluePawns.get(finalIII).getValue() == blueMaxField) {
-                                                    bluePawns.get(finalIII).changeFinishStatus();
-                                                    bluePawns.get(finalIII).changeActivationStatus();
-                                                    bluePawns.get(finalIII).setActivationNr(1);
-                                                    blueMaxField = blueMaxField - 1;
-                                                    drawBox.setText("Pionek Zakonczyl Gre");
-                                                }
-
-                                            }
-
-
-
-
-
-
-                                        }
-                                        board.getChildren().remove(drawBtnBlue);
-                                        board.add(drawBtnYellow,1,2);
-                                    }
-                                }
-
-                                if (bluePawns.get(finalII).getActivationNr() == 0) {
-                                    if (dice <= blueMaxField - bluePawns.get(finalII).getValue()) {
-                                        bluePawns.get(finalII).setValue(bluePawns.get(finalII).getValue() + dice);
-
-                                    }  else if (dice > blueMaxField - bluePawns.get(finalII).getValue()) {
-                                        drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
-                                    }
-                                }
-                                for (int j = 44; j < 88 ; j++) {
-                                    if (bluePawns.get(finalII).getValue() == j) {
-                                        bluePawns.get(finalII).setNewPosition(MapOfMovements.getListOfMovements().get(j));
-                                        for (int k = 0 ; k < 4; k++) {
-
-                                            if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(bluePawns.get(finalII).getCurrentField())) {
-
-                                                board.getChildren().remove(redPawns.get(k).getPawnImage());
-                                                board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
-                                                redPawns.get(k).changeActivationStatus();
-                                                redPawns.get(k).setValue(0);
-                                                redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
-
-
-                                                board.getChildren().remove(bluePawns.get(finalII).getPawnImage());
-                                                board.add(bluePawns.get(finalII).getPawnImage(),
-                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                        MapOfMovements.getListOfMovements().get(j).getRow());
-                                                drawBox.setText("Czerwony Pionek Zbity");
-
-
-
-                                            } else if (MapOfFields.getListOfFields().get(greenPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalII).getCurrentField())) {
-
-                                                board.getChildren().remove(greenPawns.get(k).getPawnImage());
-                                                board.add(greenPawns.get(k).getPawnImage(), greenPawns.get(k).getStartPosition().getColumn(), greenPawns.get(k).getStartPosition().getRow());
-                                                greenPawns.get(k).changeActivationStatus();
-                                                greenPawns.get(k).setValue(0);
-                                                greenPawns.get(k).setNewPosition(greenPawns.get(k).getStartPosition());
-                                                board.getChildren().remove(bluePawns.get(finalII).getPawnImage());
-                                                board.add(bluePawns.get(finalII).getPawnImage(),
-                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                        MapOfMovements.getListOfMovements().get(j).getRow());
-                                                drawBox.setText("Zielony Pionek Zbity");
-
-
-                                            } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalII).getCurrentField())) {
-
-                                                board.getChildren().remove(yellowPawns.get(k).getPawnImage());
-                                                board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
-                                                yellowPawns.get(k).changeActivationStatus();
-                                                yellowPawns.get(k).setValue(0);
-                                                yellowPawns.get(k).setNewPosition(yellowPawns.get(k).getStartPosition());
-                                                board.getChildren().remove(bluePawns.get(finalII).getPawnImage());
-                                                board.add(bluePawns.get(finalII).getPawnImage(),
-                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                        MapOfMovements.getListOfMovements().get(j).getRow());
-                                                drawBox.setText("Zolty Pionek Zbity");
-
-                                            } else {
-                                                board.getChildren().remove(bluePawns.get(finalII).getPawnImage());
-                                                board.add(bluePawns.get(finalII).getPawnImage(),
-                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                        MapOfMovements.getListOfMovements().get(j).getRow());
-
-                                            }
-
-                                        }
-                                    }
-
-
-
-
-
-                                }
-
-                                for (int j = 84; j < 88 ; j++) {
-
-                                    if (bluePawns.get(finalII).getValue() == blueMaxField) {
-                                        bluePawns.get(finalII).changeFinishStatus();
-                                        bluePawns.get(finalII).changeActivationStatus();
-                                        bluePawns.get(finalII).setActivationNr(1);
-                                        blueMaxField = blueMaxField - 1;
-                                        drawBox.setText("Pionek Zakonczyl Gre");
-                                    }
-
-                                }
-                            } else if (bluePawns.get(finalII).getActivationNr() == 0) {
-                                bluePawns.get(finalII).changeActivationStatus();
-                                bluePawns.get(finalII).setNewPosition(bluePawns.get(finalII).getStartPosition());
-                                bluePawns.get(finalII).setValue(44);
-                                board.getChildren().remove(bluePawns.get(finalII).getPawnImage());
-                                board.add(bluePawns.get(finalII).getPawnImage(), 4, 10);
-
-                            } else {
-                                bluePawns.get(2).changeActivationStatus();
-                                bluePawns.get(2).setNewPosition(bluePawns.get(2).getStartPosition());
-                                bluePawns.get(2).setValue(44);
-                                board.getChildren().remove(bluePawns.get(2).getPawnImage());
-                                board.add(bluePawns.get(2).getPawnImage(), 4, 10);
-
-                            }
-                        } else if (dice != 6) {
-
-                            if (bluePawns.get(finalII).getActivationStatus()) {
-
-                                if (bluePawns.get(finalII).getActivationNr() == 1){
-                                    drawBox.setText("Pionek Zakonczyl Gre");
-                                }
-
-                                if (bluePawns.get(finalII).getActivationNr() == 0) {
-                                    if (dice <= blueMaxField - bluePawns.get(finalII).getValue()) {
-                                        bluePawns.get(finalII).setValue(bluePawns.get(finalII).getValue() + dice);
-
-                                    }   else if (dice > blueMaxField - bluePawns.get(finalII).getValue()) {
-                                        drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
-                                    }
-                                }
-
-                                for (int j = 44; j < 88 ; j++) {
-                                    if (bluePawns.get(finalII).getValue() == j) {
-                                        bluePawns.get(finalII).setNewPosition(MapOfMovements.getListOfMovements().get(j));
-                                        for (int k = 0 ; k < 4; k++) {
-
-                                            if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalII).getCurrentField())) {
-
-                                                board.getChildren().remove(redPawns.get(k).getPawnImage());
-                                                board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
-                                                redPawns.get(k).changeActivationStatus();
-                                                redPawns.get(k).setValue(0);
-                                                redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
-                                                board.getChildren().remove(bluePawns.get(finalII).getPawnImage());
-                                                board.add(bluePawns.get(finalII).getPawnImage(),
-                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                        MapOfMovements.getListOfMovements().get(j).getRow());
-                                                drawBox.setText("Czerwony Pionek Zbity");
-
-
-
-                                            } else if (MapOfFields.getListOfFields().get(greenPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalII).getCurrentField())) {
-
-                                                board.getChildren().remove(greenPawns.get(k).getPawnImage());
-                                                board.add(greenPawns.get(k).getPawnImage(), greenPawns.get(k).getStartPosition().getColumn(), greenPawns.get(k).getStartPosition().getRow());
-                                                greenPawns.get(k).changeActivationStatus();
-                                                greenPawns.get(k).setValue(0);
-                                                greenPawns.get(k).setNewPosition(greenPawns.get(k).getStartPosition());
-                                                board.getChildren().remove(bluePawns.get(finalII).getPawnImage());
-                                                board.add(bluePawns.get(finalII).getPawnImage(),
-                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                        MapOfMovements.getListOfMovements().get(j).getRow());
-                                                drawBox.setText("Zielony Pionek Zbity");
-
-
-                                            } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalII).getCurrentField())) {
-
-                                                board.getChildren().remove(yellowPawns.get(k).getPawnImage());
-                                                board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
-                                                yellowPawns.get(k).changeActivationStatus();
-                                                yellowPawns.get(k).setValue(0);
-                                                yellowPawns.get(k).setNewPosition(yellowPawns.get(k).getStartPosition());
-                                                board.getChildren().remove(bluePawns.get(finalII).getPawnImage());
-                                                board.add(bluePawns.get(finalII).getPawnImage(),
-                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                        MapOfMovements.getListOfMovements().get(j).getRow());
-                                                drawBox.setText("Zolty Pionek Zbity");
-
-                                            }     else {
-                                                board.getChildren().remove(bluePawns.get(finalII).getPawnImage());
-                                                board.add(bluePawns.get(finalII).getPawnImage(),
-                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                        MapOfMovements.getListOfMovements().get(j).getRow());
-
-                                            }
-
-                                        }
-                                    }
-                                }
-
-                                for (int j = 84; j < 88 ; j++) {
-
-                                    if (bluePawns.get(finalII).getValue() == blueMaxField) {
-                                        bluePawns.get(finalII).changeFinishStatus();
-                                        bluePawns.get(finalII).changeActivationStatus();
-                                        bluePawns.get(finalII).setActivationNr(1);
-                                        blueMaxField = blueMaxField - 1;
-                                        drawBox.setText("Pionek Zakonczyl Gre");
-                                    }
-
-                                }
-
-
-
-
-
-
-                            }
-                            board.getChildren().remove(drawBtnBlue);
-                            board.add(drawBtnYellow,1,2);
-                        }
-                        // koniec drugiego pionka
+                    }  else if (dice > blueMaxField - bluePawns.get(finalI).getValue()) {
+                        drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
                     }
 
-                    if (bluePawns.get(finalI).getActivationNr() == 0) {
-                        if (dice <= blueMaxField - bluePawns.get(finalI).getValue()) {
-                            bluePawns.get(finalI).setValue(bluePawns.get(finalI).getValue() + dice);
-
-                        }  else if (dice > blueMaxField - bluePawns.get(finalI).getValue()) {
-                            drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
-                        }
-                    }
-                    for (int j = 44; j < 88 ; j++) {
-                        if (bluePawns.get(finalI).getValue() == j) {
-                            bluePawns.get(finalI).setNewPosition(MapOfMovements.getListOfMovements().get(j));
-                            for (int k = 0 ; k < 4; k++) {
-
-                                if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(bluePawns.get(finalI).getCurrentField())) {
-
-                                    board.getChildren().remove(redPawns.get(k).getPawnImage());
-                                    board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
-                                    redPawns.get(k).changeActivationStatus();
-                                    redPawns.get(k).setValue(0);
-                                    redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
-
-
-                                    board.getChildren().remove(bluePawns.get(finalI).getPawnImage());
-                                    board.add(bluePawns.get(finalI).getPawnImage(),
-                                            MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                            MapOfMovements.getListOfMovements().get(j).getRow());
-                                    drawBox.setText("Czerwony Pionek Zbity");
-
-
-
-                                } else if (MapOfFields.getListOfFields().get(greenPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalI).getCurrentField())) {
-
-                                    board.getChildren().remove(greenPawns.get(k).getPawnImage());
-                                    board.add(greenPawns.get(k).getPawnImage(), greenPawns.get(k).getStartPosition().getColumn(), greenPawns.get(k).getStartPosition().getRow());
-                                    greenPawns.get(k).changeActivationStatus();
-                                    greenPawns.get(k).setValue(0);
-                                    greenPawns.get(k).setNewPosition(greenPawns.get(k).getStartPosition());
-                                    board.getChildren().remove(bluePawns.get(finalI).getPawnImage());
-                                    board.add(bluePawns.get(finalI).getPawnImage(),
-                                            MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                            MapOfMovements.getListOfMovements().get(j).getRow());
-                                    drawBox.setText("Zielony Pionek Zbity");
-
-
-                                } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalI).getCurrentField())) {
-
-                                    board.getChildren().remove(yellowPawns.get(k).getPawnImage());
-                                    board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
-                                    yellowPawns.get(k).changeActivationStatus();
-                                    yellowPawns.get(k).setValue(0);
-                                    yellowPawns.get(k).setNewPosition(yellowPawns.get(k).getStartPosition());
-                                    board.getChildren().remove(bluePawns.get(finalI).getPawnImage());
-                                    board.add(bluePawns.get(finalI).getPawnImage(),
-                                            MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                            MapOfMovements.getListOfMovements().get(j).getRow());
-                                    drawBox.setText("Zolty Pionek Zbity");
-
-                                } else {
-                                    board.getChildren().remove(bluePawns.get(finalI).getPawnImage());
-                                    board.add(bluePawns.get(finalI).getPawnImage(),
-                                            MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                            MapOfMovements.getListOfMovements().get(j).getRow());
-
-                                }
-
-                            }
-                        }
-
-
-
-
-
-                    }
-
-                    for (int j = 84; j < 88 ; j++) {
-
-                        if (bluePawns.get(finalI).getValue() == blueMaxField) {
-                            bluePawns.get(finalI).changeFinishStatus();
-                            bluePawns.get(finalI).changeActivationStatus();
-                            bluePawns.get(finalI).setActivationNr(1);
-                            blueMaxField = blueMaxField - 1;
-                            drawBox.setText("Pionek Zakonczyl Gre");
-                        }
-
-                    }
-                } else if (bluePawns.get(finalI).getActivationNr() == 0) {
-                        bluePawns.get(finalI).changeActivationStatus();
-                        bluePawns.get(finalI).setNewPosition(bluePawns.get(finalI).getStartPosition());
-                        bluePawns.get(finalI).setValue(44);
-                        board.getChildren().remove(bluePawns.get(finalI).getPawnImage());
-                        board.add(bluePawns.get(finalI).getPawnImage(), 4, 10);
-
-                } else {
-                    bluePawns.get(1).changeActivationStatus();
-                    bluePawns.get(1).setNewPosition(bluePawns.get(1).getStartPosition());
-                    bluePawns.get(1).setValue(44);
-                    board.getChildren().remove(bluePawns.get(1).getPawnImage());
-                    board.add(bluePawns.get(1).getPawnImage(), 4, 10);
-
-                }
-            } else if (dice != 6) {
-
-                if (bluePawns.get(finalI).getActivationStatus()) {
-
-                    if (bluePawns.get(finalI).getActivationNr() == 1){
-                        drawBox.setText("Pionek Zakonczyl Gre");
-                    }
-
-                    if (bluePawns.get(finalI).getActivationNr() == 0) {
-                        if (dice <= blueMaxField - bluePawns.get(finalI).getValue()) {
-                            bluePawns.get(finalI).setValue(bluePawns.get(finalI).getValue() + dice);
-
-                        }   else if (dice > blueMaxField - bluePawns.get(finalI).getValue()) {
-                            drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
-                        }
-                    }
-
+                    // ruch pionka + zbijanie
                     for (int j = 44; j < 88 ; j++) {
                         if (bluePawns.get(finalI).getValue() == j) {
                             bluePawns.get(finalI).setNewPosition(MapOfMovements.getListOfMovements().get(j));
@@ -934,6 +209,7 @@ public class Chinczyk extends Application {
                                     redPawns.get(k).changeActivationStatus();
                                     redPawns.get(k).setValue(0);
                                     redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
+
                                     board.getChildren().remove(bluePawns.get(finalI).getPawnImage());
                                     board.add(bluePawns.get(finalI).getPawnImage(),
                                             MapOfMovements.getListOfMovements().get(j).getColumn(),
@@ -942,7 +218,7 @@ public class Chinczyk extends Application {
 
 
 
-                                } else if (MapOfFields.getListOfFields().get(greenPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalI).getCurrentField())) {
+                                } else if (MapOfFields.getListOfFields().get(greenPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalI).getCurrentField()) ) {
 
                                     board.getChildren().remove(greenPawns.get(k).getPawnImage());
                                     board.add(greenPawns.get(k).getPawnImage(), greenPawns.get(k).getStartPosition().getColumn(), greenPawns.get(k).getStartPosition().getRow());
@@ -956,7 +232,7 @@ public class Chinczyk extends Application {
                                     drawBox.setText("Zielony Pionek Zbity");
 
 
-                                } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalI).getCurrentField())) {
+                                } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalI).getCurrentField()) ) {
 
                                     board.getChildren().remove(yellowPawns.get(k).getPawnImage());
                                     board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
@@ -967,9 +243,11 @@ public class Chinczyk extends Application {
                                     board.add(bluePawns.get(finalI).getPawnImage(),
                                             MapOfMovements.getListOfMovements().get(j).getColumn(),
                                             MapOfMovements.getListOfMovements().get(j).getRow());
-                                    drawBox.setText("Zolty Pionek Zbity");
+                                    drawBox.setText("Niebieski Pionek Zbity");
 
-                                }     else {
+                                }
+
+                                else {
                                     board.getChildren().remove(bluePawns.get(finalI).getPawnImage());
                                     board.add(bluePawns.get(finalI).getPawnImage(),
                                             MapOfMovements.getListOfMovements().get(j).getColumn(),
@@ -980,7 +258,6 @@ public class Chinczyk extends Application {
                             }
                         }
                     }
-
                     for (int j = 84; j < 88 ; j++) {
 
                         if (bluePawns.get(finalI).getValue() == blueMaxField) {
@@ -993,17 +270,682 @@ public class Chinczyk extends Application {
 
                     }
 
-
-
-
-
-
                 }
-                board.getChildren().remove(drawBtnBlue);
-                board.add(drawBtnYellow,1,2);
+                else {
+
+                    if (bluePawns.get(finalI).getActivationNr() == 1) {
+                        //tutaj ruch kolejnym pionkiem
+                        int finalII = 1;
+                        if (bluePawns.get(finalII).getActivationStatus()) {
+                            //tutaj wszystko to co gdy pionek jest aktywny i wypadnie 6
+
+                            // sprawdzenie mozliwosci ruchu
+                            if (dice <= blueMaxField - bluePawns.get(finalII).getValue()) {
+                                bluePawns.get(finalII).setValue(bluePawns.get(finalII).getValue() + dice);
+
+                            }  else if (dice > blueMaxField - bluePawns.get(finalII).getValue()) {
+                                drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
+                            }
+
+                            // ruch pionka + zbijanie
+                            for (int j = 44; j < 88 ; j++) {
+                                if (bluePawns.get(finalII).getValue() == j) {
+                                    bluePawns.get(finalII).setNewPosition(MapOfMovements.getListOfMovements().get(j));
+                                    for (int k = 0 ; k < 4; k++) {
+
+                                        if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalII).getCurrentField())) {
+
+                                            board.getChildren().remove(redPawns.get(k).getPawnImage());
+                                            board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
+                                            redPawns.get(k).changeActivationStatus();
+                                            redPawns.get(k).setValue(0);
+                                            redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
+
+                                            board.getChildren().remove(bluePawns.get(finalII).getPawnImage());
+                                            board.add(bluePawns.get(finalII).getPawnImage(),
+                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                    MapOfMovements.getListOfMovements().get(j).getRow());
+                                            drawBox.setText("Czerwony Pionek Zbity");
+
+
+
+                                        } else if (MapOfFields.getListOfFields().get(greenPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalII).getCurrentField()) ) {
+
+                                            board.getChildren().remove(greenPawns.get(k).getPawnImage());
+                                            board.add(greenPawns.get(k).getPawnImage(), greenPawns.get(k).getStartPosition().getColumn(), greenPawns.get(k).getStartPosition().getRow());
+                                            greenPawns.get(k).changeActivationStatus();
+                                            greenPawns.get(k).setValue(0);
+                                            greenPawns.get(k).setNewPosition(greenPawns.get(k).getStartPosition());
+                                            board.getChildren().remove(bluePawns.get(finalII).getPawnImage());
+                                            board.add(bluePawns.get(finalII).getPawnImage(),
+                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                    MapOfMovements.getListOfMovements().get(j).getRow());
+                                            drawBox.setText("Zielony Pionek Zbity");
+
+
+                                        } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalII).getCurrentField()) ) {
+
+                                            board.getChildren().remove(yellowPawns.get(k).getPawnImage());
+                                            board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
+                                            yellowPawns.get(k).changeActivationStatus();
+                                            yellowPawns.get(k).setValue(0);
+                                            yellowPawns.get(k).setNewPosition(yellowPawns.get(k).getStartPosition());
+                                            board.getChildren().remove(bluePawns.get(finalII).getPawnImage());
+                                            board.add(bluePawns.get(finalII).getPawnImage(),
+                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                    MapOfMovements.getListOfMovements().get(j).getRow());
+                                            drawBox.setText("Niebieski Pionek Zbity");
+
+                                        }
+
+                                        else {
+                                            board.getChildren().remove(bluePawns.get(finalII).getPawnImage());
+                                            board.add(bluePawns.get(finalII).getPawnImage(),
+                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                    MapOfMovements.getListOfMovements().get(j).getRow());
+
+                                        }
+
+                                    }
+                                }
+                            }
+                            for (int j = 84; j < 88 ; j++) {
+
+                                if (bluePawns.get(finalII).getValue() == blueMaxField) {
+                                    bluePawns.get(finalII).changeFinishStatus();
+                                    bluePawns.get(finalII).changeActivationStatus();
+                                    bluePawns.get(finalII).setActivationNr(1);
+                                    blueMaxField = blueMaxField - 1;
+                                    drawBox.setText("Pionek Zakonczyl Gre");
+                                }
+
+                            }
+
+                        }
+                        else {
+
+                            if (bluePawns.get(finalII).getActivationNr() == 1) {
+                                //tutaj ruch kolejnym pionkiem
+                                int finalIII = 2;
+                                if (bluePawns.get(finalIII).getActivationStatus()) {
+                                    //tutaj wszystko to co gdy pionek jest aktywny i wypadnie 6
+
+                                    // sprawdzenie mozliwosci ruchu
+                                    if (dice <= blueMaxField - bluePawns.get(finalIII).getValue()) {
+                                        bluePawns.get(finalIII).setValue(bluePawns.get(finalIII).getValue() + dice);
+
+                                    }  else if (dice > blueMaxField - bluePawns.get(finalIII).getValue()) {
+                                        drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
+                                    }
+
+                                    // ruch pionka + zbijanie
+                                    for (int j = 44; j < 88 ; j++) {
+                                        if (bluePawns.get(finalIII).getValue() == j) {
+                                            bluePawns.get(finalIII).setNewPosition(MapOfMovements.getListOfMovements().get(j));
+                                            for (int k = 0 ; k < 4; k++) {
+
+                                                if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalIII).getCurrentField())) {
+
+                                                    board.getChildren().remove(redPawns.get(k).getPawnImage());
+                                                    board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
+                                                    redPawns.get(k).changeActivationStatus();
+                                                    redPawns.get(k).setValue(0);
+                                                    redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
+
+                                                    board.getChildren().remove(bluePawns.get(finalIII).getPawnImage());
+                                                    board.add(bluePawns.get(finalIII).getPawnImage(),
+                                                            MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                            MapOfMovements.getListOfMovements().get(j).getRow());
+                                                    drawBox.setText("Czerwony Pionek Zbity");
+
+
+
+                                                } else if (MapOfFields.getListOfFields().get(greenPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalIII).getCurrentField()) ) {
+
+                                                    board.getChildren().remove(greenPawns.get(k).getPawnImage());
+                                                    board.add(greenPawns.get(k).getPawnImage(), greenPawns.get(k).getStartPosition().getColumn(), greenPawns.get(k).getStartPosition().getRow());
+                                                    greenPawns.get(k).changeActivationStatus();
+                                                    greenPawns.get(k).setValue(0);
+                                                    greenPawns.get(k).setNewPosition(greenPawns.get(k).getStartPosition());
+                                                    board.getChildren().remove(bluePawns.get(finalIII).getPawnImage());
+                                                    board.add(bluePawns.get(finalIII).getPawnImage(),
+                                                            MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                            MapOfMovements.getListOfMovements().get(j).getRow());
+                                                    drawBox.setText("Zielony Pionek Zbity");
+
+
+                                                } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalIII).getCurrentField()) ) {
+
+                                                    board.getChildren().remove(yellowPawns.get(k).getPawnImage());
+                                                    board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
+                                                    yellowPawns.get(k).changeActivationStatus();
+                                                    yellowPawns.get(k).setValue(0);
+                                                    yellowPawns.get(k).setNewPosition(yellowPawns.get(k).getStartPosition());
+                                                    board.getChildren().remove(bluePawns.get(finalIII).getPawnImage());
+                                                    board.add(bluePawns.get(finalIII).getPawnImage(),
+                                                            MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                            MapOfMovements.getListOfMovements().get(j).getRow());
+                                                    drawBox.setText("Niebieski Pionek Zbity");
+
+                                                }
+
+                                                else {
+                                                    board.getChildren().remove(bluePawns.get(finalIII).getPawnImage());
+                                                    board.add(bluePawns.get(finalIII).getPawnImage(),
+                                                            MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                            MapOfMovements.getListOfMovements().get(j).getRow());
+
+                                                }
+
+                                            }
+                                        }
+                                    }
+                                    for (int j = 84; j < 88 ; j++) {
+
+                                        if (bluePawns.get(finalIII).getValue() == blueMaxField) {
+                                            bluePawns.get(finalIII).changeFinishStatus();
+                                            bluePawns.get(finalIII).changeActivationStatus();
+                                            bluePawns.get(finalIII).setActivationNr(1);
+                                            blueMaxField = blueMaxField - 1;
+                                            drawBox.setText("Pionek Zakonczyl Gre");
+                                        }
+
+                                    }
+
+                                }
+                                else {
+
+                                    if (bluePawns.get(finalIII).getActivationNr() == 1) {
+                                        //tutaj ruch kolejnym pionkiem
+                                        int finalIV = 3;
+                                        if (bluePawns.get(finalIV).getActivationStatus()) {
+                                            //tutaj wszystko to co gdy pionek jest aktywny i wypadnie 6
+
+                                            // sprawdzenie mozliwosci ruchu
+                                            if (dice <= blueMaxField - bluePawns.get(finalIV).getValue()) {
+                                                bluePawns.get(finalIV).setValue(bluePawns.get(finalIV).getValue() + dice);
+
+                                            }  else if (dice > blueMaxField - bluePawns.get(finalIV).getValue()) {
+                                                drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
+                                            }
+
+                                            // ruch pionka + zbijanie
+                                            for (int j = 44; j < 88 ; j++) {
+                                                if (bluePawns.get(finalIV).getValue() == j) {
+                                                    bluePawns.get(finalIV).setNewPosition(MapOfMovements.getListOfMovements().get(j));
+                                                    for (int k = 0 ; k < 4; k++) {
+
+                                                        if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalIV).getCurrentField())) {
+
+                                                            board.getChildren().remove(redPawns.get(k).getPawnImage());
+                                                            board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
+                                                            redPawns.get(k).changeActivationStatus();
+                                                            redPawns.get(k).setValue(0);
+                                                            redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
+
+                                                            board.getChildren().remove(bluePawns.get(finalIV).getPawnImage());
+                                                            board.add(bluePawns.get(finalIV).getPawnImage(),
+                                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                                    MapOfMovements.getListOfMovements().get(j).getRow());
+                                                            drawBox.setText("Czerwony Pionek Zbity");
+
+
+
+                                                        } else if (MapOfFields.getListOfFields().get(greenPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalIV).getCurrentField()) ) {
+
+                                                            board.getChildren().remove(greenPawns.get(k).getPawnImage());
+                                                            board.add(greenPawns.get(k).getPawnImage(), greenPawns.get(k).getStartPosition().getColumn(), greenPawns.get(k).getStartPosition().getRow());
+                                                            greenPawns.get(k).changeActivationStatus();
+                                                            greenPawns.get(k).setValue(0);
+                                                            greenPawns.get(k).setNewPosition(greenPawns.get(k).getStartPosition());
+                                                            board.getChildren().remove(bluePawns.get(finalIV).getPawnImage());
+                                                            board.add(bluePawns.get(finalIV).getPawnImage(),
+                                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                                    MapOfMovements.getListOfMovements().get(j).getRow());
+                                                            drawBox.setText("Zielony Pionek Zbity");
+
+
+                                                        } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalIV).getCurrentField()) ) {
+
+                                                            board.getChildren().remove(yellowPawns.get(k).getPawnImage());
+                                                            board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
+                                                            yellowPawns.get(k).changeActivationStatus();
+                                                            yellowPawns.get(k).setValue(0);
+                                                            yellowPawns.get(k).setNewPosition(yellowPawns.get(k).getStartPosition());
+                                                            board.getChildren().remove(bluePawns.get(finalIV).getPawnImage());
+                                                            board.add(bluePawns.get(finalIV).getPawnImage(),
+                                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                                    MapOfMovements.getListOfMovements().get(j).getRow());
+                                                            drawBox.setText("Niebieski Pionek Zbity");
+
+                                                        }
+
+                                                        else {
+                                                            board.getChildren().remove(bluePawns.get(finalIV).getPawnImage());
+                                                            board.add(bluePawns.get(finalIV).getPawnImage(),
+                                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                                    MapOfMovements.getListOfMovements().get(j).getRow());
+
+                                                        }
+
+                                                    }
+                                                }
+                                            }
+                                            for (int j = 84; j < 88 ; j++) {
+
+                                                if (bluePawns.get(finalIV).getValue() == blueMaxField) {
+                                                    bluePawns.get(finalIV).changeFinishStatus();
+                                                    bluePawns.get(finalIV).changeActivationStatus();
+                                                    bluePawns.get(finalIV).setActivationNr(1);
+                                                    blueMaxField = blueMaxField - 1;
+                                                    drawBox.setText("Pionek Zakonczyl Gre");
+                                                }
+
+                                            }
+
+                                        }
+                                        else {
+
+                                            if (bluePawns.get(finalIV).getActivationNr() == 1) {
+                                                drawBox.setText("Gracz Zakonczyl Gre!!!");
+                                            } else {
+                                                //tutaj aktywacja pionka
+                                                bluePawns.get(finalIV).changeActivationStatus();
+                                                bluePawns.get(finalIV).setNewPosition(bluePawns.get(finalIV).getStartPosition());
+                                                bluePawns.get(finalIV).setValue(44);
+                                                board.getChildren().remove(bluePawns.get(finalIV).getPawnImage());
+                                                board.add(bluePawns.get(finalIV).getPawnImage(), 0, 4);
+                                            }
+                                        }
+                                    } else {
+                                        //tutaj aktywacja pionka
+                                        bluePawns.get(finalIII).changeActivationStatus();
+                                        bluePawns.get(finalIII).setNewPosition(bluePawns.get(finalIII).getStartPosition());
+                                        bluePawns.get(finalIII).setValue(44);
+                                        board.getChildren().remove(bluePawns.get(finalIII).getPawnImage());
+                                        board.add(bluePawns.get(finalIII).getPawnImage(), 0, 4);
+                                    }
+                                }
+                            } else {
+                                //tutaj aktywacja pionka
+                                bluePawns.get(finalII).changeActivationStatus();
+                                bluePawns.get(finalII).setNewPosition(bluePawns.get(finalII).getStartPosition());
+                                bluePawns.get(finalII).setValue(44);
+                                board.getChildren().remove(bluePawns.get(finalII).getPawnImage());
+                                board.add(bluePawns.get(finalII).getPawnImage(), 0, 4);
+                            }
+                        }
+                    } else {
+                        //tutaj aktywacja pionka
+                        bluePawns.get(finalI).changeActivationStatus();
+                        bluePawns.get(finalI).setNewPosition(bluePawns.get(finalI).getStartPosition());
+                        bluePawns.get(finalI).setValue(44);
+                        board.getChildren().remove(bluePawns.get(finalI).getPawnImage());
+                        board.add(bluePawns.get(finalI).getPawnImage(), 0, 4);
+                    }
+                }
             }
+            // Jezeli wypadnie !6
+            else {
+                int finalI = 0;
+                if (bluePawns.get(finalI).getActivationStatus()) {
+                    // tutaj wszystko to gdy pionek jest aktywny i wypadnie !6
+
+                    // sprawdzenie mozliwosci ruchu
+                    if (dice <= blueMaxField - bluePawns.get(finalI).getValue()) {
+                        bluePawns.get(finalI).setValue(bluePawns.get(finalI).getValue() + dice);
+
+                    } else if (dice > blueMaxField - bluePawns.get(finalI).getValue()) {
+                        drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
+                    }
+
+                    // ruch pionka + zbijanie
+                    for (int j = 44; j < 88 ; j++) {
+                        if (bluePawns.get(finalI).getValue() == j) {
+                            bluePawns.get(finalI).setNewPosition(MapOfMovements.getListOfMovements().get(j));
+                            for (int k = 0 ; k < 4; k++) {
+
+                                if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalI).getCurrentField())) {
+
+                                    board.getChildren().remove(redPawns.get(k).getPawnImage());
+                                    board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
+                                    redPawns.get(k).changeActivationStatus();
+                                    redPawns.get(k).setValue(0);
+                                    redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
+
+                                    board.getChildren().remove(bluePawns.get(finalI).getPawnImage());
+                                    board.add(bluePawns.get(finalI).getPawnImage(),
+                                            MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                            MapOfMovements.getListOfMovements().get(j).getRow());
+                                    drawBox.setText("Czerwony Pionek Zbity");
 
 
+
+                                } else if (MapOfFields.getListOfFields().get(greenPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalI).getCurrentField()) ) {
+
+                                    board.getChildren().remove(greenPawns.get(k).getPawnImage());
+                                    board.add(greenPawns.get(k).getPawnImage(), greenPawns.get(k).getStartPosition().getColumn(), greenPawns.get(k).getStartPosition().getRow());
+                                    greenPawns.get(k).changeActivationStatus();
+                                    greenPawns.get(k).setValue(0);
+                                    greenPawns.get(k).setNewPosition(greenPawns.get(k).getStartPosition());
+                                    board.getChildren().remove(bluePawns.get(finalI).getPawnImage());
+                                    board.add(bluePawns.get(finalI).getPawnImage(),
+                                            MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                            MapOfMovements.getListOfMovements().get(j).getRow());
+                                    drawBox.setText("Zielony Pionek Zbity");
+
+
+                                } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalI).getCurrentField()) ) {
+
+                                    board.getChildren().remove(yellowPawns.get(k).getPawnImage());
+                                    board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
+                                    yellowPawns.get(k).changeActivationStatus();
+                                    yellowPawns.get(k).setValue(0);
+                                    yellowPawns.get(k).setNewPosition(yellowPawns.get(k).getStartPosition());
+                                    board.getChildren().remove(bluePawns.get(finalI).getPawnImage());
+                                    board.add(bluePawns.get(finalI).getPawnImage(),
+                                            MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                            MapOfMovements.getListOfMovements().get(j).getRow());
+                                    drawBox.setText("Niebieski Pionek Zbity");
+
+                                }
+
+                                else {
+                                    board.getChildren().remove(bluePawns.get(finalI).getPawnImage());
+                                    board.add(bluePawns.get(finalI).getPawnImage(),
+                                            MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                            MapOfMovements.getListOfMovements().get(j).getRow());
+
+                                }
+
+                            }
+                        }
+                    }
+                    for (int j = 84; j < 88 ; j++) {
+
+                        if (bluePawns.get(finalI).getValue() == blueMaxField) {
+                            bluePawns.get(finalI).changeFinishStatus();
+                            bluePawns.get(finalI).changeActivationStatus();
+                            bluePawns.get(finalI).setActivationNr(1);
+                            blueMaxField = blueMaxField - 1;
+                            drawBox.setText("Pionek Zakonczyl Gre");
+                        }
+
+                    }
+
+                } else {
+                    // tutaj ruch kolejnym pionkiem
+                    int finalII = 1;
+                    if (bluePawns.get(finalII).getActivationStatus()) {
+                        // tutaj wszystko to gdy pionek jest aktywny i wypadnie !6
+
+                        // sprawdzenie mozliwosci ruchu
+                        if (dice <= blueMaxField - bluePawns.get(finalII).getValue()) {
+                            bluePawns.get(finalII).setValue(bluePawns.get(finalII).getValue() + dice);
+
+                        } else if (dice > blueMaxField - bluePawns.get(finalII).getValue()) {
+                            drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
+                        }
+
+                        // ruch pionka + zbijanie
+                        for (int j = 44; j < 88 ; j++) {
+                            if (bluePawns.get(finalII).getValue() == j) {
+                                bluePawns.get(finalII).setNewPosition(MapOfMovements.getListOfMovements().get(j));
+                                for (int k = 0 ; k < 4; k++) {
+
+                                    if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalII).getCurrentField())) {
+
+                                        board.getChildren().remove(redPawns.get(k).getPawnImage());
+                                        board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
+                                        redPawns.get(k).changeActivationStatus();
+                                        redPawns.get(k).setValue(0);
+                                        redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
+
+                                        board.getChildren().remove(bluePawns.get(finalII).getPawnImage());
+                                        board.add(bluePawns.get(finalII).getPawnImage(),
+                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                MapOfMovements.getListOfMovements().get(j).getRow());
+                                        drawBox.setText("Czerwony Pionek Zbity");
+
+
+
+                                    } else if (MapOfFields.getListOfFields().get(greenPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalII).getCurrentField()) ) {
+
+                                        board.getChildren().remove(greenPawns.get(k).getPawnImage());
+                                        board.add(greenPawns.get(k).getPawnImage(), greenPawns.get(k).getStartPosition().getColumn(), greenPawns.get(k).getStartPosition().getRow());
+                                        greenPawns.get(k).changeActivationStatus();
+                                        greenPawns.get(k).setValue(0);
+                                        greenPawns.get(k).setNewPosition(greenPawns.get(k).getStartPosition());
+                                        board.getChildren().remove(bluePawns.get(finalII).getPawnImage());
+                                        board.add(bluePawns.get(finalII).getPawnImage(),
+                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                MapOfMovements.getListOfMovements().get(j).getRow());
+                                        drawBox.setText("Zielony Pionek Zbity");
+
+
+                                    } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalII).getCurrentField()) ) {
+
+                                        board.getChildren().remove(yellowPawns.get(k).getPawnImage());
+                                        board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
+                                        yellowPawns.get(k).changeActivationStatus();
+                                        yellowPawns.get(k).setValue(0);
+                                        yellowPawns.get(k).setNewPosition(yellowPawns.get(k).getStartPosition());
+                                        board.getChildren().remove(bluePawns.get(finalII).getPawnImage());
+                                        board.add(bluePawns.get(finalII).getPawnImage(),
+                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                MapOfMovements.getListOfMovements().get(j).getRow());
+                                        drawBox.setText("Niebieski Pionek Zbity");
+
+                                    }
+
+                                    else {
+                                        board.getChildren().remove(bluePawns.get(finalII).getPawnImage());
+                                        board.add(bluePawns.get(finalII).getPawnImage(),
+                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                MapOfMovements.getListOfMovements().get(j).getRow());
+
+                                    }
+
+                                }
+                            }
+                        }
+                        for (int j = 84; j < 88 ; j++) {
+
+                            if (bluePawns.get(finalII).getValue() == blueMaxField) {
+                                bluePawns.get(finalII).changeFinishStatus();
+                                bluePawns.get(finalII).changeActivationStatus();
+                                bluePawns.get(finalII).setActivationNr(1);
+                                blueMaxField = blueMaxField - 1;
+                                drawBox.setText("Pionek Zakonczyl Gre");
+                            }
+
+                        }
+
+                    } else {
+                        // tutaj ruch kolejnym pionkiem
+                        int finalIII = 2;
+                        if (bluePawns.get(finalIII).getActivationStatus()) {
+                            // tutaj wszystko to gdy pionek jest aktywny i wypadnie !6
+
+                            // sprawdzenie mozliwosci ruchu
+                            if (dice <= blueMaxField - bluePawns.get(finalIII).getValue()) {
+                                bluePawns.get(finalIII).setValue(bluePawns.get(finalIII).getValue() + dice);
+
+                            } else if (dice > blueMaxField - bluePawns.get(finalIII).getValue()) {
+                                drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
+                            }
+
+                            // ruch pionka + zbijanie
+                            for (int j = 44; j < 88 ; j++) {
+                                if (bluePawns.get(finalIII).getValue() == j) {
+                                    bluePawns.get(finalIII).setNewPosition(MapOfMovements.getListOfMovements().get(j));
+                                    for (int k = 0 ; k < 4; k++) {
+
+                                        if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalIII).getCurrentField())) {
+
+                                            board.getChildren().remove(redPawns.get(k).getPawnImage());
+                                            board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
+                                            redPawns.get(k).changeActivationStatus();
+                                            redPawns.get(k).setValue(0);
+                                            redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
+
+                                            board.getChildren().remove(bluePawns.get(finalIII).getPawnImage());
+                                            board.add(bluePawns.get(finalIII).getPawnImage(),
+                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                    MapOfMovements.getListOfMovements().get(j).getRow());
+                                            drawBox.setText("Czerwony Pionek Zbity");
+
+
+
+                                        } else if (MapOfFields.getListOfFields().get(greenPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalIII).getCurrentField()) ) {
+
+                                            board.getChildren().remove(greenPawns.get(k).getPawnImage());
+                                            board.add(greenPawns.get(k).getPawnImage(), greenPawns.get(k).getStartPosition().getColumn(), greenPawns.get(k).getStartPosition().getRow());
+                                            greenPawns.get(k).changeActivationStatus();
+                                            greenPawns.get(k).setValue(0);
+                                            greenPawns.get(k).setNewPosition(greenPawns.get(k).getStartPosition());
+                                            board.getChildren().remove(bluePawns.get(finalIII).getPawnImage());
+                                            board.add(bluePawns.get(finalIII).getPawnImage(),
+                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                    MapOfMovements.getListOfMovements().get(j).getRow());
+                                            drawBox.setText("Zielony Pionek Zbity");
+
+
+                                        } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalIII).getCurrentField()) ) {
+
+                                            board.getChildren().remove(yellowPawns.get(k).getPawnImage());
+                                            board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
+                                            yellowPawns.get(k).changeActivationStatus();
+                                            yellowPawns.get(k).setValue(0);
+                                            yellowPawns.get(k).setNewPosition(yellowPawns.get(k).getStartPosition());
+                                            board.getChildren().remove(bluePawns.get(finalIII).getPawnImage());
+                                            board.add(bluePawns.get(finalIII).getPawnImage(),
+                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                    MapOfMovements.getListOfMovements().get(j).getRow());
+                                            drawBox.setText("Niebieski Pionek Zbity");
+
+                                        }
+
+                                        else {
+                                            board.getChildren().remove(bluePawns.get(finalIII).getPawnImage());
+                                            board.add(bluePawns.get(finalIII).getPawnImage(),
+                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                    MapOfMovements.getListOfMovements().get(j).getRow());
+
+                                        }
+
+                                    }
+                                }
+                            }
+                            for (int j = 84; j < 88 ; j++) {
+
+                                if (bluePawns.get(finalIII).getValue() == blueMaxField) {
+                                    bluePawns.get(finalIII).changeFinishStatus();
+                                    bluePawns.get(finalIII).changeActivationStatus();
+                                    bluePawns.get(finalIII).setActivationNr(1);
+                                    blueMaxField = blueMaxField - 1;
+                                    drawBox.setText("Pionek Zakonczyl Gre");
+                                }
+
+                            }
+
+                        } else {
+                            // tutaj ruch kolejnym pionkiem
+                            int finalIV = 3;
+                            if (bluePawns.get(finalIV).getActivationStatus()) {
+                                // tutaj wszystko to gdy pionek jest aktywny i wypadnie !6
+
+                                // sprawdzenie mozliwosci ruchu
+                                if (dice <= blueMaxField - bluePawns.get(finalIV).getValue()) {
+                                    bluePawns.get(finalIV).setValue(bluePawns.get(finalIV).getValue() + dice);
+
+                                } else if (dice > blueMaxField - bluePawns.get(finalIV).getValue()) {
+                                    drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
+                                }
+
+                                // ruch pionka + zbijanie
+                                for (int j = 44; j < 88 ; j++) {
+                                    if (bluePawns.get(finalIV).getValue() == j) {
+                                        bluePawns.get(finalIV).setNewPosition(MapOfMovements.getListOfMovements().get(j));
+                                        for (int k = 0 ; k < 4; k++) {
+
+                                            if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalIV).getCurrentField())) {
+
+                                                board.getChildren().remove(redPawns.get(k).getPawnImage());
+                                                board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
+                                                redPawns.get(k).changeActivationStatus();
+                                                redPawns.get(k).setValue(0);
+                                                redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
+
+                                                board.getChildren().remove(bluePawns.get(finalIV).getPawnImage());
+                                                board.add(bluePawns.get(finalIV).getPawnImage(),
+                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                        MapOfMovements.getListOfMovements().get(j).getRow());
+                                                drawBox.setText("Czerwony Pionek Zbity");
+
+
+
+                                            } else if (MapOfFields.getListOfFields().get(greenPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalIV).getCurrentField()) ) {
+
+                                                board.getChildren().remove(greenPawns.get(k).getPawnImage());
+                                                board.add(greenPawns.get(k).getPawnImage(), greenPawns.get(k).getStartPosition().getColumn(), greenPawns.get(k).getStartPosition().getRow());
+                                                greenPawns.get(k).changeActivationStatus();
+                                                greenPawns.get(k).setValue(0);
+                                                greenPawns.get(k).setNewPosition(greenPawns.get(k).getStartPosition());
+                                                board.getChildren().remove(bluePawns.get(finalIV).getPawnImage());
+                                                board.add(bluePawns.get(finalIV).getPawnImage(),
+                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                        MapOfMovements.getListOfMovements().get(j).getRow());
+                                                drawBox.setText("Zielony Pionek Zbity");
+
+
+                                            } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(bluePawns.get(finalIV).getCurrentField()) ) {
+
+                                                board.getChildren().remove(yellowPawns.get(k).getPawnImage());
+                                                board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
+                                                yellowPawns.get(k).changeActivationStatus();
+                                                yellowPawns.get(k).setValue(0);
+                                                yellowPawns.get(k).setNewPosition(yellowPawns.get(k).getStartPosition());
+                                                board.getChildren().remove(bluePawns.get(finalIV).getPawnImage());
+                                                board.add(bluePawns.get(finalIV).getPawnImage(),
+                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                        MapOfMovements.getListOfMovements().get(j).getRow());
+                                                drawBox.setText("Niebieski Pionek Zbity");
+
+                                            }
+
+                                            else {
+                                                board.getChildren().remove(bluePawns.get(finalIV).getPawnImage());
+                                                board.add(bluePawns.get(finalIV).getPawnImage(),
+                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                        MapOfMovements.getListOfMovements().get(j).getRow());
+
+                                            }
+
+                                        }
+                                    }
+                                }
+                                for (int j = 84; j < 88 ; j++) {
+
+                                    if (bluePawns.get(finalIV).getValue() == blueMaxField) {
+                                        bluePawns.get(finalIV).changeFinishStatus();
+                                        bluePawns.get(finalIV).changeActivationStatus();
+                                        bluePawns.get(finalIV).setActivationNr(1);
+                                        blueMaxField = blueMaxField - 1;
+                                        drawBox.setText("Pionek Zakonczyl Gre");
+                                    }
+
+                                }
+
+                            } else {
+                                if (bluePawns.get(finalIV).getActivationNr() == 1) drawBox.setText("Gracz Zakonczyl Gre!!!");
+                            }
+                        }
+                    }
+                }
+            }
+            board.getChildren().remove(drawBtnBlue);
+            board.add(drawBtnYellow,1,2);
         });
         }
 
@@ -1024,612 +966,24 @@ public class Chinczyk extends Application {
 
 
             drawBtnYellow.setOnMouseClicked(g -> {
-                int finalI = 0;
                 turn = 4;
                 dice = rollTheDice();
                 drawBox.setText("Wylosowano " + dice);
+
                 if (dice == 6) {
-
+                    int finalI = 0;
                     if (yellowPawns.get(finalI).getActivationStatus()) {
-                        if (yellowPawns.get(finalI).getActivationNr() == 1){
-                            // drugi pionek
-                            int finalII = 1;
+                            //tutaj wszystko to co gdy pionek jest aktywny i wypadnie 6
 
+                        // sprawdzenie mozliwosci ruchu
+                        if (dice <= yellowMaxField - yellowPawns.get(finalI).getValue()) {
+                            yellowPawns.get(finalI).setValue(yellowPawns.get(finalI).getValue() + dice);
 
-                            if (dice == 6) {
-
-                                if (yellowPawns.get(finalII).getActivationStatus()) {
-                                    if (yellowPawns.get(finalII).getActivationNr() == 1){
-                                        // trzeci pionek
-                                        int finalIII = 2;
-
-
-                                        if (dice == 6) {
-
-                                            if (yellowPawns.get(finalIII).getActivationStatus()) {
-                                                if (yellowPawns.get(finalIII).getActivationNr() == 1){
-                                                    // czwarty pionek
-                                                    int finalIV = 3;
-                                                    turn = 4;
-
-                                                    if (dice == 6) {
-
-                                                        if (yellowPawns.get(finalIV).getActivationStatus()) {
-                                                            if (yellowPawns.get(finalIV).getActivationNr() == 1){
-                                                                drawBox.setText("Gracz zakonczyl gre");
-
-                                                            }
-
-                                                            if (yellowPawns.get(finalIV).getActivationNr() == 0) {
-                                                                if (dice <= yellowMaxField - yellowPawns.get(finalIV).getValue()) {
-                                                                    yellowPawns.get(finalIV).setValue(yellowPawns.get(finalIV).getValue() + dice);
-
-                                                                }  else if (dice > yellowMaxField - yellowPawns.get(finalIV).getValue()) {
-                                                                    drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
-                                                                }
-                                                            }
-                                                            for (int j = 88; j < 132 ; j++) {
-                                                                if (yellowPawns.get(finalIV).getValue() == j) {
-                                                                    yellowPawns.get(finalIV).setNewPosition(MapOfMovements.getListOfMovements().get(j));
-                                                                    for (int k = 0 ; k < 4; k++) {
-
-                                                                        if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(yellowPawns.get(finalIV).getCurrentField())) {
-
-                                                                            board.getChildren().remove(redPawns.get(k).getPawnImage());
-                                                                            board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
-                                                                            redPawns.get(k).changeActivationStatus();
-                                                                            redPawns.get(k).setValue(0);
-                                                                            redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
-
-                                                                            board.getChildren().remove(yellowPawns.get(finalIV).getPawnImage());
-                                                                            board.add(yellowPawns.get(finalIV).getPawnImage(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getRow());
-                                                                            drawBox.setText("Czerwony Pionek Zbity");
-
-
-
-                                                                        } else if (MapOfFields.getListOfFields().get(greenPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(yellowPawns.get(finalIV).getCurrentField()) ) {
-
-                                                                            board.getChildren().remove(greenPawns.get(k).getPawnImage());
-                                                                            board.add(greenPawns.get(k).getPawnImage(), greenPawns.get(k).getStartPosition().getColumn(), greenPawns.get(k).getStartPosition().getRow());
-                                                                            greenPawns.get(k).changeActivationStatus();
-                                                                            greenPawns.get(k).setValue(0);
-                                                                            greenPawns.get(k).setNewPosition(greenPawns.get(k).getStartPosition());
-                                                                            board.getChildren().remove(yellowPawns.get(finalIV).getPawnImage());
-                                                                            board.add(yellowPawns.get(finalIV).getPawnImage(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getRow());
-                                                                            drawBox.setText("Zielony Pionek Zbity");
-
-
-                                                                        } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(yellowPawns.get(finalIV).getCurrentField()) ) {
-
-                                                                            board.getChildren().remove(bluePawns.get(k).getPawnImage());
-                                                                            board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
-                                                                            bluePawns.get(k).changeActivationStatus();
-                                                                            bluePawns.get(k).setValue(0);
-                                                                            bluePawns.get(k).setNewPosition(bluePawns.get(k).getStartPosition());
-                                                                            board.getChildren().remove(yellowPawns.get(finalIV).getPawnImage());
-                                                                            board.add(yellowPawns.get(finalIV).getPawnImage(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getRow());
-                                                                            drawBox.setText("Niebieski Pionek Zbity");
-
-                                                                        }
-
-                                                                        else {
-                                                                            board.getChildren().remove(yellowPawns.get(finalIV).getPawnImage());
-                                                                            board.add(yellowPawns.get(finalIV).getPawnImage(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getRow());
-
-                                                                        }
-
-                                                                    }
-                                                                }
-                                                            }
-                                                            for (int j = 128; j < 132 ; j++) {
-
-                                                                if (yellowPawns.get(finalIV).getValue() == yellowMaxField) {
-                                                                    yellowPawns.get(finalIV).changeFinishStatus();
-                                                                    yellowPawns.get(finalIV).changeActivationStatus();
-                                                                    yellowPawns.get(finalIV).setActivationNr(1);
-                                                                    yellowMaxField = yellowMaxField - 1;
-                                                                    drawBox.setText("Pionek Zakonczyl Gre");
-                                                                }
-
-                                                            }
-                                                        } else  {
-                                                            yellowPawns.get(finalIV).changeActivationStatus();
-                                                            yellowPawns.get(finalIV).setNewPosition(bluePawns.get(finalIV).getStartPosition());
-                                                            yellowPawns.get(finalIV).setValue(88);
-                                                            board.getChildren().remove(yellowPawns.get(finalIV).getPawnImage());
-                                                            board.add(yellowPawns.get(finalIV).getPawnImage(), 0, 4);
-
-                                                        }
-                                                    } else if (dice != 6) {
-
-                                                        if (yellowPawns.get(finalIV).getActivationStatus()) {
-
-                                                            if (yellowPawns.get(finalIV).getActivationNr() == 1){
-                                                                drawBox.setText("Pionek Zakonczyl Gre");
-                                                            }
-
-                                                            if (yellowPawns.get(finalIV).getActivationNr() == 0) {
-                                                                if (dice <= yellowMaxField - yellowPawns.get(finalIV).getValue()) {
-                                                                    yellowPawns.get(finalIV).setValue(yellowPawns.get(finalIV).getValue() + dice);
-
-                                                                }   else if (dice > yellowMaxField - yellowPawns.get(finalIV).getValue()) {
-                                                                    drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
-                                                                }
-                                                            }
-                                                            for (int j = 88; j < 132 ; j++) {
-                                                                if (yellowPawns.get(finalIV).getValue() == j) {
-                                                                    yellowPawns.get(finalIV).setNewPosition(MapOfMovements.getListOfMovements().get(j));
-                                                                    for (int k = 0 ; k < 4; k++) {
-
-                                                                        if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(yellowPawns.get(finalIV).getCurrentField())) {
-
-                                                                            board.getChildren().remove(redPawns.get(k).getPawnImage());
-                                                                            board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
-                                                                            redPawns.get(k).changeActivationStatus();
-                                                                            redPawns.get(k).setValue(0);
-                                                                            redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
-
-                                                                            board.getChildren().remove(yellowPawns.get(finalIV).getPawnImage());
-                                                                            board.add(yellowPawns.get(finalIV).getPawnImage(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getRow());
-                                                                            drawBox.setText("Czerwony Pionek Zbity");
-
-
-
-                                                                        } else if (MapOfFields.getListOfFields().get(greenPawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(yellowPawns.get(finalIV).getCurrentField())) {
-
-                                                                            board.getChildren().remove(greenPawns.get(k).getPawnImage());
-                                                                            board.add(greenPawns.get(k).getPawnImage(), greenPawns.get(k).getStartPosition().getColumn(), greenPawns.get(k).getStartPosition().getRow());
-                                                                            greenPawns.get(k).changeActivationStatus();
-                                                                            greenPawns.get(k).setValue(0);
-                                                                            greenPawns.get(k).setNewPosition(greenPawns.get(k).getStartPosition());
-
-                                                                            board.getChildren().remove(yellowPawns.get(finalIV).getPawnImage());
-                                                                            board.add(yellowPawns.get(finalIV).getPawnImage(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getRow());
-                                                                            drawBox.setText("Zielony Pionek Zbity");
-
-
-                                                                        } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(yellowPawns.get(finalIV).getCurrentField())) {
-
-                                                                            board.getChildren().remove(bluePawns.get(k).getPawnImage());
-                                                                            board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
-                                                                            bluePawns.get(k).changeActivationStatus();
-                                                                            bluePawns.get(k).setValue(0);
-                                                                            bluePawns.get(k).setNewPosition(bluePawns.get(k).getStartPosition());
-                                                                            board.getChildren().remove(yellowPawns.get(finalIV).getPawnImage());
-                                                                            board.add(yellowPawns.get(finalIV).getPawnImage(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getRow());
-                                                                            drawBox.setText("Niebieski Pionek Zbity");
-
-                                                                        }   else {
-                                                                            board.getChildren().remove(yellowPawns.get(finalIV).getPawnImage());
-                                                                            board.add(yellowPawns.get(finalIV).getPawnImage(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getRow());
-
-                                                                        }
-
-                                                                    }
-                                                                }
-
-                                                            }
-                                                            for (int j = 128; j < 132 ; j++) {
-
-                                                                if (yellowPawns.get(finalIV).getValue() == yellowMaxField) {
-                                                                    yellowPawns.get(finalIV).changeFinishStatus();
-                                                                    yellowPawns.get(finalIV).changeActivationStatus();
-                                                                    yellowPawns.get(finalIV).setActivationNr(1);
-                                                                    yellowMaxField = yellowMaxField - 1;
-                                                                    drawBox.setText("Pionek Zakonczyl Gre");
-                                                                }
-
-                                                            }
-                                                        }
-
-                                                        board.getChildren().remove(drawBtnYellow);
-                                                        board.add(drawBtnGreen,8,2);
-                                                    }
-                                                }
-
-                                                if (yellowPawns.get(finalIII).getActivationNr() == 0) {
-                                                    if (dice <= yellowMaxField - yellowPawns.get(finalIII).getValue()) {
-                                                        yellowPawns.get(finalIII).setValue(yellowPawns.get(finalIII).getValue() + dice);
-
-                                                    }  else if (dice > yellowMaxField - yellowPawns.get(finalIII).getValue()) {
-                                                        drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
-                                                    }
-                                                }
-                                                for (int j = 88; j < 132 ; j++) {
-                                                    if (yellowPawns.get(finalIII).getValue() == j) {
-                                                        yellowPawns.get(finalIII).setNewPosition(MapOfMovements.getListOfMovements().get(j));
-                                                        for (int k = 0 ; k < 4; k++) {
-
-                                                            if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(yellowPawns.get(finalIII).getCurrentField())) {
-
-                                                                board.getChildren().remove(redPawns.get(k).getPawnImage());
-                                                                board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
-                                                                redPawns.get(k).changeActivationStatus();
-                                                                redPawns.get(k).setValue(0);
-                                                                redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
-
-                                                                board.getChildren().remove(yellowPawns.get(finalIII).getPawnImage());
-                                                                board.add(yellowPawns.get(finalIII).getPawnImage(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getRow());
-                                                                drawBox.setText("Czerwony Pionek Zbity");
-
-
-
-                                                            } else if (MapOfFields.getListOfFields().get(greenPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(yellowPawns.get(finalIII).getCurrentField()) ) {
-
-                                                                board.getChildren().remove(greenPawns.get(k).getPawnImage());
-                                                                board.add(greenPawns.get(k).getPawnImage(), greenPawns.get(k).getStartPosition().getColumn(), greenPawns.get(k).getStartPosition().getRow());
-                                                                greenPawns.get(k).changeActivationStatus();
-                                                                greenPawns.get(k).setValue(0);
-                                                                greenPawns.get(k).setNewPosition(greenPawns.get(k).getStartPosition());
-                                                                board.getChildren().remove(yellowPawns.get(finalIII).getPawnImage());
-                                                                board.add(yellowPawns.get(finalIII).getPawnImage(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getRow());
-                                                                drawBox.setText("Zielony Pionek Zbity");
-
-
-                                                            } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(yellowPawns.get(finalIII).getCurrentField()) ) {
-
-                                                                board.getChildren().remove(bluePawns.get(k).getPawnImage());
-                                                                board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
-                                                                bluePawns.get(k).changeActivationStatus();
-                                                                bluePawns.get(k).setValue(0);
-                                                                bluePawns.get(k).setNewPosition(bluePawns.get(k).getStartPosition());
-                                                                board.getChildren().remove(yellowPawns.get(finalIII).getPawnImage());
-                                                                board.add(yellowPawns.get(finalIII).getPawnImage(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getRow());
-                                                                drawBox.setText("Niebieski Pionek Zbity");
-
-                                                            }
-
-                                                            else {
-                                                                board.getChildren().remove(yellowPawns.get(finalIII).getPawnImage());
-                                                                board.add(yellowPawns.get(finalIII).getPawnImage(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getRow());
-
-                                                            }
-
-                                                        }
-                                                    }
-                                                }
-                                                for (int j = 128; j < 132 ; j++) {
-
-                                                    if (yellowPawns.get(finalIII).getValue() == yellowMaxField) {
-                                                        yellowPawns.get(finalIII).changeFinishStatus();
-                                                        yellowPawns.get(finalIII).changeActivationStatus();
-                                                        yellowPawns.get(finalIII).setActivationNr(1);
-                                                        yellowMaxField = yellowMaxField - 1;
-                                                        drawBox.setText("Pionek Zakonczyl Gre");
-                                                    }
-
-                                                }
-                                            } else if (yellowPawns.get(finalIII).getActivationNr() == 0){
-                                                yellowPawns.get(finalIII).changeActivationStatus();
-                                                yellowPawns.get(finalIII).setNewPosition(bluePawns.get(finalIII).getStartPosition());
-                                                yellowPawns.get(finalIII).setValue(88);
-                                                board.getChildren().remove(yellowPawns.get(finalIII).getPawnImage());
-                                                board.add(yellowPawns.get(finalIII).getPawnImage(), 0, 4);
-
-                                            } else {
-                                                yellowPawns.get(3).changeActivationStatus();
-                                                yellowPawns.get(3).setNewPosition(bluePawns.get(3).getStartPosition());
-                                                yellowPawns.get(3).setValue(88);
-                                                board.getChildren().remove(yellowPawns.get(3).getPawnImage());
-                                                board.add(yellowPawns.get(3).getPawnImage(), 0, 4);
-                                            }
-                                        } else if (dice != 6) {
-
-                                            if (yellowPawns.get(finalIII).getActivationStatus()) {
-
-                                                if (yellowPawns.get(finalIII).getActivationNr() == 1){
-                                                    drawBox.setText("Pionek Zakonczyl Gre");
-                                                }
-
-                                                if (yellowPawns.get(finalIII).getActivationNr() == 0) {
-                                                    if (dice <= yellowMaxField - yellowPawns.get(finalIII).getValue()) {
-                                                        yellowPawns.get(finalIII).setValue(yellowPawns.get(finalIII).getValue() + dice);
-
-                                                    }   else if (dice > yellowMaxField - yellowPawns.get(finalIII).getValue()) {
-                                                        drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
-                                                    }
-                                                }
-                                                for (int j = 88; j < 132 ; j++) {
-                                                    if (yellowPawns.get(finalIII).getValue() == j) {
-                                                        yellowPawns.get(finalIII).setNewPosition(MapOfMovements.getListOfMovements().get(j));
-                                                        for (int k = 0 ; k < 4; k++) {
-
-                                                            if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(yellowPawns.get(finalIII).getCurrentField())) {
-
-                                                                board.getChildren().remove(redPawns.get(k).getPawnImage());
-                                                                board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
-                                                                redPawns.get(k).changeActivationStatus();
-                                                                redPawns.get(k).setValue(0);
-                                                                redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
-
-                                                                board.getChildren().remove(yellowPawns.get(finalIII).getPawnImage());
-                                                                board.add(yellowPawns.get(finalIII).getPawnImage(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getRow());
-                                                                drawBox.setText("Czerwony Pionek Zbity");
-
-
-
-                                                            } else if (MapOfFields.getListOfFields().get(greenPawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(yellowPawns.get(finalIII).getCurrentField())) {
-
-                                                                board.getChildren().remove(greenPawns.get(k).getPawnImage());
-                                                                board.add(greenPawns.get(k).getPawnImage(), greenPawns.get(k).getStartPosition().getColumn(), greenPawns.get(k).getStartPosition().getRow());
-                                                                greenPawns.get(k).changeActivationStatus();
-                                                                greenPawns.get(k).setValue(0);
-                                                                greenPawns.get(k).setNewPosition(greenPawns.get(k).getStartPosition());
-
-                                                                board.getChildren().remove(yellowPawns.get(finalIII).getPawnImage());
-                                                                board.add(yellowPawns.get(finalIII).getPawnImage(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getRow());
-                                                                drawBox.setText("Zielony Pionek Zbity");
-
-
-                                                            } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(yellowPawns.get(finalIII).getCurrentField())) {
-
-                                                                board.getChildren().remove(bluePawns.get(k).getPawnImage());
-                                                                board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
-                                                                bluePawns.get(k).changeActivationStatus();
-                                                                bluePawns.get(k).setValue(0);
-                                                                bluePawns.get(k).setNewPosition(bluePawns.get(k).getStartPosition());
-                                                                board.getChildren().remove(yellowPawns.get(finalIII).getPawnImage());
-                                                                board.add(yellowPawns.get(finalIII).getPawnImage(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getRow());
-                                                                drawBox.setText("Niebieski Pionek Zbity");
-
-                                                            }  else {
-                                                                board.getChildren().remove(yellowPawns.get(finalIII).getPawnImage());
-                                                                board.add(yellowPawns.get(finalIII).getPawnImage(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getRow());
-
-                                                            }
-
-                                                        }
-                                                    }
-
-                                                }
-                                                for (int j = 128; j < 132 ; j++) {
-
-                                                    if (yellowPawns.get(finalIII).getValue() == yellowMaxField) {
-                                                        yellowPawns.get(finalIII).changeFinishStatus();
-                                                        yellowPawns.get(finalIII).changeActivationStatus();
-                                                        yellowPawns.get(finalIII).setActivationNr(1);
-                                                        yellowMaxField = yellowMaxField - 1;
-                                                        drawBox.setText("Pionek Zakonczyl Gre");
-                                                    }
-
-                                                }
-                                            }
-
-                                            board.getChildren().remove(drawBtnYellow);
-                                            board.add(drawBtnGreen,8,2);
-                                        }
-                                    }
-
-                                    if (yellowPawns.get(finalII).getActivationNr() == 0) {
-                                        if (dice <= yellowMaxField - yellowPawns.get(finalII).getValue()) {
-                                            yellowPawns.get(finalII).setValue(yellowPawns.get(finalII).getValue() + dice);
-
-                                        }  else if (dice > yellowMaxField - yellowPawns.get(finalII).getValue()) {
-                                            drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
-                                        }
-                                    }
-                                    for (int j = 88; j < 132 ; j++) {
-                                        if (yellowPawns.get(finalII).getValue() == j) {
-                                            yellowPawns.get(finalII).setNewPosition(MapOfMovements.getListOfMovements().get(j));
-                                            for (int k = 0 ; k < 4; k++) {
-
-                                                if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(yellowPawns.get(finalII).getCurrentField())) {
-
-                                                    board.getChildren().remove(redPawns.get(k).getPawnImage());
-                                                    board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
-                                                    redPawns.get(k).changeActivationStatus();
-                                                    redPawns.get(k).setValue(0);
-                                                    redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
-
-                                                    board.getChildren().remove(yellowPawns.get(finalII).getPawnImage());
-                                                    board.add(yellowPawns.get(finalII).getPawnImage(),
-                                                            MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                            MapOfMovements.getListOfMovements().get(j).getRow());
-                                                    drawBox.setText("Czerwony Pionek Zbity");
-
-
-
-                                                } else if (MapOfFields.getListOfFields().get(greenPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(yellowPawns.get(finalII).getCurrentField()) ) {
-
-                                                    board.getChildren().remove(greenPawns.get(k).getPawnImage());
-                                                    board.add(greenPawns.get(k).getPawnImage(), greenPawns.get(k).getStartPosition().getColumn(), greenPawns.get(k).getStartPosition().getRow());
-                                                    greenPawns.get(k).changeActivationStatus();
-                                                    greenPawns.get(k).setValue(0);
-                                                    greenPawns.get(k).setNewPosition(greenPawns.get(k).getStartPosition());
-                                                    board.getChildren().remove(yellowPawns.get(finalII).getPawnImage());
-                                                    board.add(yellowPawns.get(finalII).getPawnImage(),
-                                                            MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                            MapOfMovements.getListOfMovements().get(j).getRow());
-                                                    drawBox.setText("Zielony Pionek Zbity");
-
-
-                                                } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(yellowPawns.get(finalII).getCurrentField()) ) {
-
-                                                    board.getChildren().remove(bluePawns.get(k).getPawnImage());
-                                                    board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
-                                                    bluePawns.get(k).changeActivationStatus();
-                                                    bluePawns.get(k).setValue(0);
-                                                    bluePawns.get(k).setNewPosition(bluePawns.get(k).getStartPosition());
-                                                    board.getChildren().remove(yellowPawns.get(finalII).getPawnImage());
-                                                    board.add(yellowPawns.get(finalII).getPawnImage(),
-                                                            MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                            MapOfMovements.getListOfMovements().get(j).getRow());
-                                                    drawBox.setText("Niebieski Pionek Zbity");
-
-                                                }
-
-                                                else {
-                                                    board.getChildren().remove(yellowPawns.get(finalII).getPawnImage());
-                                                    board.add(yellowPawns.get(finalII).getPawnImage(),
-                                                            MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                            MapOfMovements.getListOfMovements().get(j).getRow());
-
-                                                }
-
-                                            }
-                                        }
-                                    }
-                                    for (int j = 128; j < 132 ; j++) {
-
-                                        if (yellowPawns.get(finalII).getValue() == yellowMaxField) {
-                                            yellowPawns.get(finalII).changeFinishStatus();
-                                            yellowPawns.get(finalII).changeActivationStatus();
-                                            yellowPawns.get(finalII).setActivationNr(1);
-                                            yellowMaxField = yellowMaxField - 1;
-                                            drawBox.setText("Pionek Zakonczyl Gre");
-                                        }
-
-                                    }
-                                } else if (yellowPawns.get(finalII).getActivationNr() == 0){
-                                    yellowPawns.get(finalII).changeActivationStatus();
-                                    yellowPawns.get(finalII).setNewPosition(bluePawns.get(finalII).getStartPosition());
-                                    yellowPawns.get(finalII).setValue(88);
-                                    board.getChildren().remove(yellowPawns.get(finalII).getPawnImage());
-                                    board.add(yellowPawns.get(finalII).getPawnImage(), 0, 4);
-
-                                } else {
-                                    yellowPawns.get(2).changeActivationStatus();
-                                    yellowPawns.get(2).setNewPosition(bluePawns.get(2).getStartPosition());
-                                    yellowPawns.get(2).setValue(88);
-                                    board.getChildren().remove(yellowPawns.get(2).getPawnImage());
-                                    board.add(yellowPawns.get(2).getPawnImage(), 0, 4);
-                                }
-                            } else if (dice != 6) {
-
-                                if (yellowPawns.get(finalII).getActivationStatus()) {
-
-                                    if (yellowPawns.get(finalII).getActivationNr() == 1){
-                                        drawBox.setText("Pionek Zakonczyl Gre");
-                                    }
-
-                                    if (yellowPawns.get(finalII).getActivationNr() == 0) {
-                                        if (dice <= yellowMaxField - yellowPawns.get(finalII).getValue()) {
-                                            yellowPawns.get(finalII).setValue(yellowPawns.get(finalII).getValue() + dice);
-
-                                        }   else if (dice > yellowMaxField - yellowPawns.get(finalII).getValue()) {
-                                            drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
-                                        }
-                                    }
-                                    for (int j = 88; j < 132 ; j++) {
-                                        if (yellowPawns.get(finalII).getValue() == j) {
-                                            yellowPawns.get(finalII).setNewPosition(MapOfMovements.getListOfMovements().get(j));
-                                            for (int k = 0 ; k < 4; k++) {
-
-                                                if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(yellowPawns.get(finalII).getCurrentField())) {
-
-                                                    board.getChildren().remove(redPawns.get(k).getPawnImage());
-                                                    board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
-                                                    redPawns.get(k).changeActivationStatus();
-                                                    redPawns.get(k).setValue(0);
-                                                    redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
-
-                                                    board.getChildren().remove(yellowPawns.get(finalII).getPawnImage());
-                                                    board.add(yellowPawns.get(finalII).getPawnImage(),
-                                                            MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                            MapOfMovements.getListOfMovements().get(j).getRow());
-                                                    drawBox.setText("Czerwony Pionek Zbity");
-
-
-
-                                                } else if (MapOfFields.getListOfFields().get(greenPawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(yellowPawns.get(finalII).getCurrentField())) {
-
-                                                    board.getChildren().remove(greenPawns.get(k).getPawnImage());
-                                                    board.add(greenPawns.get(k).getPawnImage(), greenPawns.get(k).getStartPosition().getColumn(), greenPawns.get(k).getStartPosition().getRow());
-                                                    greenPawns.get(k).changeActivationStatus();
-                                                    greenPawns.get(k).setValue(0);
-                                                    greenPawns.get(k).setNewPosition(greenPawns.get(k).getStartPosition());
-
-                                                    board.getChildren().remove(yellowPawns.get(finalII).getPawnImage());
-                                                    board.add(yellowPawns.get(finalII).getPawnImage(),
-                                                            MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                            MapOfMovements.getListOfMovements().get(j).getRow());
-                                                    drawBox.setText("Zielony Pionek Zbity");
-
-
-                                                } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(yellowPawns.get(finalII).getCurrentField())) {
-
-                                                    board.getChildren().remove(bluePawns.get(k).getPawnImage());
-                                                    board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
-                                                    bluePawns.get(k).changeActivationStatus();
-                                                    bluePawns.get(k).setValue(0);
-                                                    bluePawns.get(k).setNewPosition(bluePawns.get(k).getStartPosition());
-                                                    board.getChildren().remove(yellowPawns.get(finalII).getPawnImage());
-                                                    board.add(yellowPawns.get(finalII).getPawnImage(),
-                                                            MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                            MapOfMovements.getListOfMovements().get(j).getRow());
-                                                    drawBox.setText("Niebieski Pionek Zbity");
-
-                                                }  else {
-                                                    board.getChildren().remove(yellowPawns.get(finalII).getPawnImage());
-                                                    board.add(yellowPawns.get(finalII).getPawnImage(),
-                                                            MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                            MapOfMovements.getListOfMovements().get(j).getRow());
-
-                                                }
-
-                                            }
-                                        }
-
-                                    }
-                                    for (int j = 128; j < 132 ; j++) {
-
-                                        if (yellowPawns.get(finalII).getValue() == yellowMaxField) {
-                                            yellowPawns.get(finalII).changeFinishStatus();
-                                            yellowPawns.get(finalII).changeActivationStatus();
-                                            yellowPawns.get(finalII).setActivationNr(1);
-                                            yellowMaxField = yellowMaxField - 1;
-                                            drawBox.setText("Pionek Zakonczyl Gre");
-                                        }
-
-                                    }
-                                }
-
-                                board.getChildren().remove(drawBtnYellow);
-                                board.add(drawBtnGreen,8,2);
-                            }
-
+                        }  else if (dice > yellowMaxField - yellowPawns.get(finalI).getValue()) {
+                            drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
                         }
 
-                        if (yellowPawns.get(finalI).getActivationNr() == 0) {
-                            if (dice <= yellowMaxField - yellowPawns.get(finalI).getValue()) {
-                                yellowPawns.get(finalI).setValue(yellowPawns.get(finalI).getValue() + dice);
-
-                            }  else if (dice > yellowMaxField - yellowPawns.get(finalI).getValue()) {
-                                drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
-                            }
-                        }
+                        // ruch pionka + zbijanie
                         for (int j = 88; j < 132 ; j++) {
                             if (yellowPawns.get(finalI).getValue() == j) {
                                 yellowPawns.get(finalI).setNewPosition(MapOfMovements.getListOfMovements().get(j));
@@ -1702,43 +1056,348 @@ public class Chinczyk extends Application {
                             }
 
                         }
-                    } else if (yellowPawns.get(finalI).getActivationNr() == 0){
+
+                    }
+                    else {
+
+                        if (yellowPawns.get(finalI).getActivationNr() == 1) {
+                            //tutaj ruch kolejnym pionkiem
+                            int finalII = 1;
+                            if (yellowPawns.get(finalII).getActivationStatus()) {
+                                //tutaj wszystko to co gdy pionek jest aktywny i wypadnie 6
+
+                                // sprawdzenie mozliwosci ruchu
+                                if (dice <= yellowMaxField - yellowPawns.get(finalII).getValue()) {
+                                    yellowPawns.get(finalII).setValue(yellowPawns.get(finalII).getValue() + dice);
+
+                                }  else if (dice > yellowMaxField - yellowPawns.get(finalII).getValue()) {
+                                    drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
+                                }
+
+                                // ruch pionka + zbijanie
+                                for (int j = 88; j < 132 ; j++) {
+                                    if (yellowPawns.get(finalII).getValue() == j) {
+                                        yellowPawns.get(finalII).setNewPosition(MapOfMovements.getListOfMovements().get(j));
+                                        for (int k = 0 ; k < 4; k++) {
+
+                                            if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(yellowPawns.get(finalII).getCurrentField())) {
+
+                                                board.getChildren().remove(redPawns.get(k).getPawnImage());
+                                                board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
+                                                redPawns.get(k).changeActivationStatus();
+                                                redPawns.get(k).setValue(0);
+                                                redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
+
+                                                board.getChildren().remove(yellowPawns.get(finalII).getPawnImage());
+                                                board.add(yellowPawns.get(finalII).getPawnImage(),
+                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                        MapOfMovements.getListOfMovements().get(j).getRow());
+                                                drawBox.setText("Czerwony Pionek Zbity");
+
+
+
+                                            } else if (MapOfFields.getListOfFields().get(greenPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(yellowPawns.get(finalII).getCurrentField()) ) {
+
+                                                board.getChildren().remove(greenPawns.get(k).getPawnImage());
+                                                board.add(greenPawns.get(k).getPawnImage(), greenPawns.get(k).getStartPosition().getColumn(), greenPawns.get(k).getStartPosition().getRow());
+                                                greenPawns.get(k).changeActivationStatus();
+                                                greenPawns.get(k).setValue(0);
+                                                greenPawns.get(k).setNewPosition(greenPawns.get(k).getStartPosition());
+                                                board.getChildren().remove(yellowPawns.get(finalII).getPawnImage());
+                                                board.add(yellowPawns.get(finalII).getPawnImage(),
+                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                        MapOfMovements.getListOfMovements().get(j).getRow());
+                                                drawBox.setText("Zielony Pionek Zbity");
+
+
+                                            } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(yellowPawns.get(finalII).getCurrentField()) ) {
+
+                                                board.getChildren().remove(bluePawns.get(k).getPawnImage());
+                                                board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
+                                                bluePawns.get(k).changeActivationStatus();
+                                                bluePawns.get(k).setValue(0);
+                                                bluePawns.get(k).setNewPosition(bluePawns.get(k).getStartPosition());
+                                                board.getChildren().remove(yellowPawns.get(finalII).getPawnImage());
+                                                board.add(yellowPawns.get(finalII).getPawnImage(),
+                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                        MapOfMovements.getListOfMovements().get(j).getRow());
+                                                drawBox.setText("Niebieski Pionek Zbity");
+
+                                            }
+
+                                            else {
+                                                board.getChildren().remove(yellowPawns.get(finalII).getPawnImage());
+                                                board.add(yellowPawns.get(finalII).getPawnImage(),
+                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                        MapOfMovements.getListOfMovements().get(j).getRow());
+
+                                            }
+
+                                        }
+                                    }
+                                }
+                                for (int j = 128; j < 132 ; j++) {
+
+                                    if (yellowPawns.get(finalII).getValue() == yellowMaxField) {
+                                        yellowPawns.get(finalII).changeFinishStatus();
+                                        yellowPawns.get(finalII).changeActivationStatus();
+                                        yellowPawns.get(finalII).setActivationNr(1);
+                                        yellowMaxField = yellowMaxField - 1;
+                                        drawBox.setText("Pionek Zakonczyl Gre");
+                                    }
+
+                                }
+
+                            }
+                            else {
+
+                                if (yellowPawns.get(finalII).getActivationNr() == 1) {
+                                    //tutaj ruch kolejnym pionkiem
+                                    int finalIII = 2;
+                                    if (yellowPawns.get(finalIII).getActivationStatus()) {
+                                        //tutaj wszystko to co gdy pionek jest aktywny i wypadnie 6
+
+                                        // sprawdzenie mozliwosci ruchu
+                                        if (dice <= yellowMaxField - yellowPawns.get(finalIII).getValue()) {
+                                            yellowPawns.get(finalIII).setValue(yellowPawns.get(finalIII).getValue() + dice);
+
+                                        }  else if (dice > yellowMaxField - yellowPawns.get(finalIII).getValue()) {
+                                            drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
+                                        }
+
+                                        // ruch pionka + zbijanie
+                                        for (int j = 88; j < 132 ; j++) {
+                                            if (yellowPawns.get(finalIII).getValue() == j) {
+                                                yellowPawns.get(finalIII).setNewPosition(MapOfMovements.getListOfMovements().get(j));
+                                                for (int k = 0 ; k < 4; k++) {
+
+                                                    if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(yellowPawns.get(finalIII).getCurrentField())) {
+
+                                                        board.getChildren().remove(redPawns.get(k).getPawnImage());
+                                                        board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
+                                                        redPawns.get(k).changeActivationStatus();
+                                                        redPawns.get(k).setValue(0);
+                                                        redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
+
+                                                        board.getChildren().remove(yellowPawns.get(finalIII).getPawnImage());
+                                                        board.add(yellowPawns.get(finalIII).getPawnImage(),
+                                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                                MapOfMovements.getListOfMovements().get(j).getRow());
+                                                        drawBox.setText("Czerwony Pionek Zbity");
+
+
+
+                                                    } else if (MapOfFields.getListOfFields().get(greenPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(yellowPawns.get(finalIII).getCurrentField()) ) {
+
+                                                        board.getChildren().remove(greenPawns.get(k).getPawnImage());
+                                                        board.add(greenPawns.get(k).getPawnImage(), greenPawns.get(k).getStartPosition().getColumn(), greenPawns.get(k).getStartPosition().getRow());
+                                                        greenPawns.get(k).changeActivationStatus();
+                                                        greenPawns.get(k).setValue(0);
+                                                        greenPawns.get(k).setNewPosition(greenPawns.get(k).getStartPosition());
+                                                        board.getChildren().remove(yellowPawns.get(finalIII).getPawnImage());
+                                                        board.add(yellowPawns.get(finalIII).getPawnImage(),
+                                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                                MapOfMovements.getListOfMovements().get(j).getRow());
+                                                        drawBox.setText("Zielony Pionek Zbity");
+
+
+                                                    } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(yellowPawns.get(finalIII).getCurrentField()) ) {
+
+                                                        board.getChildren().remove(bluePawns.get(k).getPawnImage());
+                                                        board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
+                                                        bluePawns.get(k).changeActivationStatus();
+                                                        bluePawns.get(k).setValue(0);
+                                                        bluePawns.get(k).setNewPosition(bluePawns.get(k).getStartPosition());
+                                                        board.getChildren().remove(yellowPawns.get(finalIII).getPawnImage());
+                                                        board.add(yellowPawns.get(finalIII).getPawnImage(),
+                                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                                MapOfMovements.getListOfMovements().get(j).getRow());
+                                                        drawBox.setText("Niebieski Pionek Zbity");
+
+                                                    }
+
+                                                    else {
+                                                        board.getChildren().remove(yellowPawns.get(finalIII).getPawnImage());
+                                                        board.add(yellowPawns.get(finalIII).getPawnImage(),
+                                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                                MapOfMovements.getListOfMovements().get(j).getRow());
+
+                                                    }
+
+                                                }
+                                            }
+                                        }
+                                        for (int j = 128; j < 132 ; j++) {
+
+                                            if (yellowPawns.get(finalIII).getValue() == yellowMaxField) {
+                                                yellowPawns.get(finalIII).changeFinishStatus();
+                                                yellowPawns.get(finalIII).changeActivationStatus();
+                                                yellowPawns.get(finalIII).setActivationNr(1);
+                                                yellowMaxField = yellowMaxField - 1;
+                                                drawBox.setText("Pionek Zakonczyl Gre");
+                                            }
+
+                                        }
+
+                                    }
+                                    else {
+
+                                        if (yellowPawns.get(finalIII).getActivationNr() == 1) {
+                                            //tutaj ruch kolejnym pionkiem
+                                            int finalIV = 3;
+                                            if (yellowPawns.get(finalIV).getActivationStatus()) {
+                                                //tutaj wszystko to co gdy pionek jest aktywny i wypadnie 6
+
+                                                // sprawdzenie mozliwosci ruchu
+                                                if (dice <= yellowMaxField - yellowPawns.get(finalIV).getValue()) {
+                                                    yellowPawns.get(finalIV).setValue(yellowPawns.get(finalIV).getValue() + dice);
+
+                                                }  else if (dice > yellowMaxField - yellowPawns.get(finalIV).getValue()) {
+                                                    drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
+                                                }
+
+                                                // ruch pionka + zbijanie
+                                                for (int j = 88; j < 132 ; j++) {
+                                                    if (yellowPawns.get(finalIV).getValue() == j) {
+                                                        yellowPawns.get(finalIV).setNewPosition(MapOfMovements.getListOfMovements().get(j));
+                                                        for (int k = 0 ; k < 4; k++) {
+
+                                                            if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(yellowPawns.get(finalIV).getCurrentField())) {
+
+                                                                board.getChildren().remove(redPawns.get(k).getPawnImage());
+                                                                board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
+                                                                redPawns.get(k).changeActivationStatus();
+                                                                redPawns.get(k).setValue(0);
+                                                                redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
+
+                                                                board.getChildren().remove(yellowPawns.get(finalIV).getPawnImage());
+                                                                board.add(yellowPawns.get(finalIV).getPawnImage(),
+                                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                                        MapOfMovements.getListOfMovements().get(j).getRow());
+                                                                drawBox.setText("Czerwony Pionek Zbity");
+
+
+
+                                                            } else if (MapOfFields.getListOfFields().get(greenPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(yellowPawns.get(finalIV).getCurrentField()) ) {
+
+                                                                board.getChildren().remove(greenPawns.get(k).getPawnImage());
+                                                                board.add(greenPawns.get(k).getPawnImage(), greenPawns.get(k).getStartPosition().getColumn(), greenPawns.get(k).getStartPosition().getRow());
+                                                                greenPawns.get(k).changeActivationStatus();
+                                                                greenPawns.get(k).setValue(0);
+                                                                greenPawns.get(k).setNewPosition(greenPawns.get(k).getStartPosition());
+                                                                board.getChildren().remove(yellowPawns.get(finalIV).getPawnImage());
+                                                                board.add(yellowPawns.get(finalIV).getPawnImage(),
+                                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                                        MapOfMovements.getListOfMovements().get(j).getRow());
+                                                                drawBox.setText("Zielony Pionek Zbity");
+
+
+                                                            } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(yellowPawns.get(finalIV).getCurrentField()) ) {
+
+                                                                board.getChildren().remove(bluePawns.get(k).getPawnImage());
+                                                                board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
+                                                                bluePawns.get(k).changeActivationStatus();
+                                                                bluePawns.get(k).setValue(0);
+                                                                bluePawns.get(k).setNewPosition(bluePawns.get(k).getStartPosition());
+                                                                board.getChildren().remove(yellowPawns.get(finalIV).getPawnImage());
+                                                                board.add(yellowPawns.get(finalIV).getPawnImage(),
+                                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                                        MapOfMovements.getListOfMovements().get(j).getRow());
+                                                                drawBox.setText("Niebieski Pionek Zbity");
+
+                                                            }
+
+                                                            else {
+                                                                board.getChildren().remove(yellowPawns.get(finalIV).getPawnImage());
+                                                                board.add(yellowPawns.get(finalIV).getPawnImage(),
+                                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                                        MapOfMovements.getListOfMovements().get(j).getRow());
+
+                                                            }
+
+                                                        }
+                                                    }
+                                                }
+                                                for (int j = 128; j < 132 ; j++) {
+
+                                                    if (yellowPawns.get(finalIV).getValue() == yellowMaxField) {
+                                                        yellowPawns.get(finalIV).changeFinishStatus();
+                                                        yellowPawns.get(finalIV).changeActivationStatus();
+                                                        yellowPawns.get(finalIV).setActivationNr(1);
+                                                        yellowMaxField = yellowMaxField - 1;
+                                                        drawBox.setText("Pionek Zakonczyl Gre");
+                                                    }
+
+                                                }
+
+                                            }
+                                            else {
+
+                                                if (yellowPawns.get(finalIV).getActivationNr() == 1) {
+                                                    //tutaj ruch kolejnym pionkiem
+                                                    drawBox.setText("Gracz Zakonczyl Gre!!!");
+
+                                                } else {
+                                                    //tutaj aktywacja pionka
+                                                    yellowPawns.get(finalIV).changeActivationStatus();
+                                                    yellowPawns.get(finalIV).setNewPosition(yellowPawns.get(finalIV).getStartPosition());
+                                                    yellowPawns.get(finalIV).setValue(88);
+                                                    board.getChildren().remove(yellowPawns.get(finalIV).getPawnImage());
+                                                    board.add(yellowPawns.get(finalIV).getPawnImage(), 0, 4);
+                                                }
+                                            }
+
+                                        } else {
+                                            //tutaj aktywacja pionka
+                                            yellowPawns.get(finalIII).changeActivationStatus();
+                                            yellowPawns.get(finalIII).setNewPosition(bluePawns.get(finalIII).getStartPosition());
+                                            yellowPawns.get(finalIII).setValue(88);
+                                            board.getChildren().remove(yellowPawns.get(finalIII).getPawnImage());
+                                            board.add(yellowPawns.get(finalIII).getPawnImage(), 0, 4);
+                                        }
+                                    }
+
+                                } else {
+                                    //tutaj aktywacja pionka
+                                    yellowPawns.get(finalII).changeActivationStatus();
+                                    yellowPawns.get(finalII).setNewPosition(yellowPawns.get(finalII).getStartPosition());
+                                    yellowPawns.get(finalII).setValue(88);
+                                    board.getChildren().remove(yellowPawns.get(finalII).getPawnImage());
+                                    board.add(yellowPawns.get(finalII).getPawnImage(), 0, 4);
+                                }
+                            }
+
+                        } else {
+                            //tutaj aktywacja pionka
                             yellowPawns.get(finalI).changeActivationStatus();
-                            yellowPawns.get(finalI).setNewPosition(bluePawns.get(finalI).getStartPosition());
+                            yellowPawns.get(finalI).setNewPosition(yellowPawns.get(finalI).getStartPosition());
                             yellowPawns.get(finalI).setValue(88);
                             board.getChildren().remove(yellowPawns.get(finalI).getPawnImage());
                             board.add(yellowPawns.get(finalI).getPawnImage(), 0, 4);
-
-                    } else {
-                        yellowPawns.get(1).changeActivationStatus();
-                        yellowPawns.get(1).setNewPosition(bluePawns.get(1).getStartPosition());
-                        yellowPawns.get(1).setValue(88);
-                        board.getChildren().remove(yellowPawns.get(1).getPawnImage());
-                        board.add(yellowPawns.get(1).getPawnImage(), 0, 4);
+                        }
                     }
-
-                } else if (dice != 6) {
-
+                }
+                // Jezeli wypadnie !6
+                else {
+                    int finalI = 0;
                     if (yellowPawns.get(finalI).getActivationStatus()) {
+                        // tutaj wszystko to gdy pionek jest aktywny i wypadnie !6
 
-                        if (yellowPawns.get(finalI).getActivationNr() == 1){
-                            drawBox.setText("Pionek Zakonczyl Gre");
+                        // sprawdzenie mozliwosci ruchu
+                        if (dice <= yellowMaxField - yellowPawns.get(finalI).getValue()) {
+                            yellowPawns.get(finalI).setValue(yellowPawns.get(finalI).getValue() + dice);
+
+                        }  else if (dice > yellowMaxField - yellowPawns.get(finalI).getValue()) {
+                            drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
                         }
 
-                        if (yellowPawns.get(finalI).getActivationNr() == 0) {
-                            if (dice <= yellowMaxField - yellowPawns.get(finalI).getValue()) {
-                                yellowPawns.get(finalI).setValue(yellowPawns.get(finalI).getValue() + dice);
-
-                            }   else if (dice > yellowMaxField - yellowPawns.get(finalI).getValue()) {
-                                drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
-                            }
-                        }
+                        // ruch pionka + zbijanie
                         for (int j = 88; j < 132 ; j++) {
                             if (yellowPawns.get(finalI).getValue() == j) {
                                 yellowPawns.get(finalI).setNewPosition(MapOfMovements.getListOfMovements().get(j));
                                 for (int k = 0 ; k < 4; k++) {
 
-                                    if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(yellowPawns.get(finalI).getCurrentField())) {
+                                    if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(yellowPawns.get(finalI).getCurrentField())) {
 
                                         board.getChildren().remove(redPawns.get(k).getPawnImage());
                                         board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
@@ -1754,14 +1413,13 @@ public class Chinczyk extends Application {
 
 
 
-                                    } else if (MapOfFields.getListOfFields().get(greenPawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(yellowPawns.get(finalI).getCurrentField())) {
+                                    } else if (MapOfFields.getListOfFields().get(greenPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(yellowPawns.get(finalI).getCurrentField()) ) {
 
                                         board.getChildren().remove(greenPawns.get(k).getPawnImage());
                                         board.add(greenPawns.get(k).getPawnImage(), greenPawns.get(k).getStartPosition().getColumn(), greenPawns.get(k).getStartPosition().getRow());
                                         greenPawns.get(k).changeActivationStatus();
                                         greenPawns.get(k).setValue(0);
                                         greenPawns.get(k).setNewPosition(greenPawns.get(k).getStartPosition());
-
                                         board.getChildren().remove(yellowPawns.get(finalI).getPawnImage());
                                         board.add(yellowPawns.get(finalI).getPawnImage(),
                                                 MapOfMovements.getListOfMovements().get(j).getColumn(),
@@ -1769,7 +1427,7 @@ public class Chinczyk extends Application {
                                         drawBox.setText("Zielony Pionek Zbity");
 
 
-                                    } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(yellowPawns.get(finalI).getCurrentField())) {
+                                    } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(yellowPawns.get(finalI).getCurrentField()) ) {
 
                                         board.getChildren().remove(bluePawns.get(k).getPawnImage());
                                         board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
@@ -1782,7 +1440,9 @@ public class Chinczyk extends Application {
                                                 MapOfMovements.getListOfMovements().get(j).getRow());
                                         drawBox.setText("Niebieski Pionek Zbity");
 
-                                    }  else {
+                                    }
+
+                                    else {
                                         board.getChildren().remove(yellowPawns.get(finalI).getPawnImage());
                                         board.add(yellowPawns.get(finalI).getPawnImage(),
                                                 MapOfMovements.getListOfMovements().get(j).getColumn(),
@@ -1792,7 +1452,6 @@ public class Chinczyk extends Application {
 
                                 }
                             }
-
                         }
                         for (int j = 128; j < 132 ; j++) {
 
@@ -1805,16 +1464,282 @@ public class Chinczyk extends Application {
                             }
 
                         }
+
+                    } else {
+                        // tutaj ruch kolejnym pionkiem
+                        int finalII = 1;
+                        if (yellowPawns.get(finalII).getActivationStatus()) {
+                            // tutaj wszystko to gdy pionek jest aktywny i wypadnie !6
+
+                            // sprawdzenie mozliwosci ruchu
+                            if (dice <= yellowMaxField - yellowPawns.get(finalII).getValue()) {
+                                yellowPawns.get(finalII).setValue(yellowPawns.get(finalII).getValue() + dice);
+
+                            }  else if (dice > yellowMaxField - yellowPawns.get(finalII).getValue()) {
+                                drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
+                            }
+
+                            // ruch pionka + zbijanie
+                            for (int j = 88; j < 132 ; j++) {
+                                if (yellowPawns.get(finalII).getValue() == j) {
+                                    yellowPawns.get(finalII).setNewPosition(MapOfMovements.getListOfMovements().get(j));
+                                    for (int k = 0 ; k < 4; k++) {
+
+                                        if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(yellowPawns.get(finalII).getCurrentField())) {
+
+                                            board.getChildren().remove(redPawns.get(k).getPawnImage());
+                                            board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
+                                            redPawns.get(k).changeActivationStatus();
+                                            redPawns.get(k).setValue(0);
+                                            redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
+
+                                            board.getChildren().remove(yellowPawns.get(finalII).getPawnImage());
+                                            board.add(yellowPawns.get(finalII).getPawnImage(),
+                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                    MapOfMovements.getListOfMovements().get(j).getRow());
+                                            drawBox.setText("Czerwony Pionek Zbity");
+
+
+
+                                        } else if (MapOfFields.getListOfFields().get(greenPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(yellowPawns.get(finalII).getCurrentField()) ) {
+
+                                            board.getChildren().remove(greenPawns.get(k).getPawnImage());
+                                            board.add(greenPawns.get(k).getPawnImage(), greenPawns.get(k).getStartPosition().getColumn(), greenPawns.get(k).getStartPosition().getRow());
+                                            greenPawns.get(k).changeActivationStatus();
+                                            greenPawns.get(k).setValue(0);
+                                            greenPawns.get(k).setNewPosition(greenPawns.get(k).getStartPosition());
+                                            board.getChildren().remove(yellowPawns.get(finalII).getPawnImage());
+                                            board.add(yellowPawns.get(finalII).getPawnImage(),
+                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                    MapOfMovements.getListOfMovements().get(j).getRow());
+                                            drawBox.setText("Zielony Pionek Zbity");
+
+
+                                        } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(yellowPawns.get(finalII).getCurrentField()) ) {
+
+                                            board.getChildren().remove(bluePawns.get(k).getPawnImage());
+                                            board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
+                                            bluePawns.get(k).changeActivationStatus();
+                                            bluePawns.get(k).setValue(0);
+                                            bluePawns.get(k).setNewPosition(bluePawns.get(k).getStartPosition());
+                                            board.getChildren().remove(yellowPawns.get(finalII).getPawnImage());
+                                            board.add(yellowPawns.get(finalII).getPawnImage(),
+                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                    MapOfMovements.getListOfMovements().get(j).getRow());
+                                            drawBox.setText("Niebieski Pionek Zbity");
+
+                                        }
+
+                                        else {
+                                            board.getChildren().remove(yellowPawns.get(finalII).getPawnImage());
+                                            board.add(yellowPawns.get(finalII).getPawnImage(),
+                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                    MapOfMovements.getListOfMovements().get(j).getRow());
+
+                                        }
+
+                                    }
+                                }
+                            }
+                            for (int j = 128; j < 132 ; j++) {
+
+                                if (yellowPawns.get(finalII).getValue() == yellowMaxField) {
+                                    yellowPawns.get(finalII).changeFinishStatus();
+                                    yellowPawns.get(finalII).changeActivationStatus();
+                                    yellowPawns.get(finalII).setActivationNr(1);
+                                    yellowMaxField = yellowMaxField - 1;
+                                    drawBox.setText("Pionek Zakonczyl Gre");
+                                }
+
+                            }
+
+                        } else {
+                            // tutaj ruch kolejnym pionkiem
+                            int finalIII = 2;
+                            if (yellowPawns.get(finalIII).getActivationStatus()) {
+                                // tutaj wszystko to gdy pionek jest aktywny i wypadnie !6
+
+                                // sprawdzenie mozliwosci ruchu
+                                if (dice <= yellowMaxField - yellowPawns.get(finalIII).getValue()) {
+                                    yellowPawns.get(finalIII).setValue(yellowPawns.get(finalIII).getValue() + dice);
+
+                                }  else if (dice > yellowMaxField - yellowPawns.get(finalIII).getValue()) {
+                                    drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
+                                }
+
+                                // ruch pionka + zbijanie
+                                for (int j = 88; j < 132 ; j++) {
+                                    if (yellowPawns.get(finalIII).getValue() == j) {
+                                        yellowPawns.get(finalIII).setNewPosition(MapOfMovements.getListOfMovements().get(j));
+                                        for (int k = 0 ; k < 4; k++) {
+
+                                            if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(yellowPawns.get(finalIII).getCurrentField())) {
+
+                                                board.getChildren().remove(redPawns.get(k).getPawnImage());
+                                                board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
+                                                redPawns.get(k).changeActivationStatus();
+                                                redPawns.get(k).setValue(0);
+                                                redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
+
+                                                board.getChildren().remove(yellowPawns.get(finalIII).getPawnImage());
+                                                board.add(yellowPawns.get(finalIII).getPawnImage(),
+                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                        MapOfMovements.getListOfMovements().get(j).getRow());
+                                                drawBox.setText("Czerwony Pionek Zbity");
+
+
+
+                                            } else if (MapOfFields.getListOfFields().get(greenPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(yellowPawns.get(finalIII).getCurrentField()) ) {
+
+                                                board.getChildren().remove(greenPawns.get(k).getPawnImage());
+                                                board.add(greenPawns.get(k).getPawnImage(), greenPawns.get(k).getStartPosition().getColumn(), greenPawns.get(k).getStartPosition().getRow());
+                                                greenPawns.get(k).changeActivationStatus();
+                                                greenPawns.get(k).setValue(0);
+                                                greenPawns.get(k).setNewPosition(greenPawns.get(k).getStartPosition());
+                                                board.getChildren().remove(yellowPawns.get(finalIII).getPawnImage());
+                                                board.add(yellowPawns.get(finalIII).getPawnImage(),
+                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                        MapOfMovements.getListOfMovements().get(j).getRow());
+                                                drawBox.setText("Zielony Pionek Zbity");
+
+
+                                            } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(yellowPawns.get(finalIII).getCurrentField()) ) {
+
+                                                board.getChildren().remove(bluePawns.get(k).getPawnImage());
+                                                board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
+                                                bluePawns.get(k).changeActivationStatus();
+                                                bluePawns.get(k).setValue(0);
+                                                bluePawns.get(k).setNewPosition(bluePawns.get(k).getStartPosition());
+                                                board.getChildren().remove(yellowPawns.get(finalIII).getPawnImage());
+                                                board.add(yellowPawns.get(finalIII).getPawnImage(),
+                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                        MapOfMovements.getListOfMovements().get(j).getRow());
+                                                drawBox.setText("Niebieski Pionek Zbity");
+
+                                            }
+
+                                            else {
+                                                board.getChildren().remove(yellowPawns.get(finalIII).getPawnImage());
+                                                board.add(yellowPawns.get(finalIII).getPawnImage(),
+                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                        MapOfMovements.getListOfMovements().get(j).getRow());
+
+                                            }
+
+                                        }
+                                    }
+                                }
+                                for (int j = 128; j < 132 ; j++) {
+
+                                    if (yellowPawns.get(finalIII).getValue() == yellowMaxField) {
+                                        yellowPawns.get(finalIII).changeFinishStatus();
+                                        yellowPawns.get(finalIII).changeActivationStatus();
+                                        yellowPawns.get(finalIII).setActivationNr(1);
+                                        yellowMaxField = yellowMaxField - 1;
+                                        drawBox.setText("Pionek Zakonczyl Gre");
+                                    }
+
+                                }
+
+                            } else {
+                                // tutaj ruch kolejnym pionkiem
+                                int finalIV = 3;
+                                if (yellowPawns.get(finalIV).getActivationStatus()) {
+                                    // tutaj wszystko to gdy pionek jest aktywny i wypadnie !6
+
+                                    // sprawdzenie mozliwosci ruchu
+                                    if (dice <= yellowMaxField - yellowPawns.get(finalIV).getValue()) {
+                                        yellowPawns.get(finalIV).setValue(yellowPawns.get(finalIV).getValue() + dice);
+
+                                    }  else if (dice > yellowMaxField - yellowPawns.get(finalIV).getValue()) {
+                                        drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
+                                    }
+
+                                    // ruch pionka + zbijanie
+                                    for (int j = 88; j < 132 ; j++) {
+                                        if (yellowPawns.get(finalIV).getValue() == j) {
+                                            yellowPawns.get(finalIV).setNewPosition(MapOfMovements.getListOfMovements().get(j));
+                                            for (int k = 0 ; k < 4; k++) {
+
+                                                if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(yellowPawns.get(finalIV).getCurrentField())) {
+
+                                                    board.getChildren().remove(redPawns.get(k).getPawnImage());
+                                                    board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
+                                                    redPawns.get(k).changeActivationStatus();
+                                                    redPawns.get(k).setValue(0);
+                                                    redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
+
+                                                    board.getChildren().remove(yellowPawns.get(finalIV).getPawnImage());
+                                                    board.add(yellowPawns.get(finalIV).getPawnImage(),
+                                                            MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                            MapOfMovements.getListOfMovements().get(j).getRow());
+                                                    drawBox.setText("Czerwony Pionek Zbity");
+
+
+
+                                                } else if (MapOfFields.getListOfFields().get(greenPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(yellowPawns.get(finalIV).getCurrentField()) ) {
+
+                                                    board.getChildren().remove(greenPawns.get(k).getPawnImage());
+                                                    board.add(greenPawns.get(k).getPawnImage(), greenPawns.get(k).getStartPosition().getColumn(), greenPawns.get(k).getStartPosition().getRow());
+                                                    greenPawns.get(k).changeActivationStatus();
+                                                    greenPawns.get(k).setValue(0);
+                                                    greenPawns.get(k).setNewPosition(greenPawns.get(k).getStartPosition());
+                                                    board.getChildren().remove(yellowPawns.get(finalIV).getPawnImage());
+                                                    board.add(yellowPawns.get(finalIV).getPawnImage(),
+                                                            MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                            MapOfMovements.getListOfMovements().get(j).getRow());
+                                                    drawBox.setText("Zielony Pionek Zbity");
+
+
+                                                } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(yellowPawns.get(finalIV).getCurrentField()) ) {
+
+                                                    board.getChildren().remove(bluePawns.get(k).getPawnImage());
+                                                    board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
+                                                    bluePawns.get(k).changeActivationStatus();
+                                                    bluePawns.get(k).setValue(0);
+                                                    bluePawns.get(k).setNewPosition(bluePawns.get(k).getStartPosition());
+                                                    board.getChildren().remove(yellowPawns.get(finalIV).getPawnImage());
+                                                    board.add(yellowPawns.get(finalIV).getPawnImage(),
+                                                            MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                            MapOfMovements.getListOfMovements().get(j).getRow());
+                                                    drawBox.setText("Niebieski Pionek Zbity");
+
+                                                }
+
+                                                else {
+                                                    board.getChildren().remove(yellowPawns.get(finalIV).getPawnImage());
+                                                    board.add(yellowPawns.get(finalIV).getPawnImage(),
+                                                            MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                            MapOfMovements.getListOfMovements().get(j).getRow());
+
+                                                }
+
+                                            }
+                                        }
+                                    }
+                                    for (int j = 128; j < 132 ; j++) {
+
+                                        if (yellowPawns.get(finalIV).getValue() == yellowMaxField) {
+                                            yellowPawns.get(finalIV).changeFinishStatus();
+                                            yellowPawns.get(finalIV).changeActivationStatus();
+                                            yellowPawns.get(finalIV).setActivationNr(1);
+                                            yellowMaxField = yellowMaxField - 1;
+                                            drawBox.setText("Pionek Zakonczyl Gre");
+                                        }
+
+                                    }
+
+                                } else {
+                                    if (yellowPawns.get(finalIV).getActivationNr() == 1) drawBox.setText("Gracz Zakonczyl Gre!!!");
+                                }
+                            }
+                        }
                     }
 
-                    board.getChildren().remove(drawBtnYellow);
-                    board.add(drawBtnGreen,8,2);
                 }
-
-
+                board.getChildren().remove(drawBtnYellow);
+                board.add(drawBtnGreen,8,2);
             });
-
-
     }
 
     private void putComputerGreenPawnsOnBoard(GridPane board) {
@@ -1836,620 +1761,434 @@ public class Chinczyk extends Application {
 
 
             drawBtnGreen.setOnMouseClicked(g -> {
-                int finalI = 0;
+
                 turn = 1;
                 dice = rollTheDice();
                 drawBox.setText("Wylosowano " + dice);
+
                 if (dice == 6) {
-
+                    int finalI = 0;
                     if (greenPawns.get(finalI).getActivationStatus()) {
+                        //tutaj wszystko to co gdy pionek jest aktywny i wypadnie 6
+
+                        // sprawdzenie mozliwosci ruchu
+                        if (dice <= greenMaxField - greenPawns.get(finalI).getValue()) {
+                            greenPawns.get(finalI).setValue(greenPawns.get(finalI).getValue() + dice);
+
+                        }  else if (dice > greenMaxField - greenPawns.get(finalI).getValue()) {
+                            drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
+                        }
+
+                        // ruch pionka + zbijanie
+                        for (int j = 132; j < 176 ; j++) {
+                            if (greenPawns.get(finalI).getValue() == j) {
+                                greenPawns.get(finalI).setNewPosition(MapOfMovements.getListOfMovements().get(j));
+                                for (int k = 0 ; k < 4; k++) {
+
+                                    if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(greenPawns.get(finalI).getCurrentField())) {
+
+                                        board.getChildren().remove(redPawns.get(k).getPawnImage());
+                                        board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
+                                        redPawns.get(k).changeActivationStatus();
+                                        redPawns.get(k).setValue(0);
+                                        redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
+
+                                        board.getChildren().remove(greenPawns.get(finalI).getPawnImage());
+                                        board.add(greenPawns.get(finalI).getPawnImage(),
+                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                MapOfMovements.getListOfMovements().get(j).getRow());
+                                        drawBox.setText("Czerwony Pionek Zbity");
+
+
+
+                                    } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(greenPawns.get(finalI).getCurrentField()) ) {
+
+                                        board.getChildren().remove(yellowPawns.get(k).getPawnImage());
+                                        board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
+                                        yellowPawns.get(k).changeActivationStatus();
+                                        yellowPawns.get(k).setValue(0);
+                                        yellowPawns.get(k).setNewPosition(greenPawns.get(k).getStartPosition());
+                                        board.getChildren().remove(greenPawns.get(finalI).getPawnImage());
+                                        board.add(greenPawns.get(finalI).getPawnImage(),
+                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                MapOfMovements.getListOfMovements().get(j).getRow());
+                                        drawBox.setText("Zielony Pionek Zbity");
+
+
+                                    } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(greenPawns.get(finalI).getCurrentField()) ) {
+
+                                        board.getChildren().remove(bluePawns.get(k).getPawnImage());
+                                        board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
+                                        bluePawns.get(k).changeActivationStatus();
+                                        bluePawns.get(k).setValue(0);
+                                        bluePawns.get(k).setNewPosition(bluePawns.get(k).getStartPosition());
+                                        board.getChildren().remove(greenPawns.get(finalI).getPawnImage());
+                                        board.add(greenPawns.get(finalI).getPawnImage(),
+                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                MapOfMovements.getListOfMovements().get(j).getRow());
+                                        drawBox.setText("Niebieski Pionek Zbity");
+
+                                    }
+
+                                    else {
+                                        board.getChildren().remove(greenPawns.get(finalI).getPawnImage());
+                                        board.add(greenPawns.get(finalI).getPawnImage(),
+                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                MapOfMovements.getListOfMovements().get(j).getRow());
+
+                                    }
+
+                                }
+                            }
+                        }
+                        for (int j = 172; j < 176 ; j++) {
+
+                            if (greenPawns.get(finalI).getValue() == greenMaxField) {
+                                greenPawns.get(finalI).changeFinishStatus();
+                                greenPawns.get(finalI).changeActivationStatus();
+                                greenPawns.get(finalI).setActivationNr(1);
+                                greenMaxField = greenMaxField - 1;
+                                drawBox.setText("Pionek Zakonczyl Gre");
+                            }
+
+                        }
+
+                    }
+                    else {
+
                         if (greenPawns.get(finalI).getActivationNr() == 1) {
-                            //drugi zaczyny
+                            //tutaj ruch kolejnym pionkiem
                             int finalII = 1;
-
-
-                            if (dice == 6) {
-
-                                if (greenPawns.get(finalII).getActivationStatus()) {
-                                    if (greenPawns.get(finalII).getActivationNr() == 1) {
-                                       //trzeci zaczyna
-                                        int finalIII = 2;
-
-
-                                        if (dice == 6) {
-
-                                            if (greenPawns.get(finalIII).getActivationStatus()) {
-                                                if (greenPawns.get(finalIII).getActivationNr() == 1) {
-                                                    //czwarty zaczyna
-                                                    int finalIV = 3;
-
-
-                                                    if (dice == 6) {
-
-                                                        if (greenPawns.get(finalIV).getActivationStatus()) {
-                                                            if (greenPawns.get(finalIV).getActivationNr() == 1) {
-                                                                drawBox.setText("Pionek Zakonczyl Gre");
-                                                            }
-
-                                                            if (greenPawns.get(finalIV).getActivationNr() == 0) {
-                                                                if (dice <= greenMaxField - greenPawns.get(finalIV).getValue()) {
-                                                                    greenPawns.get(finalIV).setValue(greenPawns.get(finalIV).getValue() + dice);
-
-                                                                } else if (dice > greenMaxField - greenPawns.get(finalIV).getValue()) {
-                                                                    drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
-                                                                }
-                                                            }
-                                                            for (int j = 132; j < 176; j++) {
-                                                                if (greenPawns.get(finalIV).getValue() == j) {
-                                                                    greenPawns.get(finalIV).setNewPosition(MapOfMovements.getListOfMovements().get(j));
-                                                                    for (int k = 0; k < 4; k++) {
-
-                                                                        if (Objects.equals(MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField()), MapOfFields.getListOfFields().get(greenPawns.get(finalIV).getCurrentField()))) {
-
-                                                                            board.getChildren().remove(redPawns.get(k).getPawnImage());
-                                                                            board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
-                                                                            redPawns.get(k).changeActivationStatus();
-                                                                            redPawns.get(k).setValue(0);
-                                                                            redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
-
-                                                                            board.getChildren().remove(greenPawns.get(finalIV).getPawnImage());
-                                                                            board.add(greenPawns.get(finalIV).getPawnImage(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getRow());
-                                                                            drawBox.setText("Czerwony Pionek Zbity");
-
-
-                                                                        } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(greenPawns.get(finalIV).getCurrentField())) {
-
-                                                                            board.getChildren().remove(yellowPawns.get(k).getPawnImage());
-                                                                            board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
-                                                                            yellowPawns.get(k).changeActivationStatus();
-                                                                            yellowPawns.get(k).setValue(0);
-                                                                            yellowPawns.get(k).setNewPosition(yellowPawns.get(k).getStartPosition());
-                                                                            board.getChildren().remove(greenPawns.get(finalIV).getPawnImage());
-                                                                            board.add(greenPawns.get(finalIV).getPawnImage(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getRow());
-                                                                            drawBox.setText("Zolty Pionek Zbity");
-
-
-                                                                        } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(greenPawns.get(finalIV).getCurrentField())) {
-
-                                                                            board.getChildren().remove(bluePawns.get(k).getPawnImage());
-                                                                            board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
-                                                                            bluePawns.get(k).changeActivationStatus();
-                                                                            bluePawns.get(k).setValue(0);
-                                                                            bluePawns.get(k).setNewPosition(bluePawns.get(k).getStartPosition());
-                                                                            board.getChildren().remove(greenPawns.get(finalIV).getPawnImage());
-                                                                            board.add(greenPawns.get(finalIV).getPawnImage(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getRow());
-                                                                            drawBox.setText("Niebieski Pionek Zbity");
-
-                                                                        } else {
-                                                                            board.getChildren().remove(greenPawns.get(finalIV).getPawnImage());
-                                                                            board.add(greenPawns.get(finalIV).getPawnImage(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getRow());
-
-                                                                        }
-
-                                                                    }
-                                                                }
-                                                            }
-                                                            for (int j = 172; j < 176; j++) {
-
-                                                                if (greenPawns.get(finalIV).getValue() == greenMaxField) {
-                                                                    greenPawns.get(finalIV).changeFinishStatus();
-                                                                    greenPawns.get(finalIV).changeActivationStatus();
-                                                                    greenPawns.get(finalIV).setActivationNr(1);
-                                                                    greenMaxField = greenMaxField - 1;
-                                                                    drawBox.setText("Pionek Zakonczyl Gre");
-                                                                }
-
-                                                            }
-                                                        } else  {
-                                                            greenPawns.get(finalIV).changeActivationStatus();
-                                                            greenPawns.get(finalIV).setNewPosition(greenPawns.get(finalIV).getStartPosition());
-                                                            greenPawns.get(finalIV).setValue(132);
-                                                            board.getChildren().remove(greenPawns.get(finalIV).getPawnImage());
-                                                            board.add(greenPawns.get(finalIV).getPawnImage(), 6, 0);
-
-                                                        }
-                                                    } else if (dice != 6) {
-
-                                                        if (greenPawns.get(finalIV).getActivationStatus()) {
-
-                                                            if (greenPawns.get(finalIV).getActivationNr() == 1) {
-                                                                drawBox.setText("Pionek Zakonczyl Gre");
-                                                            }
-
-                                                            if (greenPawns.get(finalIV).getActivationNr() == 0) {
-                                                                if (dice <= greenMaxField - greenPawns.get(finalIV).getValue()) {
-                                                                    greenPawns.get(finalIV).setValue(greenPawns.get(finalIV).getValue() + dice);
-
-                                                                } else if (dice > greenMaxField - greenPawns.get(finalIV).getValue()) {
-                                                                    drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
-                                                                }
-                                                            }
-                                                            for (int j = 132; j < 176; j++) {
-                                                                if (greenPawns.get(finalIV).getValue() == j) {
-                                                                    greenPawns.get(finalIV).setNewPosition(MapOfMovements.getListOfMovements().get(j));
-                                                                    for (int k = 0; k < 4; k++) {
-
-                                                                        if (Objects.equals(MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField()), MapOfFields.getListOfFields().get(greenPawns.get(finalIV).getCurrentField()))) {
-
-                                                                            board.getChildren().remove(redPawns.get(k).getPawnImage());
-                                                                            board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
-                                                                            redPawns.get(k).changeActivationStatus();
-                                                                            redPawns.get(k).setValue(0);
-                                                                            redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
-
-                                                                            board.getChildren().remove(greenPawns.get(finalIV).getPawnImage());
-                                                                            board.add(greenPawns.get(finalIV).getPawnImage(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getRow());
-                                                                            drawBox.setText("Czerwony Pionek Zbity");
-
-
-                                                                        } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(greenPawns.get(finalIV).getCurrentField())) {
-
-                                                                            board.getChildren().remove(yellowPawns.get(k).getPawnImage());
-                                                                            board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
-                                                                            yellowPawns.get(k).changeActivationStatus();
-                                                                            yellowPawns.get(k).setValue(0);
-                                                                            yellowPawns.get(k).setNewPosition(yellowPawns.get(k).getStartPosition());
-                                                                            board.getChildren().remove(greenPawns.get(finalIV).getPawnImage());
-                                                                            board.add(greenPawns.get(finalIV).getPawnImage(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getRow());
-                                                                            drawBox.setText("Zolty Pionek Zbity");
-
-
-                                                                        } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(greenPawns.get(finalIV).getCurrentField())) {
-
-                                                                            board.getChildren().remove(bluePawns.get(k).getPawnImage());
-                                                                            board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
-                                                                            bluePawns.get(k).changeActivationStatus();
-                                                                            bluePawns.get(k).setValue(0);
-                                                                            bluePawns.get(k).setNewPosition(bluePawns.get(k).getStartPosition());
-                                                                            board.getChildren().remove(greenPawns.get(finalIV).getPawnImage());
-                                                                            board.add(greenPawns.get(finalIV).getPawnImage(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getRow());
-                                                                            drawBox.setText("Niebieski Pionek Zbity");
-
-                                                                        } else if (greenPawns.get(finalIV).getValue() == greenMaxField) {
-                                                                            greenPawns.get(finalIV).changeFinishStatus();
-                                                                            greenPawns.get(finalIV).changeActivationStatus();
-                                                                            greenPawns.get(finalIV).setActivationNr(1);
-                                                                            greenMaxField = greenMaxField - 1;
-                                                                            drawBox.setText("Pionek Zakonczyl Gre");
-                                                                        } else {
-                                                                            board.getChildren().remove(greenPawns.get(finalIV).getPawnImage());
-                                                                            board.add(greenPawns.get(finalIV).getPawnImage(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getRow());
-
-                                                                        }
-
-                                                                    }
-                                                                }
-                                                            }
-                                                            for (int j = 172; j < 176; j++) {
-
-                                                                if (greenPawns.get(finalIV).getValue() == greenMaxField) {
-                                                                    greenPawns.get(finalIV).changeFinishStatus();
-                                                                    greenPawns.get(finalIV).changeActivationStatus();
-                                                                    greenPawns.get(finalIV).setActivationNr(1);
-                                                                    greenMaxField = greenMaxField - 1;
-                                                                    drawBox.setText("Pionek Zakonczyl Gre");
-                                                                }
-
-                                                            }
-                                                        }
-
-                                                        board.getChildren().remove(drawBtnGreen);
-                                                        board.add(drawBtnRed1, 8, 8);
-
-                                                    }
-                                                }
-
-                                                if (greenPawns.get(finalIII).getActivationNr() == 0) {
-                                                    if (dice <= greenMaxField - greenPawns.get(finalIII).getValue()) {
-                                                        greenPawns.get(finalIII).setValue(greenPawns.get(finalIII).getValue() + dice);
-
-                                                    } else if (dice > greenMaxField - greenPawns.get(finalIII).getValue()) {
-                                                        drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
-                                                    }
-                                                }
-                                                for (int j = 132; j < 176; j++) {
-                                                    if (greenPawns.get(finalIII).getValue() == j) {
-                                                        greenPawns.get(finalIII).setNewPosition(MapOfMovements.getListOfMovements().get(j));
-                                                        for (int k = 0; k < 4; k++) {
-
-                                                            if (Objects.equals(MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField()), MapOfFields.getListOfFields().get(greenPawns.get(finalIII).getCurrentField()))) {
-
-                                                                board.getChildren().remove(redPawns.get(k).getPawnImage());
-                                                                board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
-                                                                redPawns.get(k).changeActivationStatus();
-                                                                redPawns.get(k).setValue(0);
-                                                                redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
-
-                                                                board.getChildren().remove(greenPawns.get(finalIII).getPawnImage());
-                                                                board.add(greenPawns.get(finalIII).getPawnImage(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getRow());
-                                                                drawBox.setText("Czerwony Pionek Zbity");
-
-
-                                                            } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(greenPawns.get(finalIII).getCurrentField())) {
-
-                                                                board.getChildren().remove(yellowPawns.get(k).getPawnImage());
-                                                                board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
-                                                                yellowPawns.get(k).changeActivationStatus();
-                                                                yellowPawns.get(k).setValue(0);
-                                                                yellowPawns.get(k).setNewPosition(yellowPawns.get(k).getStartPosition());
-                                                                board.getChildren().remove(greenPawns.get(finalIII).getPawnImage());
-                                                                board.add(greenPawns.get(finalIII).getPawnImage(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getRow());
-                                                                drawBox.setText("Zolty Pionek Zbity");
-
-
-                                                            } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(greenPawns.get(finalIII).getCurrentField())) {
-
-                                                                board.getChildren().remove(bluePawns.get(k).getPawnImage());
-                                                                board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
-                                                                bluePawns.get(k).changeActivationStatus();
-                                                                bluePawns.get(k).setValue(0);
-                                                                bluePawns.get(k).setNewPosition(bluePawns.get(k).getStartPosition());
-                                                                board.getChildren().remove(greenPawns.get(finalIII).getPawnImage());
-                                                                board.add(greenPawns.get(finalIII).getPawnImage(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getRow());
-                                                                drawBox.setText("Niebieski Pionek Zbity");
-
-                                                            } else {
-                                                                board.getChildren().remove(greenPawns.get(finalIII).getPawnImage());
-                                                                board.add(greenPawns.get(finalIII).getPawnImage(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getRow());
-
-                                                            }
-
-                                                        }
-                                                    }
-                                                }
-                                                for (int j = 172; j < 176; j++) {
-
-                                                    if (greenPawns.get(finalIII).getValue() == greenMaxField) {
-                                                        greenPawns.get(finalIII).changeFinishStatus();
-                                                        greenPawns.get(finalIII).changeActivationStatus();
-                                                        greenPawns.get(finalIII).setActivationNr(1);
-                                                        greenMaxField = greenMaxField - 1;
-                                                        drawBox.setText("Pionek Zakonczyl Gre");
-                                                    }
-
-                                                }
-                                            } else if (greenPawns.get(finalIII).getActivationNr() == 0) {
-                                                greenPawns.get(finalIII).changeActivationStatus();
-                                                greenPawns.get(finalIII).setNewPosition(greenPawns.get(finalIII).getStartPosition());
-                                                greenPawns.get(finalIII).setValue(132);
-                                                board.getChildren().remove(greenPawns.get(finalIII).getPawnImage());
-                                                board.add(greenPawns.get(finalIII).getPawnImage(), 6, 0);
-
-                                            } else {
-
-                                                greenPawns.get(3).changeActivationStatus();
-                                                greenPawns.get(3).setNewPosition(greenPawns.get(3).getStartPosition());
-                                                greenPawns.get(3).setValue(132);
-                                                board.getChildren().remove(greenPawns.get(3).getPawnImage());
-                                                board.add(greenPawns.get(3).getPawnImage(), 6, 0);
-
+                            if (greenPawns.get(finalII).getActivationStatus()) {
+                                //tutaj wszystko to co gdy pionek jest aktywny i wypadnie 6
+
+                                // sprawdzenie mozliwosci ruchu
+                                if (dice <= greenMaxField - greenPawns.get(finalII).getValue()) {
+                                    greenPawns.get(finalII).setValue(greenPawns.get(finalII).getValue() + dice);
+
+                                }  else if (dice > greenMaxField - greenPawns.get(finalII).getValue()) {
+                                    drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
+                                }
+
+                                // ruch pionka + zbijanie
+                                for (int j = 132; j < 176 ; j++) {
+                                    if (greenPawns.get(finalII).getValue() == j) {
+                                        greenPawns.get(finalII).setNewPosition(MapOfMovements.getListOfMovements().get(j));
+                                        for (int k = 0 ; k < 4; k++) {
+
+                                            if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(greenPawns.get(finalII).getCurrentField())) {
+
+                                                board.getChildren().remove(redPawns.get(k).getPawnImage());
+                                                board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
+                                                redPawns.get(k).changeActivationStatus();
+                                                redPawns.get(k).setValue(0);
+                                                redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
+
+                                                board.getChildren().remove(greenPawns.get(finalII).getPawnImage());
+                                                board.add(greenPawns.get(finalII).getPawnImage(),
+                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                        MapOfMovements.getListOfMovements().get(j).getRow());
+                                                drawBox.setText("Czerwony Pionek Zbity");
+
+
+
+                                            } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(greenPawns.get(finalII).getCurrentField()) ) {
+
+                                                board.getChildren().remove(yellowPawns.get(k).getPawnImage());
+                                                board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
+                                                yellowPawns.get(k).changeActivationStatus();
+                                                yellowPawns.get(k).setValue(0);
+                                                yellowPawns.get(k).setNewPosition(greenPawns.get(k).getStartPosition());
+                                                board.getChildren().remove(greenPawns.get(finalII).getPawnImage());
+                                                board.add(greenPawns.get(finalII).getPawnImage(),
+                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                        MapOfMovements.getListOfMovements().get(j).getRow());
+                                                drawBox.setText("Zielony Pionek Zbity");
+
+
+                                            } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(greenPawns.get(finalII).getCurrentField()) ) {
+
+                                                board.getChildren().remove(bluePawns.get(k).getPawnImage());
+                                                board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
+                                                bluePawns.get(k).changeActivationStatus();
+                                                bluePawns.get(k).setValue(0);
+                                                bluePawns.get(k).setNewPosition(bluePawns.get(k).getStartPosition());
+                                                board.getChildren().remove(greenPawns.get(finalII).getPawnImage());
+                                                board.add(greenPawns.get(finalII).getPawnImage(),
+                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                        MapOfMovements.getListOfMovements().get(j).getRow());
+                                                drawBox.setText("Niebieski Pionek Zbity");
 
                                             }
-                                        } else if (dice != 6) {
 
-                                            if (greenPawns.get(finalIII).getActivationStatus()) {
+                                            else {
+                                                board.getChildren().remove(greenPawns.get(finalII).getPawnImage());
+                                                board.add(greenPawns.get(finalII).getPawnImage(),
+                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                        MapOfMovements.getListOfMovements().get(j).getRow());
 
-                                                if (greenPawns.get(finalIII).getActivationNr() == 1) {
-                                                    drawBox.setText("Pionek Zakonczyl Gre");
-                                                }
-
-                                                if (greenPawns.get(finalIII).getActivationNr() == 0) {
-                                                    if (dice <= greenMaxField - greenPawns.get(finalIII).getValue()) {
-                                                        greenPawns.get(finalIII).setValue(greenPawns.get(finalIII).getValue() + dice);
-
-                                                    } else if (dice > greenMaxField - greenPawns.get(finalIII).getValue()) {
-                                                        drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
-                                                    }
-                                                }
-                                                for (int j = 132; j < 176; j++) {
-                                                    if (greenPawns.get(finalIII).getValue() == j) {
-                                                        greenPawns.get(finalIII).setNewPosition(MapOfMovements.getListOfMovements().get(j));
-                                                        for (int k = 0; k < 4; k++) {
-
-                                                            if (Objects.equals(MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField()), MapOfFields.getListOfFields().get(greenPawns.get(finalIII).getCurrentField()))) {
-
-                                                                board.getChildren().remove(redPawns.get(k).getPawnImage());
-                                                                board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
-                                                                redPawns.get(k).changeActivationStatus();
-                                                                redPawns.get(k).setValue(0);
-                                                                redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
-
-                                                                board.getChildren().remove(greenPawns.get(finalIII).getPawnImage());
-                                                                board.add(greenPawns.get(finalIII).getPawnImage(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getRow());
-                                                                drawBox.setText("Czerwony Pionek Zbity");
-
-
-                                                            } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(greenPawns.get(finalIII).getCurrentField())) {
-
-                                                                board.getChildren().remove(yellowPawns.get(k).getPawnImage());
-                                                                board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
-                                                                yellowPawns.get(k).changeActivationStatus();
-                                                                yellowPawns.get(k).setValue(0);
-                                                                yellowPawns.get(k).setNewPosition(yellowPawns.get(k).getStartPosition());
-                                                                board.getChildren().remove(greenPawns.get(finalIII).getPawnImage());
-                                                                board.add(greenPawns.get(finalIII).getPawnImage(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getRow());
-                                                                drawBox.setText("Zolty Pionek Zbity");
-
-
-                                                            } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(greenPawns.get(finalIII).getCurrentField())) {
-
-                                                                board.getChildren().remove(bluePawns.get(k).getPawnImage());
-                                                                board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
-                                                                bluePawns.get(k).changeActivationStatus();
-                                                                bluePawns.get(k).setValue(0);
-                                                                bluePawns.get(k).setNewPosition(bluePawns.get(k).getStartPosition());
-                                                                board.getChildren().remove(greenPawns.get(finalIII).getPawnImage());
-                                                                board.add(greenPawns.get(finalIII).getPawnImage(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getRow());
-                                                                drawBox.setText("Niebieski Pionek Zbity");
-
-                                                            } else if (greenPawns.get(finalIII).getValue() == greenMaxField) {
-                                                                greenPawns.get(finalIII).changeFinishStatus();
-                                                                greenPawns.get(finalIII).changeActivationStatus();
-                                                                greenPawns.get(finalIII).setActivationNr(1);
-                                                                greenMaxField = greenMaxField - 1;
-                                                                drawBox.setText("Pionek Zakonczyl Gre");
-                                                            } else {
-                                                                board.getChildren().remove(greenPawns.get(finalIII).getPawnImage());
-                                                                board.add(greenPawns.get(finalIII).getPawnImage(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getRow());
-
-                                                            }
-
-                                                        }
-                                                    }
-                                                }
-                                                for (int j = 172; j < 176; j++) {
-
-                                                    if (greenPawns.get(finalIII).getValue() == greenMaxField) {
-                                                        greenPawns.get(finalIII).changeFinishStatus();
-                                                        greenPawns.get(finalIII).changeActivationStatus();
-                                                        greenPawns.get(finalIII).setActivationNr(1);
-                                                        greenMaxField = greenMaxField - 1;
-                                                        drawBox.setText("Pionek Zakonczyl Gre");
-                                                    }
-
-                                                }
                                             }
-
-                                            board.getChildren().remove(drawBtnGreen);
-                                            board.add(drawBtnRed1, 8, 8);
 
                                         }
                                     }
+                                }
+                                for (int j = 172; j < 176 ; j++) {
 
-                                    if (greenPawns.get(finalII).getActivationNr() == 0) {
-                                        if (dice <= greenMaxField - greenPawns.get(finalII).getValue()) {
-                                            greenPawns.get(finalII).setValue(greenPawns.get(finalII).getValue() + dice);
+                                    if (greenPawns.get(finalII).getValue() == greenMaxField) {
+                                        greenPawns.get(finalII).changeFinishStatus();
+                                        greenPawns.get(finalII).changeActivationStatus();
+                                        greenPawns.get(finalII).setActivationNr(1);
+                                        greenMaxField = greenMaxField - 1;
+                                        drawBox.setText("Pionek Zakonczyl Gre");
+                                    }
 
-                                        } else if (dice > greenMaxField - greenPawns.get(finalII).getValue()) {
+                                }
+
+                            }
+                            else {
+
+                                if (greenPawns.get(finalII).getActivationNr() == 1) {
+                                    //tutaj ruch kolejnym pionkiem
+                                    int finalIII = 2;
+                                    if (greenPawns.get(finalIII).getActivationStatus()) {
+                                        //tutaj wszystko to co gdy pionek jest aktywny i wypadnie 6
+
+                                        // sprawdzenie mozliwosci ruchu
+                                        if (dice <= greenMaxField - greenPawns.get(finalIII).getValue()) {
+                                            greenPawns.get(finalIII).setValue(greenPawns.get(finalIII).getValue() + dice);
+
+                                        }  else if (dice > greenMaxField - greenPawns.get(finalIII).getValue()) {
                                             drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
                                         }
+
+                                        // ruch pionka + zbijanie
+                                        for (int j = 132; j < 176 ; j++) {
+                                            if (greenPawns.get(finalIII).getValue() == j) {
+                                                greenPawns.get(finalIII).setNewPosition(MapOfMovements.getListOfMovements().get(j));
+                                                for (int k = 0 ; k < 4; k++) {
+
+                                                    if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(greenPawns.get(finalIII).getCurrentField())) {
+
+                                                        board.getChildren().remove(redPawns.get(k).getPawnImage());
+                                                        board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
+                                                        redPawns.get(k).changeActivationStatus();
+                                                        redPawns.get(k).setValue(0);
+                                                        redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
+
+                                                        board.getChildren().remove(greenPawns.get(finalIII).getPawnImage());
+                                                        board.add(greenPawns.get(finalIII).getPawnImage(),
+                                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                                MapOfMovements.getListOfMovements().get(j).getRow());
+                                                        drawBox.setText("Czerwony Pionek Zbity");
+
+
+
+                                                    } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(greenPawns.get(finalIII).getCurrentField()) ) {
+
+                                                        board.getChildren().remove(yellowPawns.get(k).getPawnImage());
+                                                        board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
+                                                        yellowPawns.get(k).changeActivationStatus();
+                                                        yellowPawns.get(k).setValue(0);
+                                                        yellowPawns.get(k).setNewPosition(greenPawns.get(k).getStartPosition());
+                                                        board.getChildren().remove(greenPawns.get(finalIII).getPawnImage());
+                                                        board.add(greenPawns.get(finalIII).getPawnImage(),
+                                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                                MapOfMovements.getListOfMovements().get(j).getRow());
+                                                        drawBox.setText("Zielony Pionek Zbity");
+
+
+                                                    } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(greenPawns.get(finalIII).getCurrentField()) ) {
+
+                                                        board.getChildren().remove(bluePawns.get(k).getPawnImage());
+                                                        board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
+                                                        bluePawns.get(k).changeActivationStatus();
+                                                        bluePawns.get(k).setValue(0);
+                                                        bluePawns.get(k).setNewPosition(bluePawns.get(k).getStartPosition());
+                                                        board.getChildren().remove(greenPawns.get(finalIII).getPawnImage());
+                                                        board.add(greenPawns.get(finalIII).getPawnImage(),
+                                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                                MapOfMovements.getListOfMovements().get(j).getRow());
+                                                        drawBox.setText("Niebieski Pionek Zbity");
+
+                                                    }
+
+                                                    else {
+                                                        board.getChildren().remove(greenPawns.get(finalIII).getPawnImage());
+                                                        board.add(greenPawns.get(finalIII).getPawnImage(),
+                                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                                MapOfMovements.getListOfMovements().get(j).getRow());
+
+                                                    }
+
+                                                }
+                                            }
+                                        }
+                                        for (int j = 172; j < 176 ; j++) {
+
+                                            if (greenPawns.get(finalIII).getValue() == greenMaxField) {
+                                                greenPawns.get(finalIII).changeFinishStatus();
+                                                greenPawns.get(finalIII).changeActivationStatus();
+                                                greenPawns.get(finalIII).setActivationNr(1);
+                                                greenMaxField = greenMaxField - 1;
+                                                drawBox.setText("Pionek Zakonczyl Gre");
+                                            }
+
+                                        }
+
                                     }
-                                    for (int j = 132; j < 176; j++) {
-                                        if (greenPawns.get(finalII).getValue() == j) {
-                                            greenPawns.get(finalII).setNewPosition(MapOfMovements.getListOfMovements().get(j));
-                                            for (int k = 0; k < 4; k++) {
+                                    else {
 
-                                                if (Objects.equals(MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField()), MapOfFields.getListOfFields().get(greenPawns.get(finalII).getCurrentField()))) {
+                                        if (greenPawns.get(finalIII).getActivationNr() == 1) {
+                                            //tutaj ruch kolejnym pionkiem
+                                            int finalIV = 3;
+                                            if (greenPawns.get(finalIV).getActivationStatus()) {
+                                                //tutaj wszystko to co gdy pionek jest aktywny i wypadnie 6
 
-                                                    board.getChildren().remove(redPawns.get(k).getPawnImage());
-                                                    board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
-                                                    redPawns.get(k).changeActivationStatus();
-                                                    redPawns.get(k).setValue(0);
-                                                    redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
+                                                // sprawdzenie mozliwosci ruchu
+                                                if (dice <= greenMaxField - greenPawns.get(finalIV).getValue()) {
+                                                    greenPawns.get(finalIV).setValue(greenPawns.get(finalIV).getValue() + dice);
 
-                                                    board.getChildren().remove(greenPawns.get(finalII).getPawnImage());
-                                                    board.add(greenPawns.get(finalII).getPawnImage(),
-                                                            MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                            MapOfMovements.getListOfMovements().get(j).getRow());
-                                                    drawBox.setText("Czerwony Pionek Zbity");
+                                                }  else if (dice > greenMaxField - greenPawns.get(finalIV).getValue()) {
+                                                    drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
+                                                }
+
+                                                // ruch pionka + zbijanie
+                                                for (int j = 132; j < 176 ; j++) {
+                                                    if (greenPawns.get(finalIV).getValue() == j) {
+                                                        greenPawns.get(finalIV).setNewPosition(MapOfMovements.getListOfMovements().get(j));
+                                                        for (int k = 0 ; k < 4; k++) {
+
+                                                            if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(greenPawns.get(finalIV).getCurrentField())) {
+
+                                                                board.getChildren().remove(redPawns.get(k).getPawnImage());
+                                                                board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
+                                                                redPawns.get(k).changeActivationStatus();
+                                                                redPawns.get(k).setValue(0);
+                                                                redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
+
+                                                                board.getChildren().remove(greenPawns.get(finalIV).getPawnImage());
+                                                                board.add(greenPawns.get(finalIV).getPawnImage(),
+                                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                                        MapOfMovements.getListOfMovements().get(j).getRow());
+                                                                drawBox.setText("Czerwony Pionek Zbity");
 
 
-                                                } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(greenPawns.get(finalII).getCurrentField())) {
 
-                                                    board.getChildren().remove(yellowPawns.get(k).getPawnImage());
-                                                    board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
-                                                    yellowPawns.get(k).changeActivationStatus();
-                                                    yellowPawns.get(k).setValue(0);
-                                                    yellowPawns.get(k).setNewPosition(yellowPawns.get(k).getStartPosition());
-                                                    board.getChildren().remove(greenPawns.get(finalII).getPawnImage());
-                                                    board.add(greenPawns.get(finalII).getPawnImage(),
-                                                            MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                            MapOfMovements.getListOfMovements().get(j).getRow());
-                                                    drawBox.setText("Zolty Pionek Zbity");
+                                                            } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(greenPawns.get(finalIV).getCurrentField()) ) {
+
+                                                                board.getChildren().remove(yellowPawns.get(k).getPawnImage());
+                                                                board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
+                                                                yellowPawns.get(k).changeActivationStatus();
+                                                                yellowPawns.get(k).setValue(0);
+                                                                yellowPawns.get(k).setNewPosition(greenPawns.get(k).getStartPosition());
+                                                                board.getChildren().remove(greenPawns.get(finalIV).getPawnImage());
+                                                                board.add(greenPawns.get(finalIV).getPawnImage(),
+                                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                                        MapOfMovements.getListOfMovements().get(j).getRow());
+                                                                drawBox.setText("Zielony Pionek Zbity");
 
 
-                                                } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(greenPawns.get(finalII).getCurrentField())) {
+                                                            } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField())   == MapOfFields.getListOfFields().get(greenPawns.get(finalIV).getCurrentField()) ) {
 
-                                                    board.getChildren().remove(bluePawns.get(k).getPawnImage());
-                                                    board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
-                                                    bluePawns.get(k).changeActivationStatus();
-                                                    bluePawns.get(k).setValue(0);
-                                                    bluePawns.get(k).setNewPosition(bluePawns.get(k).getStartPosition());
-                                                    board.getChildren().remove(greenPawns.get(finalII).getPawnImage());
-                                                    board.add(greenPawns.get(finalII).getPawnImage(),
-                                                            MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                            MapOfMovements.getListOfMovements().get(j).getRow());
-                                                    drawBox.setText("Niebieski Pionek Zbity");
+                                                                board.getChildren().remove(bluePawns.get(k).getPawnImage());
+                                                                board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
+                                                                bluePawns.get(k).changeActivationStatus();
+                                                                bluePawns.get(k).setValue(0);
+                                                                bluePawns.get(k).setNewPosition(bluePawns.get(k).getStartPosition());
+                                                                board.getChildren().remove(greenPawns.get(finalIV).getPawnImage());
+                                                                board.add(greenPawns.get(finalIV).getPawnImage(),
+                                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                                        MapOfMovements.getListOfMovements().get(j).getRow());
+                                                                drawBox.setText("Niebieski Pionek Zbity");
 
-                                                } else {
-                                                    board.getChildren().remove(greenPawns.get(finalII).getPawnImage());
-                                                    board.add(greenPawns.get(finalII).getPawnImage(),
-                                                            MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                            MapOfMovements.getListOfMovements().get(j).getRow());
+                                                            }
+
+                                                            else {
+                                                                board.getChildren().remove(greenPawns.get(finalIV).getPawnImage());
+                                                                board.add(greenPawns.get(finalIV).getPawnImage(),
+                                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                                        MapOfMovements.getListOfMovements().get(j).getRow());
+
+                                                            }
+
+                                                        }
+                                                    }
+                                                }
+                                                for (int j = 172; j < 176 ; j++) {
+
+                                                    if (greenPawns.get(finalIV).getValue() == greenMaxField) {
+                                                        greenPawns.get(finalIV).changeFinishStatus();
+                                                        greenPawns.get(finalIV).changeActivationStatus();
+                                                        greenPawns.get(finalIV).setActivationNr(1);
+                                                        greenMaxField = greenMaxField - 1;
+                                                        drawBox.setText("Pionek Zakonczyl Gre");
+                                                    }
 
                                                 }
 
                                             }
+                                            else {
+
+                                                if (greenPawns.get(finalIV).getActivationNr() == 1) {
+                                                    drawBox.setText("Gracz Zakonczyl Gre!!!");
+                                                } else {
+                                                    //tutaj aktywacja pionka
+                                                    greenPawns.get(finalIV).changeActivationStatus();
+                                                    greenPawns.get(finalIV).setNewPosition(greenPawns.get(finalIV).getStartPosition());
+                                                    greenPawns.get(finalIV).setValue(132);
+                                                    board.getChildren().remove(greenPawns.get(finalIV).getPawnImage());
+                                                    board.add(greenPawns.get(finalIV).getPawnImage(), 6, 0);
+                                                }
+                                            }
+                                        } else {
+                                            //tutaj aktywacja pionka
+                                            greenPawns.get(finalIII).changeActivationStatus();
+                                            greenPawns.get(finalIII).setNewPosition(greenPawns.get(finalIII).getStartPosition());
+                                            greenPawns.get(finalIII).setValue(132);
+                                            board.getChildren().remove(greenPawns.get(finalIII).getPawnImage());
+                                            board.add(greenPawns.get(finalIII).getPawnImage(), 6, 0);
                                         }
                                     }
-                                    for (int j = 172; j < 176; j++) {
-
-                                        if (greenPawns.get(finalII).getValue() == greenMaxField) {
-                                            greenPawns.get(finalII).changeFinishStatus();
-                                            greenPawns.get(finalII).changeActivationStatus();
-                                            greenPawns.get(finalII).setActivationNr(1);
-                                            greenMaxField = greenMaxField - 1;
-                                            drawBox.setText("Pionek Zakonczyl Gre");
-                                        }
-
-                                    }
-                                } else if (greenPawns.get(finalII).getActivationNr() == 0) {
+                                } else {
+                                    //tutaj aktywacja pionka
                                     greenPawns.get(finalII).changeActivationStatus();
                                     greenPawns.get(finalII).setNewPosition(greenPawns.get(finalII).getStartPosition());
                                     greenPawns.get(finalII).setValue(132);
                                     board.getChildren().remove(greenPawns.get(finalII).getPawnImage());
                                     board.add(greenPawns.get(finalII).getPawnImage(), 6, 0);
-
-                                } else {
-
-                                    greenPawns.get(2).changeActivationStatus();
-                                    greenPawns.get(2).setNewPosition(greenPawns.get(2).getStartPosition());
-                                    greenPawns.get(2).setValue(132);
-                                    board.getChildren().remove(greenPawns.get(2).getPawnImage());
-                                    board.add(greenPawns.get(2).getPawnImage(), 6, 0);
-
-
                                 }
-
-                            } else if (dice != 6) {
-
-                                if (greenPawns.get(finalII).getActivationStatus()) {
-
-                                    if (greenPawns.get(finalII).getActivationNr() == 1) {
-                                        drawBox.setText("Pionek Zakonczyl Gre");
-                                    }
-
-                                    if (greenPawns.get(finalII).getActivationNr() == 0) {
-                                        if (dice <= greenMaxField - greenPawns.get(finalII).getValue()) {
-                                            greenPawns.get(finalII).setValue(greenPawns.get(finalII).getValue() + dice);
-
-                                        } else if (dice > greenMaxField - greenPawns.get(finalII).getValue()) {
-                                            drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
-                                        }
-                                    }
-                                    for (int j = 132; j < 176; j++) {
-                                        if (greenPawns.get(finalII).getValue() == j) {
-                                            greenPawns.get(finalII).setNewPosition(MapOfMovements.getListOfMovements().get(j));
-                                            for (int k = 0; k < 4; k++) {
-
-                                                if (Objects.equals(MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField()), MapOfFields.getListOfFields().get(greenPawns.get(finalII).getCurrentField()))) {
-
-                                                    board.getChildren().remove(redPawns.get(k).getPawnImage());
-                                                    board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
-                                                    redPawns.get(k).changeActivationStatus();
-                                                    redPawns.get(k).setValue(0);
-                                                    redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
-
-                                                    board.getChildren().remove(greenPawns.get(finalII).getPawnImage());
-                                                    board.add(greenPawns.get(finalII).getPawnImage(),
-                                                            MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                            MapOfMovements.getListOfMovements().get(j).getRow());
-                                                    drawBox.setText("Czerwony Pionek Zbity");
-
-
-                                                } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(greenPawns.get(finalII).getCurrentField())) {
-
-                                                    board.getChildren().remove(yellowPawns.get(k).getPawnImage());
-                                                    board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
-                                                    yellowPawns.get(k).changeActivationStatus();
-                                                    yellowPawns.get(k).setValue(0);
-                                                    yellowPawns.get(k).setNewPosition(yellowPawns.get(k).getStartPosition());
-                                                    board.getChildren().remove(greenPawns.get(finalII).getPawnImage());
-                                                    board.add(greenPawns.get(finalII).getPawnImage(),
-                                                            MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                            MapOfMovements.getListOfMovements().get(j).getRow());
-                                                    drawBox.setText("Zolty Pionek Zbity");
-
-
-                                                } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(greenPawns.get(finalII).getCurrentField())) {
-
-                                                    board.getChildren().remove(bluePawns.get(k).getPawnImage());
-                                                    board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
-                                                    bluePawns.get(k).changeActivationStatus();
-                                                    bluePawns.get(k).setValue(0);
-                                                    bluePawns.get(k).setNewPosition(bluePawns.get(k).getStartPosition());
-                                                    board.getChildren().remove(greenPawns.get(finalII).getPawnImage());
-                                                    board.add(greenPawns.get(finalII).getPawnImage(),
-                                                            MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                            MapOfMovements.getListOfMovements().get(j).getRow());
-                                                    drawBox.setText("Niebieski Pionek Zbity");
-
-                                                }  else {
-                                                    board.getChildren().remove(greenPawns.get(finalII).getPawnImage());
-                                                    board.add(greenPawns.get(finalII).getPawnImage(),
-                                                            MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                            MapOfMovements.getListOfMovements().get(j).getRow());
-
-                                                }
-
-                                            }
-                                        }
-                                    }
-                                    for (int j = 172; j < 176; j++) {
-
-                                        if (greenPawns.get(finalII).getValue() == greenMaxField) {
-                                            greenPawns.get(finalII).changeFinishStatus();
-                                            greenPawns.get(finalII).changeActivationStatus();
-                                            greenPawns.get(finalII).setActivationNr(1);
-                                            greenMaxField = greenMaxField - 1;
-                                            drawBox.setText("Pionek Zakonczyl Gre");
-                                        }
-
-                                    }
-                                }
-
-                                board.getChildren().remove(drawBtnGreen);
-                                board.add(drawBtnRed1, 8, 8);
-
                             }
+                        } else {
+                            //tutaj aktywacja pionka
+                            greenPawns.get(finalI).changeActivationStatus();
+                            greenPawns.get(finalI).setNewPosition(greenPawns.get(finalI).getStartPosition());
+                            greenPawns.get(finalI).setValue(132);
+                            board.getChildren().remove(greenPawns.get(finalI).getPawnImage());
+                            board.add(greenPawns.get(finalI).getPawnImage(), 6, 0);
+                        }
+                    }
+                }
+                // Jezeli wypadnie !6
+                else {
+                    int finalI = 0;
+                    if (greenPawns.get(finalI).getActivationStatus()) {
+                        // tutaj wszystko to gdy pionek jest aktywny i wypadnie !6
+
+                        // sprawdzenie mozliwosci ruchu
+                        if (dice <= greenMaxField - greenPawns.get(finalI).getValue()) {
+                            greenPawns.get(finalI).setValue(greenPawns.get(finalI).getValue() + dice);
+
+                        } else if (dice > greenMaxField - greenPawns.get(finalI).getValue()) {
+                            drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
                         }
 
-                        if (greenPawns.get(finalI).getActivationNr() == 0) {
-                            if (dice <= greenMaxField - greenPawns.get(finalI).getValue()) {
-                                greenPawns.get(finalI).setValue(greenPawns.get(finalI).getValue() + dice);
-
-                            } else if (dice > greenMaxField - greenPawns.get(finalI).getValue()) {
-                                drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
-                            }
-                        }
+                        // ruch pionka + zbijanie
                         for (int j = 132; j < 176; j++) {
                             if (greenPawns.get(finalI).getValue() == j) {
                                 greenPawns.get(finalI).setNewPosition(MapOfMovements.getListOfMovements().get(j));
                                 for (int k = 0; k < 4; k++) {
 
-                                    if (Objects.equals(MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField()), MapOfFields.getListOfFields().get(greenPawns.get(finalI).getCurrentField()))) {
+                                    if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(greenPawns.get(finalI).getCurrentField())) {
 
                                         board.getChildren().remove(redPawns.get(k).getPawnImage());
                                         board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
@@ -2466,7 +2205,7 @@ public class Chinczyk extends Application {
 
                                     } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(greenPawns.get(finalI).getCurrentField())) {
 
-                                        board.getChildren().remove(yellowPawns.get(k).getPawnImage());
+                                        board.getChildren().remove(greenPawns.get(k).getPawnImage());
                                         board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
                                         yellowPawns.get(k).changeActivationStatus();
                                         yellowPawns.get(k).setValue(0);
@@ -2475,7 +2214,7 @@ public class Chinczyk extends Application {
                                         board.add(greenPawns.get(finalI).getPawnImage(),
                                                 MapOfMovements.getListOfMovements().get(j).getColumn(),
                                                 MapOfMovements.getListOfMovements().get(j).getRow());
-                                        drawBox.setText("Zolty Pionek Zbity");
+                                        drawBox.setText("Zielony Pionek Zbity");
 
 
                                     } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(greenPawns.get(finalI).getCurrentField())) {
@@ -2502,7 +2241,7 @@ public class Chinczyk extends Application {
                                 }
                             }
                         }
-                        for (int j = 172; j < 176; j++) {
+                        for (int j = 128; j < 132; j++) {
 
                             if (greenPawns.get(finalI).getValue() == greenMaxField) {
                                 greenPawns.get(finalI).changeFinishStatus();
@@ -2513,446 +2252,198 @@ public class Chinczyk extends Application {
                             }
 
                         }
-                    } else if (greenPawns.get(finalI).getActivationNr() == 0) {
-                        greenPawns.get(finalI).changeActivationStatus();
-                        greenPawns.get(finalI).setNewPosition(greenPawns.get(finalI).getStartPosition());
-                        greenPawns.get(finalI).setValue(132);
-                        board.getChildren().remove(greenPawns.get(finalI).getPawnImage());
-                        board.add(greenPawns.get(finalI).getPawnImage(), 6, 0);
 
                     } else {
+                        // tutaj ruch kolejnym pionkiem
+                        int finalII = 1;
+                        if (greenPawns.get(finalII).getActivationStatus()) {
+                            // tutaj wszystko to gdy pionek jest aktywny i wypadnie !6
+
+                            // sprawdzenie mozliwosci ruchu
+                            if (dice <= greenMaxField - greenPawns.get(finalII).getValue()) {
+                                greenPawns.get(finalII).setValue(greenPawns.get(finalII).getValue() + dice);
+
+                            } else if (dice > greenMaxField - greenPawns.get(finalII).getValue()) {
+                                drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
+                            }
+
+                            // ruch pionka + zbijanie
+                            for (int j = 132; j < 176; j++) {
+                                if (greenPawns.get(finalII).getValue() == j) {
+                                    greenPawns.get(finalII).setNewPosition(MapOfMovements.getListOfMovements().get(j));
+                                    for (int k = 0; k < 4; k++) {
+
+                                        if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(greenPawns.get(finalII).getCurrentField())) {
+
+                                            board.getChildren().remove(redPawns.get(k).getPawnImage());
+                                            board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
+                                            redPawns.get(k).changeActivationStatus();
+                                            redPawns.get(k).setValue(0);
+                                            redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
+
+                                            board.getChildren().remove(greenPawns.get(finalII).getPawnImage());
+                                            board.add(greenPawns.get(finalII).getPawnImage(),
+                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                    MapOfMovements.getListOfMovements().get(j).getRow());
+                                            drawBox.setText("Czerwony Pionek Zbity");
+
+
+                                        } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(greenPawns.get(finalII).getCurrentField())) {
+
+                                            board.getChildren().remove(greenPawns.get(k).getPawnImage());
+                                            board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
+                                            yellowPawns.get(k).changeActivationStatus();
+                                            yellowPawns.get(k).setValue(0);
+                                            yellowPawns.get(k).setNewPosition(yellowPawns.get(k).getStartPosition());
+                                            board.getChildren().remove(greenPawns.get(finalII).getPawnImage());
+                                            board.add(greenPawns.get(finalII).getPawnImage(),
+                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                    MapOfMovements.getListOfMovements().get(j).getRow());
+                                            drawBox.setText("Zielony Pionek Zbity");
+
+
+                                        } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(greenPawns.get(finalII).getCurrentField())) {
+
+                                            board.getChildren().remove(bluePawns.get(k).getPawnImage());
+                                            board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
+                                            bluePawns.get(k).changeActivationStatus();
+                                            bluePawns.get(k).setValue(0);
+                                            bluePawns.get(k).setNewPosition(bluePawns.get(k).getStartPosition());
+                                            board.getChildren().remove(greenPawns.get(finalII).getPawnImage());
+                                            board.add(greenPawns.get(finalII).getPawnImage(),
+                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                    MapOfMovements.getListOfMovements().get(j).getRow());
+                                            drawBox.setText("Niebieski Pionek Zbity");
+
+                                        } else {
+                                            board.getChildren().remove(greenPawns.get(finalII).getPawnImage());
+                                            board.add(greenPawns.get(finalII).getPawnImage(),
+                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                    MapOfMovements.getListOfMovements().get(j).getRow());
+
+                                        }
+
+                                    }
+                                }
+                            }
+                            for (int j = 128; j < 132; j++) {
+
+                                if (greenPawns.get(finalII).getValue() == greenMaxField) {
+                                    greenPawns.get(finalII).changeFinishStatus();
+                                    greenPawns.get(finalII).changeActivationStatus();
+                                    greenPawns.get(finalII).setActivationNr(1);
+                                    greenMaxField = greenMaxField - 1;
+                                    drawBox.setText("Pionek Zakonczyl Gre");
+                                }
+
+                            }
+
+                        } else {
+                            // tutaj ruch kolejnym pionkiem
+                            int finalIII = 2;
+                            if (greenPawns.get(finalIII).getActivationStatus()) {
+                                // tutaj wszystko to gdy pionek jest aktywny i wypadnie !6
+
+                                // sprawdzenie mozliwosci ruchu
+                                if (dice <= greenMaxField - greenPawns.get(finalIII).getValue()) {
+                                    greenPawns.get(finalIII).setValue(greenPawns.get(finalIII).getValue() + dice);
+
+                                } else if (dice > greenMaxField - greenPawns.get(finalIII).getValue()) {
+                                    drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
+                                }
+
+                                // ruch pionka + zbijanie
+                                for (int j = 132; j < 176; j++) {
+                                    if (greenPawns.get(finalIII).getValue() == j) {
+                                        greenPawns.get(finalIII).setNewPosition(MapOfMovements.getListOfMovements().get(j));
+                                        for (int k = 0; k < 4; k++) {
 
-                        greenPawns.get(1).changeActivationStatus();
-                        greenPawns.get(1).setNewPosition(greenPawns.get(1).getStartPosition());
-                        greenPawns.get(1).setValue(132);
-                        board.getChildren().remove(greenPawns.get(1).getPawnImage());
-                        board.add(greenPawns.get(1).getPawnImage(), 6, 0);
+                                            if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(greenPawns.get(finalIII).getCurrentField())) {
 
+                                                board.getChildren().remove(redPawns.get(k).getPawnImage());
+                                                board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
+                                                redPawns.get(k).changeActivationStatus();
+                                                redPawns.get(k).setValue(0);
+                                                redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
 
-                    }
-                } else if (dice != 6) {
-
-                    if (greenPawns.get(finalI).getActivationStatus()) {
-
-                        if (greenPawns.get(finalI).getActivationNr() == 1) {
-                            //drugi zaczyny
-                            int finalII = 1;
-
-
-
-
-                                if (greenPawns.get(finalII).getActivationStatus()) {
-                                    if (greenPawns.get(finalII).getActivationNr() == 1) {
-                                        //trzeci zaczyna
-                                        int finalIII = 2;
-
-
-                                        if (dice == 6) {
-
-                                            if (greenPawns.get(finalIII).getActivationStatus()) {
-                                                if (greenPawns.get(finalIII).getActivationNr() == 1) {
-                                                    //czwarty zaczyna
-                                                    int finalIV = 3;
-
-
-                                                    if (dice == 6) {
-
-                                                        if (greenPawns.get(finalIV).getActivationStatus()) {
-                                                            if (greenPawns.get(finalIV).getActivationNr() == 1) {
-                                                                drawBox.setText("Pionek Zakonczyl Gre");
-                                                            }
-
-                                                            if (greenPawns.get(finalIV).getActivationNr() == 0) {
-                                                                if (dice <= greenMaxField - greenPawns.get(finalIV).getValue()) {
-                                                                    greenPawns.get(finalIV).setValue(greenPawns.get(finalIV).getValue() + dice);
-
-                                                                } else if (dice > greenMaxField - greenPawns.get(finalIV).getValue()) {
-                                                                    drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
-                                                                }
-                                                            }
-                                                            for (int j = 132; j < 176; j++) {
-                                                                if (greenPawns.get(finalIV).getValue() == j) {
-                                                                    greenPawns.get(finalIV).setNewPosition(MapOfMovements.getListOfMovements().get(j));
-                                                                    for (int k = 0; k < 4; k++) {
-
-                                                                        if (Objects.equals(MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField()), MapOfFields.getListOfFields().get(greenPawns.get(finalIV).getCurrentField()))) {
-
-                                                                            board.getChildren().remove(redPawns.get(k).getPawnImage());
-                                                                            board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
-                                                                            redPawns.get(k).changeActivationStatus();
-                                                                            redPawns.get(k).setValue(0);
-                                                                            redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
-
-                                                                            board.getChildren().remove(greenPawns.get(finalIV).getPawnImage());
-                                                                            board.add(greenPawns.get(finalIV).getPawnImage(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getRow());
-                                                                            drawBox.setText("Czerwony Pionek Zbity");
-
-
-                                                                        } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(greenPawns.get(finalIV).getCurrentField())) {
-
-                                                                            board.getChildren().remove(yellowPawns.get(k).getPawnImage());
-                                                                            board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
-                                                                            yellowPawns.get(k).changeActivationStatus();
-                                                                            yellowPawns.get(k).setValue(0);
-                                                                            yellowPawns.get(k).setNewPosition(yellowPawns.get(k).getStartPosition());
-                                                                            board.getChildren().remove(greenPawns.get(finalIV).getPawnImage());
-                                                                            board.add(greenPawns.get(finalIV).getPawnImage(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getRow());
-                                                                            drawBox.setText("Zolty Pionek Zbity");
-
-
-                                                                        } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(greenPawns.get(finalIV).getCurrentField())) {
-
-                                                                            board.getChildren().remove(bluePawns.get(k).getPawnImage());
-                                                                            board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
-                                                                            bluePawns.get(k).changeActivationStatus();
-                                                                            bluePawns.get(k).setValue(0);
-                                                                            bluePawns.get(k).setNewPosition(bluePawns.get(k).getStartPosition());
-                                                                            board.getChildren().remove(greenPawns.get(finalIV).getPawnImage());
-                                                                            board.add(greenPawns.get(finalIV).getPawnImage(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getRow());
-                                                                            drawBox.setText("Niebieski Pionek Zbity");
-
-                                                                        } else {
-                                                                            board.getChildren().remove(greenPawns.get(finalIV).getPawnImage());
-                                                                            board.add(greenPawns.get(finalIV).getPawnImage(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getRow());
-
-                                                                        }
-
-                                                                    }
-                                                                }
-                                                            }
-                                                            for (int j = 172; j < 176; j++) {
-
-                                                                if (greenPawns.get(finalIV).getValue() == greenMaxField) {
-                                                                    greenPawns.get(finalIV).changeFinishStatus();
-                                                                    greenPawns.get(finalIV).changeActivationStatus();
-                                                                    greenPawns.get(finalIV).setActivationNr(1);
-                                                                    greenMaxField = greenMaxField - 1;
-                                                                    drawBox.setText("Pionek Zakonczyl Gre");
-                                                                }
-
-                                                            }
-                                                        } else  {
-                                                            greenPawns.get(finalIV).changeActivationStatus();
-                                                            greenPawns.get(finalIV).setNewPosition(greenPawns.get(finalIV).getStartPosition());
-                                                            greenPawns.get(finalIV).setValue(132);
-                                                            board.getChildren().remove(greenPawns.get(finalIV).getPawnImage());
-                                                            board.add(greenPawns.get(finalIV).getPawnImage(), 6, 0);
-
-                                                        }
-                                                    } else if (dice != 6) {
-
-                                                        if (greenPawns.get(finalIV).getActivationStatus()) {
-
-                                                            if (greenPawns.get(finalIV).getActivationNr() == 1) {
-                                                                drawBox.setText("Pionek Zakonczyl Gre");
-                                                            }
-
-                                                            if (greenPawns.get(finalIV).getActivationNr() == 0) {
-                                                                if (dice <= greenMaxField - greenPawns.get(finalIV).getValue()) {
-                                                                    greenPawns.get(finalIV).setValue(greenPawns.get(finalIV).getValue() + dice);
-
-                                                                } else if (dice > greenMaxField - greenPawns.get(finalIV).getValue()) {
-                                                                    drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
-                                                                }
-                                                            }
-                                                            for (int j = 132; j < 176; j++) {
-                                                                if (greenPawns.get(finalIV).getValue() == j) {
-                                                                    greenPawns.get(finalIV).setNewPosition(MapOfMovements.getListOfMovements().get(j));
-                                                                    for (int k = 0; k < 4; k++) {
-
-                                                                        if (Objects.equals(MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField()), MapOfFields.getListOfFields().get(greenPawns.get(finalIV).getCurrentField()))) {
-
-                                                                            board.getChildren().remove(redPawns.get(k).getPawnImage());
-                                                                            board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
-                                                                            redPawns.get(k).changeActivationStatus();
-                                                                            redPawns.get(k).setValue(0);
-                                                                            redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
-
-                                                                            board.getChildren().remove(greenPawns.get(finalIV).getPawnImage());
-                                                                            board.add(greenPawns.get(finalIV).getPawnImage(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getRow());
-                                                                            drawBox.setText("Czerwony Pionek Zbity");
-
-
-                                                                        } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(greenPawns.get(finalIV).getCurrentField())) {
-
-                                                                            board.getChildren().remove(yellowPawns.get(k).getPawnImage());
-                                                                            board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
-                                                                            yellowPawns.get(k).changeActivationStatus();
-                                                                            yellowPawns.get(k).setValue(0);
-                                                                            yellowPawns.get(k).setNewPosition(yellowPawns.get(k).getStartPosition());
-                                                                            board.getChildren().remove(greenPawns.get(finalIV).getPawnImage());
-                                                                            board.add(greenPawns.get(finalIV).getPawnImage(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getRow());
-                                                                            drawBox.setText("Zolty Pionek Zbity");
-
-
-                                                                        } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(greenPawns.get(finalIV).getCurrentField())) {
-
-                                                                            board.getChildren().remove(bluePawns.get(k).getPawnImage());
-                                                                            board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
-                                                                            bluePawns.get(k).changeActivationStatus();
-                                                                            bluePawns.get(k).setValue(0);
-                                                                            bluePawns.get(k).setNewPosition(bluePawns.get(k).getStartPosition());
-                                                                            board.getChildren().remove(greenPawns.get(finalIV).getPawnImage());
-                                                                            board.add(greenPawns.get(finalIV).getPawnImage(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getRow());
-                                                                            drawBox.setText("Niebieski Pionek Zbity");
-
-                                                                        } else if (greenPawns.get(finalIV).getValue() == greenMaxField) {
-                                                                            greenPawns.get(finalIV).changeFinishStatus();
-                                                                            greenPawns.get(finalIV).changeActivationStatus();
-                                                                            greenPawns.get(finalIV).setActivationNr(1);
-                                                                            greenMaxField = greenMaxField - 1;
-                                                                            drawBox.setText("Pionek Zakonczyl Gre");
-                                                                        } else {
-                                                                            board.getChildren().remove(greenPawns.get(finalIV).getPawnImage());
-                                                                            board.add(greenPawns.get(finalIV).getPawnImage(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                                    MapOfMovements.getListOfMovements().get(j).getRow());
-
-                                                                        }
-
-                                                                    }
-                                                                }
-                                                            }
-                                                            for (int j = 172; j < 176; j++) {
-
-                                                                if (greenPawns.get(finalIV).getValue() == greenMaxField) {
-                                                                    greenPawns.get(finalIV).changeFinishStatus();
-                                                                    greenPawns.get(finalIV).changeActivationStatus();
-                                                                    greenPawns.get(finalIV).setActivationNr(1);
-                                                                    greenMaxField = greenMaxField - 1;
-                                                                    drawBox.setText("Pionek Zakonczyl Gre");
-                                                                }
-
-                                                            }
-                                                        }
-
-                                                        board.getChildren().remove(drawBtnGreen);
-                                                        board.add(drawBtnRed1, 8, 8);
-
-                                                    }
-                                                }
-
-                                                if (greenPawns.get(finalIII).getActivationNr() == 0) {
-                                                    if (dice <= greenMaxField - greenPawns.get(finalIII).getValue()) {
-                                                        greenPawns.get(finalIII).setValue(greenPawns.get(finalIII).getValue() + dice);
-
-                                                    } else if (dice > greenMaxField - greenPawns.get(finalIII).getValue()) {
-                                                        drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
-                                                    }
-                                                }
-                                                for (int j = 132; j < 176; j++) {
-                                                    if (greenPawns.get(finalIII).getValue() == j) {
-                                                        greenPawns.get(finalIII).setNewPosition(MapOfMovements.getListOfMovements().get(j));
-                                                        for (int k = 0; k < 4; k++) {
-
-                                                            if (Objects.equals(MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField()), MapOfFields.getListOfFields().get(greenPawns.get(finalIII).getCurrentField()))) {
-
-                                                                board.getChildren().remove(redPawns.get(k).getPawnImage());
-                                                                board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
-                                                                redPawns.get(k).changeActivationStatus();
-                                                                redPawns.get(k).setValue(0);
-                                                                redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
-
-                                                                board.getChildren().remove(greenPawns.get(finalIII).getPawnImage());
-                                                                board.add(greenPawns.get(finalIII).getPawnImage(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getRow());
-                                                                drawBox.setText("Czerwony Pionek Zbity");
-
-
-                                                            } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(greenPawns.get(finalIII).getCurrentField())) {
-
-                                                                board.getChildren().remove(yellowPawns.get(k).getPawnImage());
-                                                                board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
-                                                                yellowPawns.get(k).changeActivationStatus();
-                                                                yellowPawns.get(k).setValue(0);
-                                                                yellowPawns.get(k).setNewPosition(yellowPawns.get(k).getStartPosition());
-                                                                board.getChildren().remove(greenPawns.get(finalIII).getPawnImage());
-                                                                board.add(greenPawns.get(finalIII).getPawnImage(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getRow());
-                                                                drawBox.setText("Zolty Pionek Zbity");
-
-
-                                                            } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(greenPawns.get(finalIII).getCurrentField())) {
-
-                                                                board.getChildren().remove(bluePawns.get(k).getPawnImage());
-                                                                board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
-                                                                bluePawns.get(k).changeActivationStatus();
-                                                                bluePawns.get(k).setValue(0);
-                                                                bluePawns.get(k).setNewPosition(bluePawns.get(k).getStartPosition());
-                                                                board.getChildren().remove(greenPawns.get(finalIII).getPawnImage());
-                                                                board.add(greenPawns.get(finalIII).getPawnImage(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getRow());
-                                                                drawBox.setText("Niebieski Pionek Zbity");
-
-                                                            } else {
-                                                                board.getChildren().remove(greenPawns.get(finalIII).getPawnImage());
-                                                                board.add(greenPawns.get(finalIII).getPawnImage(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getRow());
-
-                                                            }
-
-                                                        }
-                                                    }
-                                                }
-                                                for (int j = 172; j < 176; j++) {
-
-                                                    if (greenPawns.get(finalIII).getValue() == greenMaxField) {
-                                                        greenPawns.get(finalIII).changeFinishStatus();
-                                                        greenPawns.get(finalIII).changeActivationStatus();
-                                                        greenPawns.get(finalIII).setActivationNr(1);
-                                                        greenMaxField = greenMaxField - 1;
-                                                        drawBox.setText("Pionek Zakonczyl Gre");
-                                                    }
-
-                                                }
-                                            } else if (greenPawns.get(finalIII).getActivationNr() == 0) {
-                                                greenPawns.get(finalIII).changeActivationStatus();
-                                                greenPawns.get(finalIII).setNewPosition(greenPawns.get(finalIII).getStartPosition());
-                                                greenPawns.get(finalIII).setValue(132);
                                                 board.getChildren().remove(greenPawns.get(finalIII).getPawnImage());
-                                                board.add(greenPawns.get(finalIII).getPawnImage(), 6, 0);
+                                                board.add(greenPawns.get(finalIII).getPawnImage(),
+                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                        MapOfMovements.getListOfMovements().get(j).getRow());
+                                                drawBox.setText("Czerwony Pionek Zbity");
+
+
+                                            } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(greenPawns.get(finalIII).getCurrentField())) {
+
+                                                board.getChildren().remove(greenPawns.get(k).getPawnImage());
+                                                board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
+                                                yellowPawns.get(k).changeActivationStatus();
+                                                yellowPawns.get(k).setValue(0);
+                                                yellowPawns.get(k).setNewPosition(yellowPawns.get(k).getStartPosition());
+                                                board.getChildren().remove(greenPawns.get(finalIII).getPawnImage());
+                                                board.add(greenPawns.get(finalIII).getPawnImage(),
+                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                        MapOfMovements.getListOfMovements().get(j).getRow());
+                                                drawBox.setText("Zielony Pionek Zbity");
+
+
+                                            } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(greenPawns.get(finalIII).getCurrentField())) {
+
+                                                board.getChildren().remove(bluePawns.get(k).getPawnImage());
+                                                board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
+                                                bluePawns.get(k).changeActivationStatus();
+                                                bluePawns.get(k).setValue(0);
+                                                bluePawns.get(k).setNewPosition(bluePawns.get(k).getStartPosition());
+                                                board.getChildren().remove(greenPawns.get(finalIII).getPawnImage());
+                                                board.add(greenPawns.get(finalIII).getPawnImage(),
+                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                        MapOfMovements.getListOfMovements().get(j).getRow());
+                                                drawBox.setText("Niebieski Pionek Zbity");
 
                                             } else {
-
-                                                greenPawns.get(3).changeActivationStatus();
-                                                greenPawns.get(3).setNewPosition(greenPawns.get(3).getStartPosition());
-                                                greenPawns.get(3).setValue(132);
-                                                board.getChildren().remove(greenPawns.get(3).getPawnImage());
-                                                board.add(greenPawns.get(3).getPawnImage(), 6, 0);
-
+                                                board.getChildren().remove(greenPawns.get(finalIII).getPawnImage());
+                                                board.add(greenPawns.get(finalIII).getPawnImage(),
+                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
+                                                        MapOfMovements.getListOfMovements().get(j).getRow());
 
                                             }
-                                        } else if (dice != 6) {
-
-                                            if (greenPawns.get(finalIII).getActivationStatus()) {
-
-                                                if (greenPawns.get(finalIII).getActivationNr() == 1) {
-                                                    drawBox.setText("Pionek Zakonczyl Gre");
-                                                }
-
-                                                if (greenPawns.get(finalIII).getActivationNr() == 0) {
-                                                    if (dice <= greenMaxField - greenPawns.get(finalIII).getValue()) {
-                                                        greenPawns.get(finalIII).setValue(greenPawns.get(finalIII).getValue() + dice);
-
-                                                    } else if (dice > greenMaxField - greenPawns.get(finalIII).getValue()) {
-                                                        drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
-                                                    }
-                                                }
-                                                for (int j = 132; j < 176; j++) {
-                                                    if (greenPawns.get(finalIII).getValue() == j) {
-                                                        greenPawns.get(finalIII).setNewPosition(MapOfMovements.getListOfMovements().get(j));
-                                                        for (int k = 0; k < 4; k++) {
-
-                                                            if (Objects.equals(MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField()), MapOfFields.getListOfFields().get(greenPawns.get(finalIII).getCurrentField()))) {
-
-                                                                board.getChildren().remove(redPawns.get(k).getPawnImage());
-                                                                board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
-                                                                redPawns.get(k).changeActivationStatus();
-                                                                redPawns.get(k).setValue(0);
-                                                                redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
-
-                                                                board.getChildren().remove(greenPawns.get(finalIII).getPawnImage());
-                                                                board.add(greenPawns.get(finalIII).getPawnImage(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getRow());
-                                                                drawBox.setText("Czerwony Pionek Zbity");
-
-
-                                                            } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(greenPawns.get(finalIII).getCurrentField())) {
-
-                                                                board.getChildren().remove(yellowPawns.get(k).getPawnImage());
-                                                                board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
-                                                                yellowPawns.get(k).changeActivationStatus();
-                                                                yellowPawns.get(k).setValue(0);
-                                                                yellowPawns.get(k).setNewPosition(yellowPawns.get(k).getStartPosition());
-                                                                board.getChildren().remove(greenPawns.get(finalIII).getPawnImage());
-                                                                board.add(greenPawns.get(finalIII).getPawnImage(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getRow());
-                                                                drawBox.setText("Zolty Pionek Zbity");
-
-
-                                                            } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(greenPawns.get(finalIII).getCurrentField())) {
-
-                                                                board.getChildren().remove(bluePawns.get(k).getPawnImage());
-                                                                board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
-                                                                bluePawns.get(k).changeActivationStatus();
-                                                                bluePawns.get(k).setValue(0);
-                                                                bluePawns.get(k).setNewPosition(bluePawns.get(k).getStartPosition());
-                                                                board.getChildren().remove(greenPawns.get(finalIII).getPawnImage());
-                                                                board.add(greenPawns.get(finalIII).getPawnImage(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getRow());
-                                                                drawBox.setText("Niebieski Pionek Zbity");
-
-                                                            } else if (greenPawns.get(finalIII).getValue() == greenMaxField) {
-                                                                greenPawns.get(finalIII).changeFinishStatus();
-                                                                greenPawns.get(finalIII).changeActivationStatus();
-                                                                greenPawns.get(finalIII).setActivationNr(1);
-                                                                greenMaxField = greenMaxField - 1;
-                                                                drawBox.setText("Pionek Zakonczyl Gre");
-                                                            } else {
-                                                                board.getChildren().remove(greenPawns.get(finalIII).getPawnImage());
-                                                                board.add(greenPawns.get(finalIII).getPawnImage(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                                        MapOfMovements.getListOfMovements().get(j).getRow());
-
-                                                            }
-
-                                                        }
-                                                    }
-                                                }
-                                                for (int j = 172; j < 176; j++) {
-
-                                                    if (greenPawns.get(finalIII).getValue() == greenMaxField) {
-                                                        greenPawns.get(finalIII).changeFinishStatus();
-                                                        greenPawns.get(finalIII).changeActivationStatus();
-                                                        greenPawns.get(finalIII).setActivationNr(1);
-                                                        greenMaxField = greenMaxField - 1;
-                                                        drawBox.setText("Pionek Zakonczyl Gre");
-                                                    }
-
-                                                }
-                                            }
-
-                                            board.getChildren().remove(drawBtnGreen);
-                                            board.add(drawBtnRed1, 8, 8);
 
                                         }
                                     }
+                                }
+                                for (int j = 128; j < 132; j++) {
 
-                                    if (greenPawns.get(finalII).getActivationNr() == 0) {
-                                        if (dice <= greenMaxField - greenPawns.get(finalII).getValue()) {
-                                            greenPawns.get(finalII).setValue(greenPawns.get(finalII).getValue() + dice);
-
-                                        } else if (dice > greenMaxField - greenPawns.get(finalII).getValue()) {
-                                            drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
-                                        }
+                                    if (greenPawns.get(finalIII).getValue() == greenMaxField) {
+                                        greenPawns.get(finalIII).changeFinishStatus();
+                                        greenPawns.get(finalIII).changeActivationStatus();
+                                        greenPawns.get(finalIII).setActivationNr(1);
+                                        greenMaxField = greenMaxField - 1;
+                                        drawBox.setText("Pionek Zakonczyl Gre");
                                     }
+
+                                }
+
+                            } else {
+                                // tutaj ruch kolejnym pionkiem
+                                int finalIV = 3;
+                                if (greenPawns.get(finalIV).getActivationStatus()) {
+                                    // tutaj wszystko to gdy pionek jest aktywny i wypadnie !6
+
+                                    // sprawdzenie mozliwosci ruchu
+                                    if (dice <= greenMaxField - greenPawns.get(finalIV).getValue()) {
+                                        greenPawns.get(finalIV).setValue(greenPawns.get(finalIV).getValue() + dice);
+
+                                    } else if (dice > greenMaxField - greenPawns.get(finalIV).getValue()) {
+                                        drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
+                                    }
+
+                                    // ruch pionka + zbijanie
                                     for (int j = 132; j < 176; j++) {
-                                        if (greenPawns.get(finalII).getValue() == j) {
-                                            greenPawns.get(finalII).setNewPosition(MapOfMovements.getListOfMovements().get(j));
+                                        if (greenPawns.get(finalIV).getValue() == j) {
+                                            greenPawns.get(finalIV).setNewPosition(MapOfMovements.getListOfMovements().get(j));
                                             for (int k = 0; k < 4; k++) {
 
-                                                if (Objects.equals(MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField()), MapOfFields.getListOfFields().get(greenPawns.get(finalII).getCurrentField()))) {
+                                                if (MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(greenPawns.get(finalIV).getCurrentField())) {
 
                                                     board.getChildren().remove(redPawns.get(k).getPawnImage());
                                                     board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
@@ -2960,43 +2451,43 @@ public class Chinczyk extends Application {
                                                     redPawns.get(k).setValue(0);
                                                     redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
 
-                                                    board.getChildren().remove(greenPawns.get(finalII).getPawnImage());
-                                                    board.add(greenPawns.get(finalII).getPawnImage(),
+                                                    board.getChildren().remove(greenPawns.get(finalIV).getPawnImage());
+                                                    board.add(greenPawns.get(finalIV).getPawnImage(),
                                                             MapOfMovements.getListOfMovements().get(j).getColumn(),
                                                             MapOfMovements.getListOfMovements().get(j).getRow());
                                                     drawBox.setText("Czerwony Pionek Zbity");
 
 
-                                                } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(greenPawns.get(finalII).getCurrentField())) {
+                                                } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(greenPawns.get(finalIV).getCurrentField())) {
 
-                                                    board.getChildren().remove(yellowPawns.get(k).getPawnImage());
+                                                    board.getChildren().remove(greenPawns.get(k).getPawnImage());
                                                     board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
                                                     yellowPawns.get(k).changeActivationStatus();
                                                     yellowPawns.get(k).setValue(0);
                                                     yellowPawns.get(k).setNewPosition(yellowPawns.get(k).getStartPosition());
-                                                    board.getChildren().remove(greenPawns.get(finalII).getPawnImage());
-                                                    board.add(greenPawns.get(finalII).getPawnImage(),
+                                                    board.getChildren().remove(greenPawns.get(finalIV).getPawnImage());
+                                                    board.add(greenPawns.get(finalIV).getPawnImage(),
                                                             MapOfMovements.getListOfMovements().get(j).getColumn(),
                                                             MapOfMovements.getListOfMovements().get(j).getRow());
-                                                    drawBox.setText("Zolty Pionek Zbity");
+                                                    drawBox.setText("Zielony Pionek Zbity");
 
 
-                                                } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(greenPawns.get(finalII).getCurrentField())) {
+                                                } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(greenPawns.get(finalIV).getCurrentField())) {
 
                                                     board.getChildren().remove(bluePawns.get(k).getPawnImage());
                                                     board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
                                                     bluePawns.get(k).changeActivationStatus();
                                                     bluePawns.get(k).setValue(0);
                                                     bluePawns.get(k).setNewPosition(bluePawns.get(k).getStartPosition());
-                                                    board.getChildren().remove(greenPawns.get(finalII).getPawnImage());
-                                                    board.add(greenPawns.get(finalII).getPawnImage(),
+                                                    board.getChildren().remove(greenPawns.get(finalIV).getPawnImage());
+                                                    board.add(greenPawns.get(finalIV).getPawnImage(),
                                                             MapOfMovements.getListOfMovements().get(j).getColumn(),
                                                             MapOfMovements.getListOfMovements().get(j).getRow());
                                                     drawBox.setText("Niebieski Pionek Zbity");
 
                                                 } else {
-                                                    board.getChildren().remove(greenPawns.get(finalII).getPawnImage());
-                                                    board.add(greenPawns.get(finalII).getPawnImage(),
+                                                    board.getChildren().remove(greenPawns.get(finalIV).getPawnImage());
+                                                    board.add(greenPawns.get(finalIV).getPawnImage(),
                                                             MapOfMovements.getListOfMovements().get(j).getColumn(),
                                                             MapOfMovements.getListOfMovements().get(j).getRow());
 
@@ -3005,212 +2496,29 @@ public class Chinczyk extends Application {
                                             }
                                         }
                                     }
-                                    for (int j = 172; j < 176; j++) {
+                                    for (int j = 128; j < 132; j++) {
 
-                                        if (greenPawns.get(finalII).getValue() == greenMaxField) {
-                                            greenPawns.get(finalII).changeFinishStatus();
-                                            greenPawns.get(finalII).changeActivationStatus();
-                                            greenPawns.get(finalII).setActivationNr(1);
+                                        if (greenPawns.get(finalIV).getValue() == greenMaxField) {
+                                            greenPawns.get(finalIV).changeFinishStatus();
+                                            greenPawns.get(finalIV).changeActivationStatus();
+                                            greenPawns.get(finalIV).setActivationNr(1);
                                             greenMaxField = greenMaxField - 1;
                                             drawBox.setText("Pionek Zakonczyl Gre");
                                         }
 
                                     }
-                                } else if (greenPawns.get(finalII).getActivationNr() == 0) {
-                                    greenPawns.get(finalII).changeActivationStatus();
-                                    greenPawns.get(finalII).setNewPosition(greenPawns.get(finalII).getStartPosition());
-                                    greenPawns.get(finalII).setValue(132);
-                                    board.getChildren().remove(greenPawns.get(finalII).getPawnImage());
-                                    board.add(greenPawns.get(finalII).getPawnImage(), 6, 0);
 
                                 } else {
-
-                                    greenPawns.get(2).changeActivationStatus();
-                                    greenPawns.get(2).setNewPosition(greenPawns.get(2).getStartPosition());
-                                    greenPawns.get(2).setValue(132);
-                                    board.getChildren().remove(greenPawns.get(2).getPawnImage());
-                                    board.add(greenPawns.get(2).getPawnImage(), 6, 0);
-
-
-                                }
-
-                    if (dice != 6) {
-
-                                if (greenPawns.get(finalII).getActivationStatus()) {
-
-                                    if (greenPawns.get(finalII).getActivationNr() == 1) {
-                                        drawBox.setText("Pionek Zakonczyl Gre");
-                                    }
-
-                                    if (greenPawns.get(finalII).getActivationNr() == 0) {
-                                        if (dice <= greenMaxField - greenPawns.get(finalII).getValue()) {
-                                            greenPawns.get(finalII).setValue(greenPawns.get(finalII).getValue() + dice);
-
-                                        } else if (dice > greenMaxField - greenPawns.get(finalII).getValue()) {
-                                            drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
-                                        }
-                                    }
-                                    for (int j = 132; j < 176; j++) {
-                                        if (greenPawns.get(finalII).getValue() == j) {
-                                            greenPawns.get(finalII).setNewPosition(MapOfMovements.getListOfMovements().get(j));
-                                            for (int k = 0; k < 4; k++) {
-
-                                                if (Objects.equals(MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField()), MapOfFields.getListOfFields().get(greenPawns.get(finalII).getCurrentField()))) {
-
-                                                    board.getChildren().remove(redPawns.get(k).getPawnImage());
-                                                    board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
-                                                    redPawns.get(k).changeActivationStatus();
-                                                    redPawns.get(k).setValue(0);
-                                                    redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
-
-                                                    board.getChildren().remove(greenPawns.get(finalII).getPawnImage());
-                                                    board.add(greenPawns.get(finalII).getPawnImage(),
-                                                            MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                            MapOfMovements.getListOfMovements().get(j).getRow());
-                                                    drawBox.setText("Czerwony Pionek Zbity");
-
-
-                                                } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(greenPawns.get(finalII).getCurrentField())) {
-
-                                                    board.getChildren().remove(yellowPawns.get(k).getPawnImage());
-                                                    board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
-                                                    yellowPawns.get(k).changeActivationStatus();
-                                                    yellowPawns.get(k).setValue(0);
-                                                    yellowPawns.get(k).setNewPosition(yellowPawns.get(k).getStartPosition());
-                                                    board.getChildren().remove(greenPawns.get(finalII).getPawnImage());
-                                                    board.add(greenPawns.get(finalII).getPawnImage(),
-                                                            MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                            MapOfMovements.getListOfMovements().get(j).getRow());
-                                                    drawBox.setText("Zolty Pionek Zbity");
-
-
-                                                } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(greenPawns.get(finalII).getCurrentField())) {
-
-                                                    board.getChildren().remove(bluePawns.get(k).getPawnImage());
-                                                    board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
-                                                    bluePawns.get(k).changeActivationStatus();
-                                                    bluePawns.get(k).setValue(0);
-                                                    bluePawns.get(k).setNewPosition(bluePawns.get(k).getStartPosition());
-                                                    board.getChildren().remove(greenPawns.get(finalII).getPawnImage());
-                                                    board.add(greenPawns.get(finalII).getPawnImage(),
-                                                            MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                            MapOfMovements.getListOfMovements().get(j).getRow());
-                                                    drawBox.setText("Niebieski Pionek Zbity");
-
-                                                }  else {
-                                                    board.getChildren().remove(greenPawns.get(finalII).getPawnImage());
-                                                    board.add(greenPawns.get(finalII).getPawnImage(),
-                                                            MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                            MapOfMovements.getListOfMovements().get(j).getRow());
-
-                                                }
-
-                                            }
-                                        }
-                                    }
-                                    for (int j = 172; j < 176; j++) {
-
-                                        if (greenPawns.get(finalII).getValue() == greenMaxField) {
-                                            greenPawns.get(finalII).changeFinishStatus();
-                                            greenPawns.get(finalII).changeActivationStatus();
-                                            greenPawns.get(finalII).setActivationNr(1);
-                                            greenMaxField = greenMaxField - 1;
-                                            drawBox.setText("Pionek Zakonczyl Gre");
-                                        }
-
-                                    }
-                                }
-
-                                board.getChildren().remove(drawBtnGreen);
-                                board.add(drawBtnRed1, 8, 8);
-
-                            }
-                        }
-
-                        if (greenPawns.get(finalI).getActivationNr() == 0) {
-                            if (dice <= greenMaxField - greenPawns.get(finalI).getValue()) {
-                                greenPawns.get(finalI).setValue(greenPawns.get(finalI).getValue() + dice);
-
-                            } else if (dice > greenMaxField - greenPawns.get(finalI).getValue()) {
-                                drawBox.setText("Ruch niemozliwy, Wylosowano " + dice);
-                            }
-                        }
-                        for (int j = 132; j < 176; j++) {
-                            if (greenPawns.get(finalI).getValue() == j) {
-                                greenPawns.get(finalI).setNewPosition(MapOfMovements.getListOfMovements().get(j));
-                                for (int k = 0; k < 4; k++) {
-
-                                    if (Objects.equals(MapOfFields.getListOfFields().get(redPawns.get(k).getCurrentField()), MapOfFields.getListOfFields().get(greenPawns.get(finalI).getCurrentField()))) {
-
-                                        board.getChildren().remove(redPawns.get(k).getPawnImage());
-                                        board.add(redPawns.get(k).getPawnImage(), redPawns.get(k).getStartPosition().getColumn(), redPawns.get(k).getStartPosition().getRow());
-                                        redPawns.get(k).changeActivationStatus();
-                                        redPawns.get(k).setValue(0);
-                                        redPawns.get(k).setNewPosition(redPawns.get(k).getStartPosition());
-
-                                        board.getChildren().remove(greenPawns.get(finalI).getPawnImage());
-                                        board.add(greenPawns.get(finalI).getPawnImage(),
-                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                MapOfMovements.getListOfMovements().get(j).getRow());
-                                        drawBox.setText("Czerwony Pionek Zbity");
-
-
-                                    } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(greenPawns.get(finalI).getCurrentField())) {
-
-                                        board.getChildren().remove(yellowPawns.get(k).getPawnImage());
-                                        board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
-                                        yellowPawns.get(k).changeActivationStatus();
-                                        yellowPawns.get(k).setValue(0);
-                                        yellowPawns.get(k).setNewPosition(yellowPawns.get(k).getStartPosition());
-                                        board.getChildren().remove(greenPawns.get(finalI).getPawnImage());
-                                        board.add(greenPawns.get(finalI).getPawnImage(),
-                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                MapOfMovements.getListOfMovements().get(j).getRow());
-                                        drawBox.setText("Zolty Pionek Zbity");
-
-
-                                    } else if (MapOfFields.getListOfFields().get(bluePawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(greenPawns.get(finalI).getCurrentField())) {
-
-                                        board.getChildren().remove(bluePawns.get(k).getPawnImage());
-                                        board.add(bluePawns.get(k).getPawnImage(), bluePawns.get(k).getStartPosition().getColumn(), bluePawns.get(k).getStartPosition().getRow());
-                                        bluePawns.get(k).changeActivationStatus();
-                                        bluePawns.get(k).setValue(0);
-                                        bluePawns.get(k).setNewPosition(bluePawns.get(k).getStartPosition());
-                                        board.getChildren().remove(greenPawns.get(finalI).getPawnImage());
-                                        board.add(greenPawns.get(finalI).getPawnImage(),
-                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                MapOfMovements.getListOfMovements().get(j).getRow());
-                                        drawBox.setText("Niebieski Pionek Zbity");
-
-                                    }  else {
-                                        board.getChildren().remove(greenPawns.get(finalI).getPawnImage());
-                                        board.add(greenPawns.get(finalI).getPawnImage(),
-                                                MapOfMovements.getListOfMovements().get(j).getColumn(),
-                                                MapOfMovements.getListOfMovements().get(j).getRow());
-
-                                    }
-
+                                    if (greenPawns.get(finalIV).getActivationNr() == 1) drawBox.setText("Gracz Zakonczyl Gre!!!");
                                 }
                             }
-                        }
-                        for (int j = 172; j < 176; j++) {
-
-                            if (greenPawns.get(finalI).getValue() == greenMaxField) {
-                                greenPawns.get(finalI).changeFinishStatus();
-                                greenPawns.get(finalI).changeActivationStatus();
-                                greenPawns.get(finalI).setActivationNr(1);
-                                greenMaxField = greenMaxField - 1;
-                                drawBox.setText("Pionek Zakonczyl Gre");
-                            }
-
                         }
                     }
-
-                    board.getChildren().remove(drawBtnGreen);
-                    board.add(drawBtnRed1, 8, 8);
-
                 }
 
+
+                board.getChildren().remove(drawBtnGreen);
+                board.add(drawBtnRed1, 8, 8);
 
             });
 
@@ -4216,6 +3524,7 @@ public class Chinczyk extends Application {
                 board.getChildren().remove(drawBtnBlue);
                 board.getChildren().remove(drawBtnYellow);
             }
+
 
             board.getChildren().remove(nextTurn);
 
