@@ -21,18 +21,24 @@ public class Chinczyk extends Application {
     Button drawBtnYellow= new Button();
     Button drawBtnBlue= new Button();
     Button endTurn= new Button();
+    Button finishBtn= new Button();
+    ArrayList<String>  scoreTable = new ArrayList<>();
     private Image logoMain = new Image("file:src/main/resources/logo_main.png");
     private Image imagebackBoard = new Image("file:src/main/resources/board.png");
     private GridPane board = new GridPane();
     private GridPane main = new GridPane();
     private GridPane settings = new GridPane();
-
+    private GridPane finish = new GridPane();
+    private int r,b,y,gr = 0;
 
     private Label playersLabel = new Label("Liczba graczy uzytkownka:");
+
+    private Label finishLabel = new Label("Lista Wynikow:");
 
 
 
     static ArrayList<RedPawn> redPawns = new ArrayList<>();
+
 
     Field startRed1 = new Field(10,10);
     Field startRed2 = new Field(10,9);
@@ -90,10 +96,13 @@ public class Chinczyk extends Application {
     private int color = 1;
     private int maxPlayers = 4;
     private Label drawBox = new Label();
-    private Label checkRed = new Label();
-    private Label checkBlue = new Label();
-    private Label checkYellow = new Label();
-    private Label checkGreen = new Label();
+    private Label finish1 = new Label();
+    private Label finish2 = new Label();
+    private Label finish3 = new Label();
+    private Label finish4 = new Label();
+
+
+
 
 
 
@@ -102,7 +111,83 @@ public class Chinczyk extends Application {
             return random.nextInt(6) + 1;
     }
 
+    private boolean checkRed(){
+        if (redPawns.get(0).getActivationNr() == 1 & redPawns.get(1).getActivationNr() == 1 & redPawns.get(2).getActivationNr() == 1 & redPawns.get(3).getActivationNr() == 1 ){
+            return true;
+        }else return false;
+    }
 
+    private boolean checkBlue(){
+        if (bluePawns.get(0).getActivationNr() == 1 & bluePawns.get(1).getActivationNr() == 1 & bluePawns.get(2).getActivationNr() == 1 & bluePawns.get(3).getActivationNr() == 1 ){
+            return true;
+        }else return false;
+    }
+
+    private boolean checkYellow(){
+        if (yellowPawns.get(0).getActivationNr() == 1 & yellowPawns.get(1).getActivationNr() == 1 & yellowPawns.get(2).getActivationNr() == 1 & yellowPawns.get(3).getActivationNr() == 1 ){
+            return true;
+        }else return false;
+    }
+
+    private boolean checkGreen(){
+        if (greenPawns.get(0).getActivationNr() == 1 & greenPawns.get(1).getActivationNr() == 1 & greenPawns.get(2).getActivationNr() == 1 & greenPawns.get(3).getActivationNr() == 1 ){
+            return true;
+        }else return false;
+    }
+
+    private boolean checkFinish(){
+        if (checkGreen() & checkYellow() & checkBlue() & checkRed()){
+            return true;
+        } else return false;
+    }
+
+    private Integer checkRedPlayer(){
+        int sum = 0;
+        for (int i = 0; i<5;i++){
+          if (redPawns.get(i).getActivationNr() == 1)  {
+              sum = sum + 1;
+
+          }
+        }
+
+        return sum;
+    }
+
+    private Integer checkBluePlayer(){
+        int sum = 0;
+        for (int i = 0; i<5;i++){
+            if (bluePawns.get(i).getActivationNr() == 1)  {
+                sum = sum + 1;
+
+            }
+        }
+
+        return sum;
+    }
+
+    private Integer checkYellowPlayer(){
+        int sum = 0;
+        for (int i = 0; i<5;i++){
+            if (yellowPawns.get(i).getActivationNr() == 1)  {
+                sum = sum + 1;
+
+            }
+        }
+
+        return sum;
+    }
+
+    private Integer checkGreenPlayer(){
+        int sum = 0;
+        for (int i = 0; i<5;i++){
+            if (greenPawns.get(i).getActivationNr() == 1)  {
+                sum = sum + 1;
+
+            }
+        }
+
+        return sum;
+    }
 
     private void buildBoard(GridPane board) {
 
@@ -128,6 +213,19 @@ public class Chinczyk extends Application {
         board.getColumnConstraints().add(new ColumnConstraints(90));
         board.getColumnConstraints().add(new ColumnConstraints(93));
 
+
+
+    }
+
+    private void buildFinish(GridPane finish) {
+
+        finish.getRowConstraints().add(new RowConstraints(20));
+        finish.getRowConstraints().add(new RowConstraints(60));
+        finish.getRowConstraints().add(new RowConstraints(60));
+        finish.getRowConstraints().add(new RowConstraints(60));
+        finish.getRowConstraints().add(new RowConstraints(60));
+        finish.getColumnConstraints().add(new ColumnConstraints(100));
+        finish.getColumnConstraints().add(new ColumnConstraints(100));
 
 
     }
@@ -548,6 +646,10 @@ public class Chinczyk extends Application {
 
                                             if (bluePawns.get(finalIV).getActivationNr() == 1) {
                                                 drawBox.setText("Gracz Zakonczyl Gre!!!");
+                                                if (b == 0){
+                                                    scoreTable.add("Niebieski");
+                                                    b=1;
+                                                }
                                             } else {
                                                 //tutaj aktywacja pionka
                                                 bluePawns.get(finalIV).changeActivationStatus();
@@ -938,14 +1040,28 @@ public class Chinczyk extends Application {
                                 }
 
                             } else {
-                                if (bluePawns.get(finalIV).getActivationNr() == 1) drawBox.setText("Gracz Zakonczyl Gre!!!");
+                                if (bluePawns.get(finalIV).getActivationNr() == 1) {
+                                    drawBox.setText("Gracz Zakonczyl Gre!!!");
+                                    if (b == 0){
+                                        scoreTable.add("Niebieski");
+                                        b=1;
+                                    }
+                                }
                             }
                         }
                     }
                 }
             }
-            board.getChildren().remove(drawBtnBlue);
-            board.add(drawBtnYellow,1,2);
+            if (checkFinish()) {
+                finish1.setText("1sze miejsce: " + scoreTable.get(0));
+                finish2.setText("2gie miejsce: " + scoreTable.get(1));
+                finish3.setText("3cie miejsce: " + scoreTable.get(2));
+                finish4.setText("4te miejsce: " + scoreTable.get(3));
+                board.add(finishBtn,5,5);
+            } else {
+                board.getChildren().remove(drawBtnBlue);
+                board.add(drawBtnYellow, 1, 2);
+            }
         });
         }
 
@@ -1336,6 +1452,10 @@ public class Chinczyk extends Application {
                                                 if (yellowPawns.get(finalIV).getActivationNr() == 1) {
                                                     //tutaj ruch kolejnym pionkiem
                                                     drawBox.setText("Gracz Zakonczyl Gre!!!");
+                                                    if (y == 0){
+                                                        scoreTable.add("Zolty");
+                                                        y=1;
+                                                    }
 
                                                 } else {
                                                     //tutaj aktywacja pionka
@@ -1730,15 +1850,29 @@ public class Chinczyk extends Application {
                                     }
 
                                 } else {
-                                    if (yellowPawns.get(finalIV).getActivationNr() == 1) drawBox.setText("Gracz Zakonczyl Gre!!!");
+                                    if (yellowPawns.get(finalIV).getActivationNr() == 1) {
+                                        drawBox.setText("Gracz Zakonczyl Gre!!!");
+                                        if (y == 0){
+                                            scoreTable.add("Zolty");
+                                            y=1;
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
 
                 }
-                board.getChildren().remove(drawBtnYellow);
-                board.add(drawBtnGreen,8,2);
+                if (checkFinish()) {
+                    finish1.setText("1sze miejsce: " + scoreTable.get(0));
+                    finish2.setText("2gie miejsce: " + scoreTable.get(1));
+                    finish3.setText("3cie miejsce: " + scoreTable.get(2));
+                    finish4.setText("4te miejsce: " + scoreTable.get(3));
+                    board.add(finishBtn,5,5);
+                } else {
+                    board.getChildren().remove(drawBtnYellow);
+                    board.add(drawBtnGreen, 8, 2);
+                }
             });
     }
 
@@ -2131,6 +2265,12 @@ public class Chinczyk extends Application {
 
                                                 if (greenPawns.get(finalIV).getActivationNr() == 1) {
                                                     drawBox.setText("Gracz Zakonczyl Gre!!!");
+
+                                                    if (gr == 0){
+                                                        scoreTable.add("Zielony");
+                                                        gr=1;
+                                                    }
+
                                                 } else {
                                                     //tutaj aktywacja pionka
                                                     greenPawns.get(finalIV).changeActivationStatus();
@@ -2375,7 +2515,7 @@ public class Chinczyk extends Application {
 
                                             } else if (MapOfFields.getListOfFields().get(yellowPawns.get(k).getCurrentField()) == MapOfFields.getListOfFields().get(greenPawns.get(finalIII).getCurrentField())) {
 
-                                                board.getChildren().remove(greenPawns.get(k).getPawnImage());
+                                                board.getChildren().remove(yellowPawns.get(k).getPawnImage());
                                                 board.add(yellowPawns.get(k).getPawnImage(), yellowPawns.get(k).getStartPosition().getColumn(), yellowPawns.get(k).getStartPosition().getRow());
                                                 yellowPawns.get(k).changeActivationStatus();
                                                 yellowPawns.get(k).setValue(0);
@@ -2509,16 +2649,28 @@ public class Chinczyk extends Application {
                                     }
 
                                 } else {
-                                    if (greenPawns.get(finalIV).getActivationNr() == 1) drawBox.setText("Gracz Zakonczyl Gre!!!");
+                                    if (greenPawns.get(finalIV).getActivationNr() == 1) {
+                                        drawBox.setText("Gracz Zakonczyl Gre!!!");
+                                        if (checkGreen()){
+                                            scoreTable.add("Zielony");
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
                 }
 
-
-                board.getChildren().remove(drawBtnGreen);
-                board.add(drawBtnRed1, 8, 8);
+                if (checkFinish()) {
+                    finish1.setText("1sze miejsce: " + scoreTable.get(0));
+                    finish2.setText("2gie miejsce: " + scoreTable.get(1));
+                    finish3.setText("3cie miejsce: " + scoreTable.get(2));
+                    finish4.setText("4te miejsce: " + scoreTable.get(3));
+                    board.add(finishBtn,5,5);
+                } else {
+                    board.getChildren().remove(drawBtnGreen);
+                    board.add(drawBtnRed1, 8, 8);
+                }
 
             });
 
@@ -2566,6 +2718,9 @@ public class Chinczyk extends Application {
                     if (greenPawns.get(finalI).getActivationStatus()) {
                         if (greenPawns.get(finalI).getActivationNr() == 1){
                             drawBox.setText("Pionek Zakonczyl Gre");
+                            if (finalI == 3 & checkGreen()){
+                                scoreTable.add("Zielony");
+                            }
                         }
 
                         if (greenPawns.get(finalI).getActivationNr() == 0) {
@@ -2663,6 +2818,9 @@ public class Chinczyk extends Application {
 
                         if (greenPawns.get(finalI).getActivationNr() == 1){
                             drawBox.setText("Pionek Zakonczyl Gre");
+                            if (finalI == 3 &checkGreen()){
+                                scoreTable.add("Zielony");
+                            }
                         }
 
                         if (greenPawns.get(finalI).getActivationNr() == 0) {
@@ -2751,7 +2909,13 @@ public class Chinczyk extends Application {
                         }
                     }
                 }
-
+                if (checkFinish()) {
+                    finish1.setText("1sze miejsce: " + scoreTable.get(0));
+                    finish2.setText("2gie miejsce: " + scoreTable.get(1));
+                    finish3.setText("3cie miejsce: " + scoreTable.get(2));
+                    finish4.setText("4te miejsce: " + scoreTable.get(3));
+                    board.add(finishBtn,5,5);
+                }
                 dice = 0;
             });
 
@@ -2797,6 +2961,9 @@ public class Chinczyk extends Application {
                     if (yellowPawns.get(finalI).getActivationStatus()) {
                         if (yellowPawns.get(finalI).getActivationNr() == 1){
                             drawBox.setText("Pionek Zakonczyl Gre");
+                            if (checkYellowPlayer() == 3){
+                                scoreTable.add("Zolty");
+                            }
                         }
 
                         if (yellowPawns.get(finalI).getActivationNr() == 0) {
@@ -2894,6 +3061,9 @@ public class Chinczyk extends Application {
 
                         if (yellowPawns.get(finalI).getActivationNr() == 1){
                             drawBox.setText("Pionek Zakonczyl Gre");
+                            if (checkYellowPlayer() == 3){
+                                scoreTable.add("Zolty");
+                            }
                         }
 
                         if (yellowPawns.get(finalI).getActivationNr() == 0) {
@@ -2983,7 +3153,14 @@ public class Chinczyk extends Application {
                         }
                     }
                 }
+                if (checkFinish()) {
+                    finish1.setText("1sze miejsce: " + scoreTable.get(0));
+                    finish2.setText("2gie miejsce: " + scoreTable.get(1));
+                    finish3.setText("3cie miejsce: " + scoreTable.get(2));
+                    finish4.setText("4te miejsce: " + scoreTable.get(3));
 
+                    board.add(finishBtn,5,5);
+                }
                 dice = 0;
 
             });
@@ -3030,6 +3207,9 @@ public class Chinczyk extends Application {
                     if (redPawns.get(finalI).getActivationStatus()) {
                         if (redPawns.get(finalI).getActivationNr() == 1){
                             drawBox.setText("Pionek Zakonczyl Gre");
+                            if (checkRedPlayer() == 3){
+                                scoreTable.add("Czerwony");
+                            }
                         }
 
                         if (redPawns.get(finalI).getActivationNr() == 0) {
@@ -3129,6 +3309,9 @@ public class Chinczyk extends Application {
 
                         if (redPawns.get(finalI).getActivationNr() == 1){
                             drawBox.setText("Pionek Zakonczyl Gre");
+                            if (checkRedPlayer() == 3){
+                                scoreTable.add("Czerwony");
+                            }
                         }
 
                         if (redPawns.get(finalI).getActivationNr() == 0) {
@@ -3212,7 +3395,16 @@ public class Chinczyk extends Application {
                         }
                     }
                 }
-
+                if (r == 0) {
+                    if (checkFinish()) {
+                        finish1.setText("1sze miejsce: " + scoreTable.get(0));
+                        finish2.setText("2gie miejsce: " + scoreTable.get(1));
+                        finish3.setText("3cie miejsce: " + scoreTable.get(2));
+                        finish4.setText("4te miejsce: " + scoreTable.get(3));
+                        board.add(finishBtn, 5, 5);
+                        r=1;
+                    }
+                }
                 dice = 0;
 
 
@@ -3262,6 +3454,9 @@ public class Chinczyk extends Application {
                     if (bluePawns.get(finalI).getActivationStatus()) {
                         if (bluePawns.get(finalI).getActivationNr() == 1){
                             drawBox.setText("Pionek Zakonczyl Gre");
+                            if (checkBluePlayer() == 3){
+                                scoreTable.add("Czerwony");
+                            }
                         }
 
                         if (bluePawns.get(finalI).getActivationNr() == 0) {
@@ -3364,6 +3559,9 @@ public class Chinczyk extends Application {
 
                         if (bluePawns.get(finalI).getActivationNr() == 1){
                             drawBox.setText("Pionek Zakonczyl Gre");
+                            if (checkBluePlayer() == 3){
+                                scoreTable.add("Czerwony");
+                            }
                         }
 
                         if (bluePawns.get(finalI).getActivationNr() == 0) {
@@ -3453,7 +3651,13 @@ public class Chinczyk extends Application {
 
                     }
                 }
-
+                if (checkFinish()) {
+                    finish1.setText("1sze miejsce: " + scoreTable.get(0));
+                    finish2.setText("2gie miejsce: " + scoreTable.get(1));
+                    finish3.setText("3cie miejsce: " + scoreTable.get(2));
+                    finish4.setText("4te miejsce: " + scoreTable.get(3));
+                    board.add(finishBtn,5,5);
+                }
             dice = 0;
             });
 
@@ -3541,13 +3745,10 @@ public class Chinczyk extends Application {
 
         board.add(drawBtnRed1,8,8);
         board.add(drawBox,8,7);
-        board.add(checkYellow,3,7);
-        board.add(checkGreen,3,8);
-        board.add(checkBlue,3,9);
-        board.add(checkRed,3,10);
         buildMain(main);
         buildSettings(settings);
         buildBoard(board);
+        buildFinish(finish);
 
 
 
@@ -3562,6 +3763,7 @@ public class Chinczyk extends Application {
 
         board.setBackground(background);
         Scene mainScene = new Scene(main, 300, 300, Color.BLACK);
+        Scene finishScene = new Scene(finish, 300, 300, Color.BLACK);
         Scene settingsScene = new Scene(settings, 200, 150, Color.BLACK);
         Scene boardScene = new Scene(board, 1000, 1000, Color.BLACK);
 
@@ -3632,7 +3834,19 @@ public class Chinczyk extends Application {
 
 
 
+        finish1.setMinSize(300,60);
+        finish2.setMinSize(300,60);
+        finish3.setMinSize(300,60);
+        finish4.setMinSize(300,60);
 
+
+        finish.add(finish1,1,1);
+        finish.add(finish2,1,2);
+        finish.add(finish3,1,3);
+        finish.add(finish4,1,4);
+
+        finishBtn.setText("Zakoncz Gre");
+        finishBtn.setOnAction((e) ->  primaryStage.setScene(finishScene));
 
         primaryStage.setTitle("Chinczyk");
         primaryStage.setResizable(false);
